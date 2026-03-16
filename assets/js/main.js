@@ -1,939 +1,500 @@
 const translations = {
-  sl: {
-    fundingText: "Projekt EYSAE se izvaja s podporo programa Erasmus+ Evropske unije.",
-    brandSubtitle: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-
-    navHome: "Domov",
-    navProject: "Projekt",
-    navAbout: "O projektu",
-    navObjectives: "Cilji",
-    navResults: "Rezultati",
-    navPartners: "Partnerji",
-    navActivities: "Aktivnosti",
-    navNews: "Novice",
-    navContact: "Kontakt",
-
-    heroEyebrow: "Erasmus+ projekt sodelovanja",
-    heroTitle: "Opolnomočenje mladih skozi trajnostno kmetijstvo, podjetništvo in medregionalno sodelovanje.",
-    heroText:
-      "EYSAE povezuje organizacije, osredotočene na mlade, iz Evrope, Severne Afrike in Bližnjega vzhoda z namenom, da mladim zagotovi praktična znanja, podjetniško samozavest in razumevanje trajnostnega kmetijstva za odporen lokalni razvoj.",
-    heroBtnPrimary: "Razišči projekt",
-    heroBtnSecondary: "Spoznaj partnerje",
-
-    stat1: "mednarodnih aktivnosti",
-    stat2: "partnerskih organizacij",
-    stat3: "regije sodelovanja",
-
-    heroMini1Label: "Fokus",
-    heroMini1Value: "Trajnostno kmetijstvo",
-    heroMini1Text: "Praktično znanje o trajnosti, povezano z lokalno odpornostjo in zelenimi veščinami.",
-    heroMini2Label: "Pristop",
-    heroMini2Value: "Mladinsko podjetništvo",
-    heroMini2Text: "Podjetniško razmišljanje, iniciativnost in zaposljivost za mlade udeležence.",
-    heroMini3Label: "Doseg",
-    heroMini3Value: "Medregionalno sodelovanje",
-    heroMini3Text: "Učenje in sodelovanje med Evropo, Severno Afriko in Bližnjim vzhodom.",
-
-    aboutLabel: "O projektu",
-    aboutTitle: "Sodelovalna platforma za opolnomočenje mladih, inovacije in trajnostno lokalno rast.",
-    aboutText1:
-      "EYSAE je zasnovan za krepitev vloge mladih pri oblikovanju bolj zelenih in podjetnih skupnosti. S transnacionalnim učenjem, praktičnimi aktivnostmi in sodelovanjem med organizacijami civilne družbe projekt ustvarja poti za participacijo mladih, razvoj kompetenc in trajnostne gospodarske priložnosti.",
-    aboutText2:
-      "Partnerstvo združuje strokovno znanje s področij mladinskega dela, razvoja skupnosti, socialnih inovacij in izobraževanja, da bi oblikovalo praktična orodja, mobilnosti in diseminacijske rezultate, ki ostanejo relevantni tudi po zaključku projekta.",
-
-    objectivesLabel: "Cilji",
-    objectivesTitle: "Ključni cilji projekta EYSAE",
-    objective1Title: "Krepitev kompetenc mladih",
-    objective1Text:
-      "Okrepiti kompetence mladih na področju trajnostnega kmetijstva, samoiniciativnosti, reševanja problemov in podjetniškega razmišljanja skozi praktične ter mednarodne učne izkušnje.",
-    objective2Title: "Čezmejno sodelovanje",
-    objective2Text:
-      "Spodbujati smiselno sodelovanje med partnerskimi organizacijami iz Evrope, Severne Afrike in Bližnjega vzhoda z namenom izmenjave metod, krepitve mrež in soustvarjanja relevantnih pristopov za delo z mladimi.",
-    objective3Title: "Trajnostni lokalni vpliv",
-    objective3Text:
-      "Spodbuditi lokalno prilagodljive rešitve, ki povezujejo trajnost, zaposljivost in vključevanje mladih ter omogočajo uporabo znanja iz projekta tudi po njegovem zaključku.",
-
-    partnersLabel: "Partnerji",
-    partnersTitle: "Projektno partnerstvo",
-    partnersIntro:
-      "EYSAE temelji na raznolikem konzorciju organizacij z izkušnjami na področju mladinskega dela, vključevanja, izobraževanja, podjetništva in razvoja skupnosti.",
-
-    partnerCountry1: "Slovenija",
-    partnerCountry2: "Grčija",
-    partnerCountry3: "Maroko",
-    partnerCountry4: "Tunizija",
-    partnerCountry5: "Jordanija",
-    partnerCountry6: "Sirija",
-
-    partnerDesc1:
-      "POVOD, so.p. prispeva znanje na področju koordinacije projektov, vključevanja mladih in lokalne krepitve kapacitet ter skrbi za strateško izvajanje in močno povezavo s skupnostno usmerjenimi izobraževalnimi procesi.",
-    partnerDesc2:
-      "IASIS prinaša izkušnje s socialnimi inovacijami, podporo ranljivim skupinam in mednarodnim sodelovanjem ter prispeva metode, ki povezujejo vključevanje, odpornost in trajnostno opolnomočenje mladih.",
-    partnerDesc3:
-      "Amuddu CSF podpira razvoj, usmerjen v skupnost, in pobude za participacijo mladih s praktičnim pristopom k lokalni trajnosti, državljanskemu angažmaju in regionalnemu sodelovanju.",
-    partnerDesc4:
-      "We Love Sousse prispeva močne izkušnje na področju aktivacije skupnosti, lokalnih inovacij in javnega vključevanja ter pomaga pretvoriti projektno učenje v vidno lokalno delovanje.",
-    partnerDesc5:
-      "Shoura Organization krepi partnerstvo z izkušnjami na področju razvoja mladih, učenja skozi dialog in organizacijskega dosega v skupnostnih in izobraževalnih okoljih.",
-    partnerDesc6:
-      "Sanad Youth for Development Foundation prinaša praktično znanje s področja mobilizacije mladih, lokalnega razvoja in programov opolnomočenja, usmerjenih v dolgoročno družbeno korist.",
-
-    logosTitle: "Prostor za logotipe partnerjev in programa",
-
-    activitiesLabel: "Aktivnosti",
-    activitiesTitle: "Mednarodne projektne aktivnosti",
-    activitiesIntro:
-      "Projekt združuje študijske obiske, usposabljanja, izmenjave in diseminacijske dogodke z namenom podpore praktičnemu prenosu znanja in močnega sodelovanja med partnerji.",
-
-    activityType1: "Študijski obisk 1",
-    activityTitle1: "Atene, Grčija",
-    activityText1:
-      "Mednarodni študijski obisk, osredotočen na izmenjavo praks na področju opolnomočenja mladih, socialnega vključevanja in trajnostnega razvoja skupnosti.",
-    activityType2: "Študijski obisk 2",
-    activityTitle2: "Tunis, Tunizija",
-    activityText2:
-      "Terenski obisk za raziskovanje modelov lokalnega vključevanja, podjetniških priložnosti in povezovanja trajnosti z mladinskimi pobudami.",
-    activityType3: "Usposabljanje 1",
-    activityTitle3: "Damask, Sirija",
-    activityText3:
-      "Strukturirana učna aktivnost za krepitev znanj udeležencev na področju projektnega sodelovanja, trajnostnega razmišljanja in praktičnih metod dela z mladimi.",
-    activityType4: "Usposabljanje 2",
-    activityTitle4: "Amman, Jordanija",
-    activityText4:
-      "Drugi cikel usposabljanja, posvečen podjetništvu, lokalnim modelom izvajanja ter vrstniškemu učenju med partnerji in mladimi udeleženci.",
-    activityType5: "Mladinska izmenjava",
-    activityTitle5: "Rabat, Maroko",
-    activityText5:
-      "Mladinska izmenjava, ki spodbuja medkulturni dialog, timsko učenje in skupno raziskovanje priložnosti na področju trajnostnega kmetijstva in podjetništva.",
-    activityType6: "Hackathon in zaključna diseminacijska konferenca",
-    activityTitle6: "Ljubljana, Slovenija",
-    activityText6:
-      "Zaključni osrednji dogodek za predstavitev projektnega učenja, skupnih rešitev, diseminacijskih rezultatov in prihodnjih možnosti sodelovanja z različnimi deležniki.",
-
-    resultsLabel: "Rezultati",
-    resultsTitle: "Pričakovani rezultati",
-    result1Title: "Izboljšane kompetence mladih",
-    result1Text:
-      "Udeleženci pridobijo več znanja, samozavesti in praktičnih spretnosti na področju trajnosti, podjetništva in mednarodnega sodelovanja.",
-    result2Title: "Prenosljive metode in orodja",
-    result2Text:
-      "Partnerske organizacije skupaj razvijejo pristope, gradiva in učne modele, ki jih je mogoče prilagoditi in ponovno uporabiti v različnih lokalnih okoljih.",
-    result3Title: "Dolgoročno sodelovanje in vidnost",
-    result3Text:
-      "Projekt krepi mednarodna partnerstva, povečuje vidnost vrednot Erasmus+ in ustvarja trdno osnovo za prihodnje skupne pobude.",
-
-    newsLabel: "Novice",
-    newsTitle: "Projektne novice in posodobitve",
-    newsIntro:
-      "Ta sekcija predstavlja prve komunikacijske mejnike projekta in pripravlja prostor za prihodnje objave o mobilnostih ter diseminaciji.",
-
-    newsDate1: "Projektna novica",
-    newsCardTitle1: "Začetek projekta in zagon partnerstva",
-    newsCardText1:
-      "EYSAE se uradno začenja s skupno zavezo opolnomočenju mladih skozi trajnostno kmetijstvo, podjetništvo in transnacionalno sodelovanje med partnerskimi regijami.",
-    newsLink1: "Preberi več",
-
-    newsDate2: "Pripravljalna faza",
-    newsCardTitle2: "Priprava na mednarodne mobilnostne aktivnosti",
-    newsCardText2:
-      "Partnerske organizacije usklajujejo prvi cikel študijskih obiskov in usposabljanj, vključno z logistiko, vključevanjem udeležencev in tematskimi učnimi prioritetami.",
-    newsLink2: "Preberi več",
-
-    newsDate3: "Vidnost",
-    newsCardTitle3: "Krepitev prepoznavnosti in lokalnega dosega",
-    newsCardText3:
-      "Konzorcij pripravlja komunikacijska gradiva, lokalne diseminacijske aktivnosti in outreach do deležnikov za močno vidnost in dolgoročen učinek.",
-    newsLink3: "Preberi več",
-
-    contactLabel: "Kontakt",
-    contactTitle: "Stopite v stik",
-    contactText:
-      "Za uradno komunikacijo glede projekta EYSAE, partnerstev, diseminacijskih priložnosti in institucionalnega sodelovanja uporabite spodnje kontaktne podatke. Te podatke lahko kasneje posodobite z dokončnimi uradnimi kontaktnimi točkami projekta.",
-    contactEmailLabel: "E-pošta",
-    contactPhoneLabel: "Telefon",
-    contactLocationLabel: "Lokacija",
-    contactLocation: "Ljubljana, Slovenija",
-    contactCardTitle: "Projektna koordinacija",
-    contactCardText:
-      "Za uradno komunikacijo glede projekta EYSAE, partnerstev, diseminacijskih priložnosti in institucionalnega sodelovanja se obrnite na koordinacijsko organizacijo preko podatkov na tej strani.",
-    contactBtn: "Pošlji povpraševanje",
-
-    footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-    footerLinksTitle: "Hitre povezave",
-    footerLink1: "O projektu",
-    footerLink2: "Partnerji",
-    footerLink3: "Aktivnosti",
-    footerLink4: "Kontakt",
-    footerDisclaimerTitle: "Izjava",
-    footerDisclaimer:
-      "Financira Evropska unija. Izražena stališča in mnenja so zgolj stališča avtorja(-ev) in ne odražajo nujno stališč Evropske unije ali programa Erasmus+. Niti Evropska unija niti organ, ki dodeli sredstva, ne moreta biti odgovorna zanje.",
-    footerCopy: "© 2026 EYSAE. Vse pravice pridržane."
-  },
-
   en: {
-    fundingText: "The EYSAE project is implemented with the support of the Erasmus+ Programme of the European Union.",
     brandSubtitle: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-
     navHome: "Home",
     navProject: "Project",
     navAbout: "About",
     navObjectives: "Objectives",
+    navActivities: "Activities",
     navResults: "Results",
     navPartners: "Partners",
-    navActivities: "Activities",
     navNews: "News",
     navContact: "Contact",
 
     heroEyebrow: "Erasmus+ Cooperation Project",
-    heroTitle: "Empowering youth through sustainable agriculture, entrepreneurship and regional cooperation.",
-    heroText:
-      "EYSAE brings together youth-focused organisations from Europe, North Africa and the Middle East to equip young people with practical skills, entrepreneurial confidence and sustainable agriculture knowledge for resilient local development.",
-    heroBtnPrimary: "Explore the project",
-    heroBtnSecondary: "Meet the partners",
+    heroTitle: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
+    heroText: "EYSAE supports young people through practical learning, entrepreneurial thinking, sustainable agriculture knowledge and international cooperation.",
+    heroBtnPrimary: "Explore the Project",
+    heroBtnSecondary: "Meet the Partners",
+    metricPartners: "Partner organisations",
+    metricLanguages: "Website languages",
+    metricFocus: "Youth, sustainability, mobility",
+    heroNote1Label: "Focus",
+    heroNote1Text: "Green skills & youth entrepreneurship",
+    heroNote2Label: "Approach",
+    heroNote2Text: "International learning and local impact",
 
-    stat1: "international activities",
-    stat2: "partner organisations",
-    stat3: "cooperation regions",
+    euKicker: "Project framework",
+    euTitle: "Implemented within the Erasmus+ cooperation framework",
+    euText: "This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.",
 
-    heroMini1Label: "Focus",
-    heroMini1Value: "Sustainable Agriculture",
-    heroMini1Text: "Practical sustainability knowledge linked to local resilience and green skills.",
-    heroMini2Label: "Approach",
-    heroMini2Value: "Youth Entrepreneurship",
-    heroMini2Text: "Entrepreneurial thinking, initiative and employability for young participants.",
-    heroMini3Label: "Scope",
-    heroMini3Value: "Cross-Regional Cooperation",
-    heroMini3Text: "Learning and cooperation between Europe, North Africa and the Middle East.",
+    aboutKicker: "About",
+    aboutTitle: "About the Project",
+    aboutText: "EYSAE is designed to strengthen youth capacities in sustainable agriculture and entrepreneurship by combining learning, cooperation, practical engagement and international exchange.",
+    aboutCard1Title: "Why this project matters",
+    aboutCard1Text: "Young people need practical pathways to build green skills, entrepreneurial confidence and stronger links to sustainable local economies.",
+    aboutCard2Title: "What EYSAE delivers",
+    aboutCard2Text: "The project creates learning opportunities, cooperation activities, visibility actions and transferable results for youth workers, young participants and partner organisations.",
 
-    aboutLabel: "About the Project",
-    aboutTitle: "A collaborative platform for youth empowerment, innovation and sustainable local growth.",
-    aboutText1:
-      "EYSAE is designed to strengthen the role of young people in shaping greener and more entrepreneurial communities. Through transnational learning, practice-based activities and cooperation between civil society actors, the project creates pathways for youth participation, skills development and sustainable economic opportunity.",
-    aboutText2:
-      "The partnership combines expertise in youth work, community development, social innovation and education in order to build practical tools, mobility experiences and dissemination outputs that remain relevant beyond the lifetime of the project.",
+    objectivesKicker: "Objectives",
+    objectivesTitle: "Project Objectives",
+    obj1Title: "Strengthen green competencies",
+    obj1Text: "Support young people in understanding sustainable agriculture, environmental responsibility and local resilience.",
+    obj2Title: "Promote entrepreneurship",
+    obj2Text: "Encourage initiative, innovation and entrepreneurial thinking linked to rural and sustainable development opportunities.",
+    obj3Title: "Build international cooperation",
+    obj3Text: "Create stronger collaboration between partners, communities and youth stakeholders across participating countries.",
+    obj4Title: "Increase visibility and transferability",
+    obj4Text: "Share methods, activities and project results in a way that supports broader use and long-term sustainability.",
 
-    objectivesLabel: "Objectives",
-    objectivesTitle: "Key objectives of the EYSAE project",
-    objective1Title: "Youth capacity building",
-    objective1Text:
-      "Strengthen young people’s competencies in sustainable agriculture, initiative-taking, problem-solving and entrepreneurial thinking through practical and international learning experiences.",
-    objective2Title: "Cross-border cooperation",
-    objective2Text:
-      "Foster meaningful cooperation between partner organisations across Europe, North Africa and the Middle East in order to share methods, strengthen networks and co-create relevant youth-focused approaches.",
-    objective3Title: "Sustainable local impact",
-    objective3Text:
-      "Encourage locally adaptable solutions that connect sustainability, employability and youth engagement, ensuring that knowledge gained through the project can be applied in communities after the project ends.",
+    partnersKicker: "Partnership",
+    partnersTitle: "Project Partners",
+    partnersText: "EYSAE is implemented through a partnership of organisations committed to youth development, sustainability, entrepreneurship and European cooperation.",
+    partner1Role: "Project coordination, management and dissemination support.",
+    partner2Role: "Youth engagement, educational activities and local implementation.",
+    partner3Role: "Training support, cross-border cooperation and participant outreach.",
+    partner4Role: "Community engagement, sustainability methods and youth participation.",
+    partner5Role: "Communication support, visibility actions and dissemination outputs.",
+    partner6Role: "Local coordination, stakeholder cooperation and pilot support.",
 
-    partnersLabel: "Partners",
-    partnersTitle: "Project partnership",
-    partnersIntro:
-      "EYSAE is built on a diverse consortium of organisations experienced in youth work, inclusion, education, entrepreneurship and community-based development.",
+    activitiesKicker: "Activities",
+    activitiesTitle: "Main Activities",
+    act1Title: "Workshops",
+    act1Text: "Hands-on educational sessions on sustainability, agriculture and entrepreneurial thinking.",
+    act2Title: "Mobility & Exchange",
+    act2Text: "International cooperation and exchange activities that build intercultural learning and shared practice.",
+    act3Title: "Dissemination",
+    act3Text: "Visibility, communication and outreach actions to share results with wider audiences.",
 
-    partnerCountry1: "Slovenia",
-    partnerCountry2: "Greece",
-    partnerCountry3: "Morocco",
-    partnerCountry4: "Tunisia",
-    partnerCountry5: "Jordan",
-    partnerCountry6: "Syria",
+    resultsKicker: "Results",
+    resultsTitle: "Expected Results",
+    res1Title: "Improved youth competencies",
+    res1Text: "Young participants develop practical knowledge, confidence and stronger engagement in sustainable topics.",
+    res2Title: "Stronger partner cooperation",
+    res2Text: "Organisations build shared methods, cross-border relationships and better long-term collaboration.",
+    res3Title: "Visible project outputs",
+    res3Text: "Activities, materials and communication actions create a durable and transferable project footprint.",
 
-    partnerDesc1:
-      "POVOD, so.p. contributes expertise in project coordination, youth engagement and local capacity-building, ensuring strategic implementation and strong connection to community-based educational processes.",
-    partnerDesc2:
-      "IASIS brings experience in social innovation, vulnerable group support and international cooperation, contributing methodologies that connect inclusion, resilience and sustainable youth empowerment.",
-    partnerDesc3:
-      "Amuddu CSF supports community-centred development and youth participation initiatives, with a practical approach to local sustainability, civic engagement and regional cooperation.",
-    partnerDesc4:
-      "We Love Sousse contributes strong experience in community activation, local innovation and public engagement, helping transform project learning into visible local action.",
-    partnerDesc5:
-      "Shoura Organization strengthens the partnership with experience in youth development, dialogue-based learning and organisational outreach across community and educational contexts.",
-    partnerDesc6:
-      "Sanad Youth for Development Foundation adds practical knowledge in youth mobilisation, local development and empowerment-based programming aimed at long-term social benefit.",
+    newsKicker: "News",
+    newsTitle: "Latest Project Updates",
+    newsText: "Follow the latest visibility actions, partnership steps and implementation highlights from the EYSAE project.",
+    newsTag1: "Project Launch",
+    newsTag2: "Mobility Preparation",
+    newsTag3: "Visibility",
+    news1Title: "EYSAE project implementation officially begins",
+    news1Text: "Partners have aligned the initial coordination steps, visibility direction and implementation priorities for the first phase of the project.",
+    news2Title: "Preparations for international project activities are underway",
+    news2Text: "The partnership is developing organisational steps, communication materials and participant-oriented preparation for upcoming cooperation activities.",
+    news3Title: "Visibility and outreach framework introduced on the website",
+    news3Text: "The project website now provides a stronger public-facing structure for presenting partnership information, activities and future updates.",
+    newsReadMore: "Read more",
 
-    logosTitle: "Partner and programme logo area",
-
-    activitiesLabel: "Activities",
-    activitiesTitle: "International project activities",
-    activitiesIntro:
-      "The project combines study visits, training activities, exchange-based learning and dissemination events to support practical knowledge transfer and strong partnership cooperation.",
-
-    activityType1: "Study Visit 1",
-    activityTitle1: "Athens, Greece",
-    activityText1:
-      "An international study visit focused on exchanging practices in youth empowerment, social inclusion and sustainable community-based development.",
-    activityType2: "Study Visit 2",
-    activityTitle2: "Tunis, Tunisia",
-    activityText2:
-      "A field-based visit exploring local engagement models, entrepreneurship opportunities and ways to connect sustainability with youth-led initiatives.",
-    activityType3: "Training Course 1",
-    activityTitle3: "Damascus, Syria",
-    activityText3:
-      "A structured training activity designed to strengthen participant skills in project participation, sustainable thinking and practical youth-oriented methodologies.",
-    activityType4: "Training Course 2",
-    activityTitle4: "Amman, Jordan",
-    activityText4:
-      "A second training cycle dedicated to entrepreneurship, local implementation models and peer learning between partner representatives and youth participants.",
-    activityType5: "Youth Exchange",
-    activityTitle5: "Rabat, Morocco",
-    activityText5:
-      "A youth exchange encouraging intercultural dialogue, team-based learning and collaborative exploration of sustainable agricultural and entrepreneurial opportunities.",
-    activityType6: "Hackathon & Final Dissemination Conference",
-    activityTitle6: "Ljubljana, Slovenia",
-    activityText6:
-      "A final flagship event showcasing project learning, collaborative solutions, dissemination outputs and future cooperation perspectives for broader stakeholder engagement.",
-
-    resultsLabel: "Results",
-    resultsTitle: "Expected results",
-    result1Title: "Improved youth competences",
-    result1Text:
-      "Participants gain increased knowledge, confidence and practical skills related to sustainability, entrepreneurship and international cooperation.",
-    result2Title: "Transferable methods and tools",
-    result2Text:
-      "Partner organisations co-develop approaches, materials and practical learning models that can be adapted and reused in different local contexts.",
-    result3Title: "Long-term cooperation and visibility",
-    result3Text:
-      "The project strengthens international partnerships, increases visibility of Erasmus+ values and creates a strong basis for future collaborative initiatives.",
-
-    newsLabel: "News",
-    newsTitle: "Project news and updates",
-    newsIntro:
-      "This section highlights the first communication milestones of the project and prepares the ground for future mobility and dissemination updates.",
-
-    newsDate1: "Project Update",
-    newsCardTitle1: "Project Launch and Partnership Start",
-    newsCardText1:
-      "EYSAE officially begins with a shared commitment to empowering youth through sustainable agriculture, entrepreneurship and transnational cooperation across partner regions.",
-    newsLink1: "Read more",
-
-    newsDate2: "Preparation Phase",
-    newsCardTitle2: "Preparation for International Mobility Activities",
-    newsCardText2:
-      "Partner organisations are coordinating the first cycle of study visits and training activities, aligning logistics, participant engagement and thematic learning priorities.",
-    newsLink2: "Read more",
-
-    newsDate3: "Visibility",
-    newsCardTitle3: "Building Visibility and Local Outreach",
-    newsCardText3:
-      "The consortium is preparing communication materials, local dissemination actions and stakeholder outreach to ensure strong visibility and long-term impact.",
-    newsLink3: "Read more",
-
-    contactLabel: "Contact",
-    contactTitle: "Get in touch",
-    contactText:
-      "For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please use the contact details below. These details can be updated later with the final official project contact points.",
+    contactKicker: "Contact",
+    contactTitle: "Official Project Contact",
+    contactText: "For partnership communication, project visibility, implementation-related questions or dissemination enquiries, please contact the coordinating organisation.",
+    contactCoordinatorLabel: "Coordinator",
     contactEmailLabel: "Email",
-    contactPhoneLabel: "Phone",
     contactLocationLabel: "Location",
-    contactLocation: "Ljubljana, Slovenia",
-    contactCardTitle: "Project Coordination",
-    contactCardText:
-      "For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please contact the coordinating organisation through the details provided on this page.",
-    contactBtn: "Send inquiry",
+    contactSideTitle: "Project visibility and cooperation",
+    contactSideText: "The website will continue to be updated with project news, cooperation milestones, activities and public-facing results as implementation progresses.",
+    contactBtn: "Send an Email",
 
-    footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-    footerLinksTitle: "Quick links",
-    footerLink1: "About the project",
-    footerLink2: "Partners",
-    footerLink3: "Activities",
-    footerLink4: "Contact",
-    footerDisclaimerTitle: "Disclaimer",
-    footerDisclaimer:
-      "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Erasmus+ Programme. Neither the European Union nor the granting authority can be held responsible for them.",
-    footerCopy: "© 2026 EYSAE. All rights reserved."
+    footerBrandText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
+    footerText: "A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.",
+    footerNavTitle: "Navigation",
+    footerLegalTitle: "Institutional Note",
+    footerLegalText: "Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.",
+    footerDisclaimer: "The content of this website is the responsibility of the project partnership and is intended for information and dissemination purposes."
+  },
+
+  sl: {
+    brandSubtitle: "Opolnomočenje mladih za trajnostno kmetijstvo in podjetništvo",
+    navHome: "Domov",
+    navProject: "Projekt",
+    navAbout: "O projektu",
+    navObjectives: "Cilji",
+    navActivities: "Aktivnosti",
+    navResults: "Rezultati",
+    navPartners: "Partnerji",
+    navNews: "Novice",
+    navContact: "Kontakt",
+
+    heroEyebrow: "Erasmus+ partnerski projekt",
+    heroTitle: "Opolnomočenje mladih za trajnostno kmetijstvo in podjetništvo",
+    heroText: "EYSAE podpira mlade skozi praktično učenje, podjetniško razmišljanje, znanje o trajnostnem kmetijstvu in mednarodno sodelovanje.",
+    heroBtnPrimary: "Razišči projekt",
+    heroBtnSecondary: "Spoznaj partnerje",
+    metricPartners: "Partnerske organizacije",
+    metricLanguages: "Jeziki spletne strani",
+    metricFocus: "Mladi, trajnost, mobilnost",
+    heroNote1Label: "Fokus",
+    heroNote1Text: "Zelene kompetence in mladinsko podjetništvo",
+    heroNote2Label: "Pristop",
+    heroNote2Text: "Mednarodno učenje in lokalni vpliv",
+
+    euKicker: "Projektni okvir",
+    euTitle: "Izvaja se v okviru Erasmus+ sodelovanja",
+    euText: "Ta spletna stran predstavlja aktivnosti, partnerstvo, rezultate in vidnostne aktivnosti projekta EYSAE v skladu z evropskimi prioritetami na področju mladih, trajnosti in podjetništva.",
+
+    aboutKicker: "O projektu",
+    aboutTitle: "O projektu",
+    aboutText: "EYSAE je zasnovan za krepitev kompetenc mladih na področju trajnostnega kmetijstva in podjetništva z učenjem, sodelovanjem, praktičnimi aktivnostmi in mednarodno izmenjavo.",
+    aboutCard1Title: "Zakaj je projekt pomemben",
+    aboutCard1Text: "Mladi potrebujejo praktične poti za razvoj zelenih znanj, podjetniške samozavesti in močnejših povezav z lokalnim trajnostnim gospodarstvom.",
+    aboutCard2Title: "Kaj projekt prinaša",
+    aboutCard2Text: "Projekt ustvarja učne priložnosti, sodelovalne aktivnosti, vidnostne akcije in prenosljive rezultate za mladinske delavce, mlade udeležence in partnerske organizacije.",
+
+    objectivesKicker: "Cilji",
+    objectivesTitle: "Cilji projekta",
+    obj1Title: "Krepitev zelenih kompetenc",
+    obj1Text: "Podpreti mlade pri razumevanju trajnostnega kmetijstva, okoljske odgovornosti in lokalne odpornosti.",
+    obj2Title: "Spodbujanje podjetništva",
+    obj2Text: "Spodbujati iniciativnost, inovativnost in podjetniško razmišljanje, povezano s podeželskim in trajnostnim razvojem.",
+    obj3Title: "Krepitev mednarodnega sodelovanja",
+    obj3Text: "Vzpostaviti močnejše sodelovanje med partnerji, skupnostmi in mladinskimi deležniki v sodelujočih državah.",
+    obj4Title: "Povečanje vidnosti in prenosljivosti",
+    obj4Text: "Deliti metode, aktivnosti in rezultate projekta na način, ki podpira širšo uporabo in dolgoročno trajnost.",
+
+    partnersKicker: "Partnerstvo",
+    partnersTitle: "Projektni partnerji",
+    partnersText: "EYSAE se izvaja prek partnerstva organizacij, ki so zavezane razvoju mladih, trajnosti, podjetništvu in evropskemu sodelovanju.",
+    partner1Role: "Koordinacija projekta, upravljanje in podpora diseminaciji.",
+    partner2Role: "Vključevanje mladih, izobraževalne aktivnosti in lokalna izvedba.",
+    partner3Role: "Podpora usposabljanju, čezmejno sodelovanje in vključevanje udeležencev.",
+    partner4Role: "Vključevanje skupnosti, trajnostne metode in sodelovanje mladih.",
+    partner5Role: "Podpora komunikaciji, vidnostne aktivnosti in diseminacijski rezultati.",
+    partner6Role: "Lokalna koordinacija, sodelovanje z deležniki in podpora pilotnim aktivnostim.",
+
+    activitiesKicker: "Aktivnosti",
+    activitiesTitle: "Glavne aktivnosti",
+    act1Title: "Delavnice",
+    act1Text: "Praktične izobraževalne aktivnosti o trajnosti, kmetijstvu in podjetniškem razmišljanju.",
+    act2Title: "Mobilnost in izmenjava",
+    act2Text: "Mednarodne aktivnosti sodelovanja in izmenjave, ki krepijo medkulturno učenje in skupno prakso.",
+    act3Title: "Diseminacija",
+    act3Text: "Vidnostne, komunikacijske in outreach aktivnosti za širjenje rezultatov širši javnosti.",
+
+    resultsKicker: "Rezultati",
+    resultsTitle: "Pričakovani rezultati",
+    res1Title: "Izboljšane kompetence mladih",
+    res1Text: "Mladi udeleženci razvijejo praktično znanje, samozavest in večjo vključenost v trajnostne teme.",
+    res2Title: "Močnejše sodelovanje partnerjev",
+    res2Text: "Organizacije gradijo skupne metode, čezmejna partnerstva in dolgoročnejše sodelovanje.",
+    res3Title: "Vidni projektni rezultati",
+    res3Text: "Aktivnosti, materiali in komunikacijske akcije ustvarijo trajen in prenosljiv projektni odtis.",
+
+    newsKicker: "Novice",
+    newsTitle: "Zadnje projektne novice",
+    newsText: "Spremljajte najnovejše vidnostne aktivnosti, korake partnerstva in poudarke izvajanja projekta EYSAE.",
+    newsTag1: "Začetek projekta",
+    newsTag2: "Priprava mobilnosti",
+    newsTag3: "Vidnost",
+    news1Title: "Projekt EYSAE je uradno vstopil v fazo izvajanja",
+    news1Text: "Partnerji so uskladili začetne korake koordinacije, smer vidnosti in prednostne naloge prve faze projekta.",
+    news2Title: "Priprave na mednarodne projektne aktivnosti že potekajo",
+    news2Text: "Partnerstvo razvija organizacijske korake, komunikacijska gradiva in pripravo udeležencev za prihajajoče aktivnosti sodelovanja.",
+    news3Title: "Na spletni strani je vzpostavljen okvir za vidnost in outreach",
+    news3Text: "Projektna spletna stran zdaj omogoča močnejšo javno predstavitev partnerstva, aktivnosti in prihodnjih novic.",
+    newsReadMore: "Preberi več",
+
+    contactKicker: "Kontakt",
+    contactTitle: "Uradni kontakt projekta",
+    contactText: "Za komunikacijo glede partnerstva, projektne vidnosti, izvajanja ali diseminacijskih vprašanj se obrnite na koordinacijsko organizacijo.",
+    contactCoordinatorLabel: "Koordinator",
+    contactEmailLabel: "E-pošta",
+    contactLocationLabel: "Lokacija",
+    contactSideTitle: "Projektna vidnost in sodelovanje",
+    contactSideText: "Spletna stran se bo sproti dopolnjevala z novicami, mejniki sodelovanja, aktivnostmi in javnimi rezultati projekta.",
+    contactBtn: "Pošlji e-pošto",
+
+    footerBrandText: "Opolnomočenje mladih za trajnostno kmetijstvo in podjetništvo",
+    footerText: "Projektna spletna stran za predstavitev sodelovanja, aktivnosti, vidnosti in rezultatov projekta EYSAE v okviru Erasmus+.",
+    footerNavTitle: "Navigacija",
+    footerLegalTitle: "Institucionalna opomba",
+    footerLegalText: "Sofinancirani projekti sodelovanja in povezana komunikacijska gradiva morajo odražati zahteve glede vidnosti in acknowledgement v skladu z Erasmus+ okvirom.",
+    footerDisclaimer: "Za vsebino te spletne strani je odgovorno projektno partnerstvo, vsebina pa je namenjena informiranju in diseminaciji."
   },
 
   el: {
-    fundingText: "Το έργο EYSAE υλοποιείται με την υποστήριξη του προγράμματος Erasmus+ της Ευρωπαϊκής Ένωσης.",
-    brandSubtitle: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-
+    brandSubtitle: "Ενδυνάμωση των νέων για τη βιώσιμη γεωργία και την επιχειρηματικότητα",
     navHome: "Αρχική",
     navProject: "Έργο",
     navAbout: "Σχετικά",
     navObjectives: "Στόχοι",
+    navActivities: "Δραστηριότητες",
     navResults: "Αποτελέσματα",
     navPartners: "Εταίροι",
-    navActivities: "Δραστηριότητες",
     navNews: "Νέα",
     navContact: "Επικοινωνία",
 
     heroEyebrow: "Έργο συνεργασίας Erasmus+",
-    heroTitle: "Ενδυνάμωση των νέων μέσω της βιώσιμης γεωργίας, της επιχειρηματικότητας και της περιφερειακής συνεργασίας.",
-    heroText:
-      "Το EYSAE ενώνει οργανισμούς με επίκεντρο τη νεολαία από την Ευρώπη, τη Βόρεια Αφρική και τη Μέση Ανατολή, προσφέροντας στους νέους πρακτικές δεξιότητες, επιχειρηματική αυτοπεποίθηση και γνώσεις βιώσιμης γεωργίας για ανθεκτική τοπική ανάπτυξη.",
-    heroBtnPrimary: "Εξερεύνηση έργου",
+    heroTitle: "Ενδυνάμωση των νέων για τη βιώσιμη γεωργία και την επιχειρηματικότητα",
+    heroText: "Το EYSAE υποστηρίζει τους νέους μέσω πρακτικής μάθησης, επιχειρηματικής σκέψης, γνώσεων βιώσιμης γεωργίας και διεθνούς συνεργασίας.",
+    heroBtnPrimary: "Εξερεύνηση του έργου",
     heroBtnSecondary: "Γνωρίστε τους εταίρους",
+    metricPartners: "Οργανισμοί εταίροι",
+    metricLanguages: "Γλώσσες ιστοσελίδας",
+    metricFocus: "Νεολαία, βιωσιμότητα, κινητικότητα",
+    heroNote1Label: "Εστίαση",
+    heroNote1Text: "Πράσινες δεξιότητες και νεανική επιχειρηματικότητα",
+    heroNote2Label: "Προσέγγιση",
+    heroNote2Text: "Διεθνής μάθηση και τοπικός αντίκτυπος",
 
-    stat1: "διεθνείς δραστηριότητες",
-    stat2: "οργανώσεις εταίρων",
-    stat3: "περιφέρειες συνεργασίας",
+    euKicker: "Πλαίσιο έργου",
+    euTitle: "Υλοποιείται στο πλαίσιο συνεργασίας Erasmus+",
+    euText: "Αυτή η ιστοσελίδα παρουσιάζει τις δραστηριότητες, τη συνεργασία, τα αποτελέσματα και τις δράσεις προβολής του έργου EYSAE σύμφωνα με τις ευρωπαϊκές προτεραιότητες για τη νεολαία, τη βιωσιμότητα και την επιχειρηματικότητα.",
 
-    heroMini1Label: "Εστίαση",
-    heroMini1Value: "Βιώσιμη Γεωργία",
-    heroMini1Text: "Πρακτική γνώση βιωσιμότητας συνδεδεμένη με τοπική ανθεκτικότητα και πράσινες δεξιότητες.",
-    heroMini2Label: "Προσέγγιση",
-    heroMini2Value: "Νεανική Επιχειρηματικότητα",
-    heroMini2Text: "Επιχειρηματική σκέψη, πρωτοβουλία και απασχολησιμότητα για τους νέους συμμετέχοντες.",
-    heroMini3Label: "Εμβέλεια",
-    heroMini3Value: "Διαπεριφερειακή Συνεργασία",
-    heroMini3Text: "Μάθηση και συνεργασία μεταξύ Ευρώπης, Βόρειας Αφρικής και Μέσης Ανατολής.",
+    aboutKicker: "Σχετικά",
+    aboutTitle: "Σχετικά με το έργο",
+    aboutText: "Το EYSAE έχει σχεδιαστεί για να ενισχύσει τις ικανότητες των νέων στη βιώσιμη γεωργία και την επιχειρηματικότητα μέσω μάθησης, συνεργασίας, πρακτικής συμμετοχής και διεθνούς ανταλλαγής.",
+    aboutCard1Title: "Γιατί είναι σημαντικό",
+    aboutCard1Text: "Οι νέοι χρειάζονται πρακτικές διαδρομές για να αναπτύξουν πράσινες δεξιότητες, επιχειρηματική αυτοπεποίθηση και ισχυρότερους δεσμούς με τις τοπικές βιώσιμες οικονομίες.",
+    aboutCard2Title: "Τι προσφέρει το EYSAE",
+    aboutCard2Text: "Το έργο δημιουργεί ευκαιρίες μάθησης, συνεργατικές δραστηριότητες, δράσεις προβολής και μεταβιβάσιμα αποτελέσματα για youth workers, νέους συμμετέχοντες και εταίρους.",
 
-    aboutLabel: "Σχετικά με το έργο",
-    aboutTitle: "Μια συνεργατική πλατφόρμα για ενδυνάμωση νέων, καινοτομία και βιώσιμη τοπική ανάπτυξη.",
-    aboutText1:
-      "Το EYSAE σχεδιάστηκε για να ενισχύσει τον ρόλο των νέων στη διαμόρφωση πιο πράσινων και επιχειρηματικών κοινοτήτων. Μέσα από διακρατική μάθηση, πρακτικές δραστηριότητες και συνεργασία μεταξύ φορέων της κοινωνίας των πολιτών, το έργο δημιουργεί διαδρομές για συμμετοχή των νέων, ανάπτυξη δεξιοτήτων και βιώσιμες οικονομικές ευκαιρίες.",
-    aboutText2:
-      "Η σύμπραξη συνδυάζει τεχνογνωσία στη νεολαία, την κοινοτική ανάπτυξη, την κοινωνική καινοτομία και την εκπαίδευση, ώστε να δημιουργήσει πρακτικά εργαλεία, εμπειρίες κινητικότητας και αποτελέσματα διάδοσης με διαχρονική αξία.",
+    objectivesKicker: "Στόχοι",
+    objectivesTitle: "Στόχοι του έργου",
+    obj1Title: "Ενίσχυση πράσινων δεξιοτήτων",
+    obj1Text: "Υποστήριξη των νέων στην κατανόηση της βιώσιμης γεωργίας, της περιβαλλοντικής ευθύνης και της τοπικής ανθεκτικότητας.",
+    obj2Title: "Προώθηση επιχειρηματικότητας",
+    obj2Text: "Ενθάρρυνση πρωτοβουλίας, καινοτομίας και επιχειρηματικής σκέψης που συνδέεται με την αγροτική και βιώσιμη ανάπτυξη.",
+    obj3Title: "Ενίσχυση διεθνούς συνεργασίας",
+    obj3Text: "Δημιουργία ισχυρότερης συνεργασίας μεταξύ εταίρων, κοινοτήτων και φορέων νεολαίας στις συμμετέχουσες χώρες.",
+    obj4Title: "Αύξηση ορατότητας και μεταφερσιμότητας",
+    obj4Text: "Διάχυση μεθόδων, δραστηριοτήτων και αποτελεσμάτων του έργου με τρόπο που υποστηρίζει ευρύτερη χρήση και μακροπρόθεσμη βιωσιμότητα.",
 
-    objectivesLabel: "Στόχοι",
-    objectivesTitle: "Βασικοί στόχοι του έργου EYSAE",
-    objective1Title: "Ανάπτυξη ικανοτήτων νέων",
-    objective1Text:
-      "Ενίσχυση των δεξιοτήτων των νέων στη βιώσιμη γεωργία, την ανάληψη πρωτοβουλιών, την επίλυση προβλημάτων και την επιχειρηματική σκέψη μέσω πρακτικών και διεθνών εμπειριών μάθησης.",
-    objective2Title: "Διασυνοριακή συνεργασία",
-    objective2Text:
-      "Προώθηση ουσιαστικής συνεργασίας μεταξύ εταίρων σε Ευρώπη, Βόρεια Αφρική και Μέση Ανατολή για ανταλλαγή μεθόδων, ενίσχυση δικτύων και συνδημιουργία προσεγγίσεων για τη νεολαία.",
-    objective3Title: "Βιώσιμος τοπικός αντίκτυπος",
-    objective3Text:
-      "Ενθάρρυνση τοπικά προσαρμόσιμων λύσεων που συνδέουν τη βιωσιμότητα, την απασχολησιμότητα και τη συμμετοχή των νέων, ώστε η γνώση του έργου να εφαρμόζεται και μετά την ολοκλήρωσή του.",
+    partnersKicker: "Συνεργασία",
+    partnersTitle: "Εταίροι του έργου",
+    partnersText: "Το EYSAE υλοποιείται μέσω μιας εταιρικής σχέσης οργανισμών που δεσμεύονται για την ανάπτυξη των νέων, τη βιωσιμότητα, την επιχειρηματικότητα και την ευρωπαϊκή συνεργασία.",
+    partner1Role: "Συντονισμός έργου, διαχείριση και υποστήριξη διάχυσης.",
+    partner2Role: "Συμμετοχή νέων, εκπαιδευτικές δραστηριότητες και τοπική υλοποίηση.",
+    partner3Role: "Υποστήριξη κατάρτισης, διασυνοριακή συνεργασία και προσέγγιση συμμετεχόντων.",
+    partner4Role: "Συμμετοχή κοινότητας, μέθοδοι βιωσιμότητας και συμμετοχή νέων.",
+    partner5Role: "Υποστήριξη επικοινωνίας, δράσεις προβολής και αποτελέσματα διάχυσης.",
+    partner6Role: "Τοπικός συντονισμός, συνεργασία με ενδιαφερόμενους φορείς και υποστήριξη πιλοτικών δράσεων.",
 
-    partnersLabel: "Εταίροι",
-    partnersTitle: "Σύμπραξη έργου",
-    partnersIntro:
-      "Το EYSAE βασίζεται σε μια ποικιλόμορφη κοινοπραξία οργανισμών με εμπειρία στη νεολαία, την ένταξη, την εκπαίδευση, την επιχειρηματικότητα και την κοινοτική ανάπτυξη.",
+    activitiesKicker: "Δραστηριότητες",
+    activitiesTitle: "Κύριες δραστηριότητες",
+    act1Title: "Εργαστήρια",
+    act1Text: "Πρακτικές εκπαιδευτικές δράσεις για τη βιωσιμότητα, τη γεωργία και την επιχειρηματική σκέψη.",
+    act2Title: "Κινητικότητα και ανταλλαγή",
+    act2Text: "Διεθνείς δράσεις συνεργασίας και ανταλλαγής που ενισχύουν τη διαπολιτισμική μάθηση και την κοινή πρακτική.",
+    act3Title: "Διάχυση",
+    act3Text: "Δράσεις προβολής, επικοινωνίας και outreach για την κοινοποίηση των αποτελεσμάτων σε ευρύτερο κοινό.",
 
-    partnerCountry1: "Σλοβενία",
-    partnerCountry2: "Ελλάδα",
-    partnerCountry3: "Μαρόκο",
-    partnerCountry4: "Τυνησία",
-    partnerCountry5: "Ιορδανία",
-    partnerCountry6: "Συρία",
-
-    partnerDesc1:
-      "Η POVOD, so.p. συμβάλλει με τεχνογνωσία στη διαχείριση έργων, τη συμμετοχή νέων και την ενδυνάμωση τοπικών φορέων, διασφαλίζοντας στρατηγική υλοποίηση και σύνδεση με κοινοτικά εκπαιδευτικά περιβάλλοντα.",
-    partnerDesc2:
-      "Η IASIS φέρνει εμπειρία στην κοινωνική καινοτομία, την υποστήριξη ευάλωτων ομάδων και τη διεθνή συνεργασία, συμβάλλοντας με μεθοδολογίες που συνδέουν την ένταξη, την ανθεκτικότητα και την ενδυνάμωση των νέων.",
-    partnerDesc3:
-      "Η Amuddu CSF υποστηρίζει ανάπτυξη με επίκεντρο την κοινότητα και πρωτοβουλίες συμμετοχής νέων, με πρακτική προσέγγιση στη βιωσιμότητα, την ενεργό πολιτειότητα και την περιφερειακή συνεργασία.",
-    partnerDesc4:
-      "Το We Love Sousse συνεισφέρει ισχυρή εμπειρία στην ενεργοποίηση κοινοτήτων, την τοπική καινοτομία και τη δημόσια συμμετοχή, βοηθώντας στη μετατροπή της μάθησης του έργου σε ορατή τοπική δράση.",
-    partnerDesc5:
-      "Η Shoura Organization ενισχύει τη σύμπραξη με εμπειρία στην ανάπτυξη νέων, τη μάθηση μέσω διαλόγου και την οργανωτική δικτύωση σε κοινοτικά και εκπαιδευτικά περιβάλλοντα.",
-    partnerDesc6:
-      "Το Sanad Youth for Development Foundation προσθέτει πρακτική γνώση στην κινητοποίηση νέων, την τοπική ανάπτυξη και προγράμματα ενδυνάμωσης με στόχο το μακροπρόθεσμο κοινωνικό όφελος.",
-
-    logosTitle: "Χώρος λογοτύπων εταίρων και προγράμματος",
-
-    activitiesLabel: "Δραστηριότητες",
-    activitiesTitle: "Διεθνείς δραστηριότητες έργου",
-    activitiesIntro:
-      "Το έργο συνδυάζει επισκέψεις μελέτης, εκπαιδευτικές δραστηριότητες, μάθηση μέσω ανταλλαγών και εκδηλώσεις διάδοσης για την ενίσχυση της πρακτικής μεταφοράς γνώσης και της συνεργασίας των εταίρων.",
-
-    activityType1: "Επίσκεψη Μελέτης 1",
-    activityTitle1: "Αθήνα, Ελλάδα",
-    activityText1:
-      "Μια διεθνής επίσκεψη μελέτης με έμφαση στην ανταλλαγή πρακτικών για την ενδυνάμωση των νέων, την κοινωνική ένταξη και τη βιώσιμη ανάπτυξη κοινοτήτων.",
-    activityType2: "Επίσκεψη Μελέτης 2",
-    activityTitle2: "Τύνιδα, Τυνησία",
-    activityText2:
-      "Μια επιτόπια επίσκεψη που εξερευνά μοντέλα τοπικής συμμετοχής, επιχειρηματικές ευκαιρίες και τρόπους σύνδεσης της βιωσιμότητας με πρωτοβουλίες νέων.",
-    activityType3: "Εκπαιδευτικό Πρόγραμμα 1",
-    activityTitle3: "Δαμασκός, Συρία",
-    activityText3:
-      "Μια δομημένη εκπαιδευτική δραστηριότητα σχεδιασμένη να ενισχύσει τις δεξιότητες των συμμετεχόντων στη συμμετοχή σε έργα, τη βιώσιμη σκέψη και πρακτικές μεθοδολογίες για τη νεολαία.",
-    activityType4: "Εκπαιδευτικό Πρόγραμμα 2",
-    activityTitle4: "Αμμάν, Ιορδανία",
-    activityText4:
-      "Ένας δεύτερος κύκλος εκπαίδευσης αφιερωμένος στην επιχειρηματικότητα, τα τοπικά μοντέλα υλοποίησης και τη μάθηση μεταξύ ομοτίμων.",
-    activityType5: "Ανταλλαγή Νέων",
-    activityTitle5: "Ραμπάτ, Μαρόκο",
-    activityText5:
-      "Μια ανταλλαγή νέων που ενθαρρύνει τον διαπολιτισμικό διάλογο, την ομαδική μάθηση και τη συλλογική διερεύνηση ευκαιριών στη βιώσιμη γεωργία και την επιχειρηματικότητα.",
-    activityType6: "Hackathon & Τελικό Συνέδριο Διάδοσης",
-    activityTitle6: "Λιουμπλιάνα, Σλοβενία",
-    activityText6:
-      "Μια τελική εμβληματική εκδήλωση που παρουσιάζει τη μάθηση του έργου, συνεργατικές λύσεις, αποτελέσματα διάδοσης και μελλοντικές προοπτικές συνεργασίας.",
-
-    resultsLabel: "Αποτελέσματα",
+    resultsKicker: "Αποτελέσματα",
     resultsTitle: "Αναμενόμενα αποτελέσματα",
-    result1Title: "Βελτιωμένες δεξιότητες νέων",
-    result1Text:
-      "Οι συμμετέχοντες αποκτούν αυξημένες γνώσεις, αυτοπεποίθηση και πρακτικές δεξιότητες σχετικές με τη βιωσιμότητα, την επιχειρηματικότητα και τη διεθνή συνεργασία.",
-    result2Title: "Μεταφέρσιμες μέθοδοι και εργαλεία",
-    result2Text:
-      "Οι οργανισμοί εταίροι συνδημιουργούν προσεγγίσεις, υλικά και μοντέλα μάθησης που μπορούν να προσαρμοστούν και να επαναχρησιμοποιηθούν σε διαφορετικά τοπικά πλαίσια.",
-    result3Title: "Μακροπρόθεσμη συνεργασία και ορατότητα",
-    result3Text:
-      "Το έργο ενισχύει τις διεθνείς συνεργασίες, αυξάνει την ορατότητα των αξιών του Erasmus+ και δημιουργεί ισχυρή βάση για μελλοντικές κοινές πρωτοβουλίες.",
+    res1Title: "Βελτιωμένες δεξιότητες των νέων",
+    res1Text: "Οι νέοι συμμετέχοντες αναπτύσσουν πρακτικές γνώσεις, αυτοπεποίθηση και ισχυρότερη εμπλοκή σε θέματα βιωσιμότητας.",
+    res2Title: "Ισχυρότερη συνεργασία εταίρων",
+    res2Text: "Οι οργανισμοί αναπτύσσουν κοινές μεθόδους, διασυνοριακές σχέσεις και καλύτερη μακροπρόθεσμη συνεργασία.",
+    res3Title: "Ορατά αποτελέσματα έργου",
+    res3Text: "Οι δραστηριότητες, τα υλικά και οι επικοινωνιακές δράσεις δημιουργούν ένα διαρκές και μεταβιβάσιμο αποτύπωμα του έργου.",
 
-    newsLabel: "Νέα",
-    newsTitle: "Νέα και ενημερώσεις έργου",
-    newsIntro:
-      "Αυτή η ενότητα παρουσιάζει τα πρώτα επικοινωνιακά ορόσημα του έργου και προετοιμάζει το έδαφος για μελλοντικές ενημερώσεις κινητικότητας και διάδοσης.",
+    newsKicker: "Νέα",
+    newsTitle: "Τελευταίες ενημερώσεις έργου",
+    newsText: "Παρακολουθήστε τις τελευταίες δράσεις προβολής, τα βήματα της συνεργασίας και τα βασικά σημεία υλοποίησης του έργου EYSAE.",
+    newsTag1: "Έναρξη έργου",
+    newsTag2: "Προετοιμασία κινητικότητας",
+    newsTag3: "Ορατότητα",
+    news1Title: "Η υλοποίηση του έργου EYSAE ξεκίνησε επίσημα",
+    news1Text: "Οι εταίροι ευθυγράμμισαν τα αρχικά βήματα συντονισμού, την κατεύθυνση προβολής και τις προτεραιότητες της πρώτης φάσης.",
+    news2Title: "Οι προετοιμασίες για τις διεθνείς δραστηριότητες βρίσκονται σε εξέλιξη",
+    news2Text: "Η σύμπραξη αναπτύσσει οργανωτικά βήματα, επικοινωνιακά υλικά και προετοιμασία συμμετεχόντων για τις επερχόμενες δράσεις.",
+    news3Title: "Εισήχθη πλαίσιο προβολής και outreach στην ιστοσελίδα",
+    news3Text: "Η ιστοσελίδα του έργου προσφέρει πλέον ισχυρότερη δημόσια δομή για την παρουσίαση της συνεργασίας, των δραστηριοτήτων και των νέων ενημερώσεων.",
+    newsReadMore: "Διαβάστε περισσότερα",
 
-    newsDate1: "Ενημέρωση έργου",
-    newsCardTitle1: "Έναρξη έργου και έναρξη συνεργασίας",
-    newsCardText1:
-      "Το EYSAE ξεκινά επίσημα με κοινή δέσμευση για ενδυνάμωση των νέων μέσω βιώσιμης γεωργίας, επιχειρηματικότητας και διακρατικής συνεργασίας.",
-    newsLink1: "Διαβάστε περισσότερα",
-
-    newsDate2: "Φάση προετοιμασίας",
-    newsCardTitle2: "Προετοιμασία για διεθνείς δραστηριότητες κινητικότητας",
-    newsCardText2:
-      "Οι οργανισμοί εταίροι συντονίζουν τον πρώτο κύκλο επισκέψεων μελέτης και εκπαιδευτικών δραστηριοτήτων, ευθυγραμμίζοντας τη διοργάνωση και τις θεματικές προτεραιότητες.",
-    newsLink2: "Διαβάστε περισσότερα",
-
-    newsDate3: "Ορατότητα",
-    newsCardTitle3: "Ενίσχυση ορατότητας και τοπικής απήχησης",
-    newsCardText3:
-      "Η κοινοπραξία προετοιμάζει επικοινωνιακό υλικό, τοπικές δράσεις διάδοσης και προσέγγιση φορέων για ισχυρή ορατότητα και μακροπρόθεσμο αντίκτυπο.",
-    newsLink3: "Διαβάστε περισσότερα",
-
-    contactLabel: "Επικοινωνία",
-    contactTitle: "Επικοινωνήστε μαζί μας",
-    contactText:
-      "Για επίσημη επικοινωνία σχετικά με το έργο EYSAE, τις συνεργασίες, τις ευκαιρίες διάδοσης και τη θεσμική συνεργασία, χρησιμοποιήστε τα παρακάτω στοιχεία επικοινωνίας. Αυτά μπορούν αργότερα να ενημερωθούν με τα τελικά επίσημα σημεία επαφής.",
+    contactKicker: "Επικοινωνία",
+    contactTitle: "Επίσημη επικοινωνία έργου",
+    contactText: "Για επικοινωνία σχετικά με τη συνεργασία, την προβολή του έργου, θέματα υλοποίησης ή διάχυσης, επικοινωνήστε με τον συντονιστικό οργανισμό.",
+    contactCoordinatorLabel: "Συντονιστής",
     contactEmailLabel: "Email",
-    contactPhoneLabel: "Τηλέφωνο",
     contactLocationLabel: "Τοποθεσία",
-    contactLocation: "Λιουμπλιάνα, Σλοβενία",
-    contactCardTitle: "Συντονισμός έργου",
-    contactCardText:
-      "Για επίσημη επικοινωνία σχετικά με το έργο EYSAE, τις συνεργασίες, τις ευκαιρίες διάδοσης και τη θεσμική συνεργασία, επικοινωνήστε με τον συντονιστικό οργανισμό μέσω των στοιχείων αυτής της σελίδας.",
-    contactBtn: "Αποστολή ερωτήματος",
+    contactSideTitle: "Προβολή έργου και συνεργασία",
+    contactSideText: "Η ιστοσελίδα θα συνεχίσει να ενημερώνεται με νέα έργου, ορόσημα συνεργασίας, δραστηριότητες και δημόσια αποτελέσματα.",
+    contactBtn: "Στείλτε email",
 
-    footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
-    footerLinksTitle: "Γρήγοροι σύνδεσμοι",
-    footerLink1: "Σχετικά με το έργο",
-    footerLink2: "Εταίροι",
-    footerLink3: "Δραστηριότητες",
-    footerLink4: "Επικοινωνία",
-    footerDisclaimerTitle: "Αποποίηση ευθύνης",
-    footerDisclaimer:
-      "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση. Οι απόψεις και γνώμες που εκφράζονται ανήκουν αποκλειστικά στον/στους συγγραφέα/είς και δεν αντανακλούν κατ’ ανάγκη τις απόψεις της Ευρωπαϊκής Ένωσης ή του προγράμματος Erasmus+. Ούτε η Ευρωπαϊκή Ένωση ούτε η αρμόδια αρχή μπορούν να θεωρηθούν υπεύθυνες γι’ αυτές.",
-    footerCopy: "© 2026 EYSAE. Με επιφύλαξη παντός δικαιώματος."
+    footerBrandText: "Ενδυνάμωση των νέων για τη βιώσιμη γεωργία και την επιχειρηματικότητα",
+    footerText: "Ιστοσελίδα έργου για την παρουσίαση της συνεργασίας, των δραστηριοτήτων, της προβολής και των αποτελεσμάτων του EYSAE στο πλαίσιο Erasmus+.",
+    footerNavTitle: "Πλοήγηση",
+    footerLegalTitle: "Θεσμική σημείωση",
+    footerLegalText: "Τα συγχρηματοδοτούμενα έργα συνεργασίας και το σχετικό υλικό επικοινωνίας πρέπει να αντανακλούν τις απαιτήσεις ορατότητας και acknowledgement σύμφωνα με το πλαίσιο Erasmus+.",
+    footerDisclaimer: "Το περιεχόμενο αυτής της ιστοσελίδας αποτελεί ευθύνη της σύμπραξης του έργου και προορίζεται για ενημέρωση και διάχυση."
   },
 
   ar: {
-    fundingText: "يتم تنفيذ مشروع EYSAE بدعم من برنامج Erasmus+ التابع للاتحاد الأوروبي.",
     brandSubtitle: "تمكين الشباب من أجل الزراعة المستدامة وريادة الأعمال",
-
     navHome: "الرئيسية",
     navProject: "المشروع",
     navAbout: "حول المشروع",
     navObjectives: "الأهداف",
+    navActivities: "الأنشطة",
     navResults: "النتائج",
     navPartners: "الشركاء",
-    navActivities: "الأنشطة",
     navNews: "الأخبار",
     navContact: "اتصل بنا",
 
     heroEyebrow: "مشروع تعاون Erasmus+",
-    heroTitle: "تمكين الشباب من خلال الزراعة المستدامة وريادة الأعمال والتعاون الإقليمي.",
-    heroText:
-      "يجمع مشروع EYSAE منظمات تركز على الشباب من أوروبا وشمال أفريقيا والشرق الأوسط لتزويد الشباب بالمهارات العملية والثقة الريادية والمعرفة بالزراعة المستدامة من أجل تنمية محلية أكثر قدرة على الصمود.",
+    heroTitle: "تمكين الشباب من أجل الزراعة المستدامة وريادة الأعمال",
+    heroText: "يدعم مشروع EYSAE الشباب من خلال التعلم العملي والتفكير الريادي والمعرفة بالزراعة المستدامة والتعاون الدولي.",
     heroBtnPrimary: "استكشاف المشروع",
     heroBtnSecondary: "التعرّف على الشركاء",
+    metricPartners: "المنظمات الشريكة",
+    metricLanguages: "لغات الموقع",
+    metricFocus: "الشباب والاستدامة والتنقل",
+    heroNote1Label: "التركيز",
+    heroNote1Text: "المهارات الخضراء وريادة الأعمال الشبابية",
+    heroNote2Label: "المنهج",
+    heroNote2Text: "تعلم دولي وأثر محلي",
 
-    stat1: "أنشطة دولية",
-    stat2: "منظمات شريكة",
-    stat3: "مناطق تعاون",
+    euKicker: "إطار المشروع",
+    euTitle: "يتم تنفيذه ضمن إطار تعاون Erasmus+",
+    euText: "يعرض هذا الموقع أنشطة وشراكات ونتائج وإجراءات الظهور الخاصة بمشروع EYSAE بما يتماشى مع الأولويات الأوروبية في مجالات الشباب والاستدامة وريادة الأعمال.",
 
-    heroMini1Label: "التركيز",
-    heroMini1Value: "الزراعة المستدامة",
-    heroMini1Text: "معرفة عملية بالاستدامة مرتبطة بالمرونة المحلية والمهارات الخضراء.",
-    heroMini2Label: "النهج",
-    heroMini2Value: "ريادة الأعمال الشبابية",
-    heroMini2Text: "تفكير ريادي ومبادرة وقابلية للتوظيف للمشاركين الشباب.",
-    heroMini3Label: "النطاق",
-    heroMini3Value: "تعاون عابر للمناطق",
-    heroMini3Text: "تعلم وتعاون بين أوروبا وشمال أفريقيا والشرق الأوسط.",
+    aboutKicker: "حول",
+    aboutTitle: "حول المشروع",
+    aboutText: "تم تصميم EYSAE لتعزيز قدرات الشباب في الزراعة المستدامة وريادة الأعمال من خلال التعلم والتعاون والمشاركة العملية والتبادل الدولي.",
+    aboutCard1Title: "لماذا هذا المشروع مهم",
+    aboutCard1Text: "يحتاج الشباب إلى مسارات عملية لبناء المهارات الخضراء والثقة الريادية وروابط أقوى مع الاقتصادات المحلية المستدامة.",
+    aboutCard2Title: "ماذا يقدم EYSAE",
+    aboutCard2Text: "يوفر المشروع فرص تعلم وأنشطة تعاون وإجراءات ظهور ونتائج قابلة للنقل للعاملين مع الشباب والمشاركين الشباب والمنظمات الشريكة.",
 
-    aboutLabel: "حول المشروع",
-    aboutTitle: "منصة تعاونية لتمكين الشباب والابتكار والنمو المحلي المستدام.",
-    aboutText1:
-      "تم تصميم EYSAE لتعزيز دور الشباب في بناء مجتمعات أكثر خضرة وريادة. ومن خلال التعلم العابر للحدود والأنشطة العملية والتعاون بين منظمات المجتمع المدني، يفتح المشروع مسارات لمشاركة الشباب وتنمية المهارات والفرص الاقتصادية المستدامة.",
-    aboutText2:
-      "تجمع الشراكة خبرات في العمل الشبابي والتنمية المجتمعية والابتكار الاجتماعي والتعليم من أجل تطوير أدوات عملية وتجارب تنقل ومخرجات نشر تبقى ذات صلة بعد انتهاء المشروع.",
+    objectivesKicker: "الأهداف",
+    objectivesTitle: "أهداف المشروع",
+    obj1Title: "تعزيز الكفاءات الخضراء",
+    obj1Text: "دعم الشباب في فهم الزراعة المستدامة والمسؤولية البيئية والمرونة المحلية.",
+    obj2Title: "تعزيز ريادة الأعمال",
+    obj2Text: "تشجيع المبادرة والابتكار والتفكير الريادي المرتبط بالتنمية الريفية والمستدامة.",
+    obj3Title: "بناء التعاون الدولي",
+    obj3Text: "إنشاء تعاون أقوى بين الشركاء والمجتمعات وأصحاب المصلحة الشبابية في البلدان المشاركة.",
+    obj4Title: "زيادة الظهور وقابلية النقل",
+    obj4Text: "مشاركة الأساليب والأنشطة ونتائج المشروع بطريقة تدعم الاستخدام الأوسع والاستدامة طويلة الأمد.",
 
-    objectivesLabel: "الأهداف",
-    objectivesTitle: "الأهداف الرئيسية لمشروع EYSAE",
-    objective1Title: "بناء قدرات الشباب",
-    objective1Text:
-      "تعزيز كفاءات الشباب في الزراعة المستدامة واتخاذ المبادرة وحل المشكلات والتفكير الريادي من خلال خبرات تعلم عملية ودولية.",
-    objective2Title: "التعاون عبر الحدود",
-    objective2Text:
-      "تعزيز تعاون فعّال بين المنظمات الشريكة في أوروبا وشمال أفريقيا والشرق الأوسط من أجل تبادل الأساليب وتقوية الشبكات والمشاركة في تطوير مقاربات مناسبة للشباب.",
-    objective3Title: "أثر محلي مستدام",
-    objective3Text:
-      "تشجيع حلول قابلة للتكيف محليًا تربط بين الاستدامة وقابلية التوظيف ومشاركة الشباب، بما يضمن تطبيق المعرفة المكتسبة في المجتمعات بعد انتهاء المشروع.",
+    partnersKicker: "الشراكة",
+    partnersTitle: "شركاء المشروع",
+    partnersText: "يتم تنفيذ EYSAE من خلال شراكة بين منظمات ملتزمة بتنمية الشباب والاستدامة وريادة الأعمال والتعاون الأوروبي.",
+    partner1Role: "تنسيق المشروع والإدارة ودعم النشر.",
+    partner2Role: "إشراك الشباب والأنشطة التعليمية والتنفيذ المحلي.",
+    partner3Role: "دعم التدريب والتعاون عبر الحدود والوصول إلى المشاركين.",
+    partner4Role: "إشراك المجتمع وأساليب الاستدامة ومشاركة الشباب.",
+    partner5Role: "دعم التواصل وإجراءات الظهور ومخرجات النشر.",
+    partner6Role: "التنسيق المحلي والتعاون مع أصحاب المصلحة ودعم الأنشطة التجريبية.",
 
-    partnersLabel: "الشركاء",
-    partnersTitle: "الشراكة في المشروع",
-    partnersIntro:
-      "يعتمد مشروع EYSAE على ائتلاف متنوع من المنظمات ذات الخبرة في العمل الشبابي والدمج والتعليم وريادة الأعمال والتنمية المجتمعية.",
+    activitiesKicker: "الأنشطة",
+    activitiesTitle: "الأنشطة الرئيسية",
+    act1Title: "ورش العمل",
+    act1Text: "جلسات تعليمية عملية حول الاستدامة والزراعة والتفكير الريادي.",
+    act2Title: "التنقل والتبادل",
+    act2Text: "أنشطة تعاون وتبادل دولية تعزز التعلم بين الثقافات والممارسة المشتركة.",
+    act3Title: "النشر",
+    act3Text: "إجراءات الظهور والتواصل والوصول لمشاركة النتائج مع جمهور أوسع.",
 
-    partnerCountry1: "سلوفينيا",
-    partnerCountry2: "اليونان",
-    partnerCountry3: "المغرب",
-    partnerCountry4: "تونس",
-    partnerCountry5: "الأردن",
-    partnerCountry6: "سوريا",
-
-    partnerDesc1:
-      "تسهم POVOD, so.p. بخبرة في تنسيق المشاريع وإشراك الشباب وبناء القدرات المحلية، بما يضمن تنفيذًا استراتيجيًا وارتباطًا قويًا بالعمليات التعليمية المجتمعية.",
-    partnerDesc2:
-      "تقدم IASIS خبرة في الابتكار الاجتماعي ودعم الفئات الهشة والتعاون الدولي، مع منهجيات تربط بين الدمج والمرونة وتمكين الشباب بشكل مستدام.",
-    partnerDesc3:
-      "تدعم Amuddu CSF التنمية المتمحورة حول المجتمع ومبادرات مشاركة الشباب، مع نهج عملي نحو الاستدامة المحلية والمشاركة المدنية والتعاون الإقليمي.",
-    partnerDesc4:
-      "تسهم We Love Sousse بخبرة قوية في تنشيط المجتمعات والابتكار المحلي والمشاركة العامة، مما يساعد على تحويل تعلم المشروع إلى عمل محلي ملموس.",
-    partnerDesc5:
-      "تعزز Shoura Organization الشراكة بخبرة في تنمية الشباب والتعلم القائم على الحوار والتواصل التنظيمي عبر البيئات المجتمعية والتعليمية.",
-    partnerDesc6:
-      "تضيف Sanad Youth for Development Foundation معرفة عملية في تعبئة الشباب والتنمية المحلية وبرامج التمكين الموجهة نحو منفعة اجتماعية طويلة الأمد.",
-
-    logosTitle: "مساحة شعارات الشركاء والبرنامج",
-
-    activitiesLabel: "الأنشطة",
-    activitiesTitle: "الأنشطة الدولية للمشروع",
-    activitiesIntro:
-      "يجمع المشروع بين الزيارات الدراسية والأنشطة التدريبية والتعلم القائم على التبادل وفعاليات النشر لدعم نقل المعرفة عمليًا وتعزيز التعاون بين الشركاء.",
-
-    activityType1: "زيارة دراسية 1",
-    activityTitle1: "أثينا، اليونان",
-    activityText1:
-      "زيارة دراسية دولية تركز على تبادل الممارسات في تمكين الشباب والدمج الاجتماعي والتنمية المجتمعية المستدامة.",
-    activityType2: "زيارة دراسية 2",
-    activityTitle2: "تونس، تونس",
-    activityText2:
-      "زيارة ميدانية تستكشف نماذج المشاركة المحلية وفرص ريادة الأعمال وطرق ربط الاستدامة بالمبادرات الشبابية.",
-    activityType3: "دورة تدريبية 1",
-    activityTitle3: "دمشق، سوريا",
-    activityText3:
-      "نشاط تدريبي منظم يهدف إلى تعزيز مهارات المشاركين في المشاركة بالمشاريع والتفكير المستدام والمنهجيات العملية الموجهة للشباب.",
-    activityType4: "دورة تدريبية 2",
-    activityTitle4: "عمّان، الأردن",
-    activityText4:
-      "دورة تدريبية ثانية مخصصة لريادة الأعمال ونماذج التنفيذ المحلية والتعلم بين الأقران بين ممثلي الشركاء والمشاركين الشباب.",
-    activityType5: "تبادل شبابي",
-    activityTitle5: "الرباط، المغرب",
-    activityText5:
-      "تبادل شبابي يشجع الحوار بين الثقافات والتعلم الجماعي والاستكشاف التعاوني لفرص الزراعة المستدامة وريادة الأعمال.",
-    activityType6: "هاكاثون والمؤتمر الختامي للنشر",
-    activityTitle6: "ليوبليانا، سلوفينيا",
-    activityText6:
-      "فعالية ختامية رئيسية تعرض تعلم المشروع والحلول التعاونية ومخرجات النشر وآفاق التعاون المستقبلية لمشاركة أوسع مع أصحاب المصلحة.",
-
-    resultsLabel: "النتائج",
+    resultsKicker: "النتائج",
     resultsTitle: "النتائج المتوقعة",
-    result1Title: "تحسين كفاءات الشباب",
-    result1Text:
-      "يكتسب المشاركون معرفة وثقة ومهارات عملية أكبر تتعلق بالاستدامة وريادة الأعمال والتعاون الدولي.",
-    result2Title: "أساليب وأدوات قابلة للنقل",
-    result2Text:
-      "تقوم المنظمات الشريكة بتطوير مقاربات ومواد ونماذج تعلم عملية يمكن تكييفها وإعادة استخدامها في سياقات محلية مختلفة.",
-    result3Title: "تعاون طويل الأمد ورؤية أكبر",
-    result3Text:
-      "يعزز المشروع الشراكات الدولية ويرفع من إبراز قيم Erasmus+ ويؤسس قاعدة قوية لمبادرات تعاونية مستقبلية.",
+    res1Title: "تحسين كفاءات الشباب",
+    res1Text: "يطور المشاركون الشباب معرفة عملية وثقة أكبر وانخراطًا أقوى في موضوعات الاستدامة.",
+    res2Title: "تعزيز تعاون الشركاء",
+    res2Text: "تبني المنظمات أساليب مشتركة وعلاقات عبر الحدود وتعاونًا أفضل على المدى الطويل.",
+    res3Title: "مخرجات مشروع مرئية",
+    res3Text: "تخلق الأنشطة والمواد وإجراءات التواصل أثرًا مشروعياً دائمًا وقابلاً للنقل.",
 
-    newsLabel: "الأخبار",
-    newsTitle: "أخبار المشروع وتحديثاته",
-    newsIntro:
-      "يبرز هذا القسم أولى المحطات الاتصالية للمشروع ويمهّد للتحديثات المستقبلية المتعلقة بالتنقل والنشر.",
+    newsKicker: "الأخبار",
+    newsTitle: "آخر مستجدات المشروع",
+    newsText: "تابع أحدث أنشطة الظهور وخطوات الشراكة وأبرز محطات تنفيذ مشروع EYSAE.",
+    newsTag1: "إطلاق المشروع",
+    newsTag2: "التحضير للتنقل",
+    newsTag3: "الظهور",
+    news1Title: "انطلق تنفيذ مشروع EYSAE رسميًا",
+    news1Text: "قام الشركاء بمواءمة الخطوات الأولية للتنسيق واتجاه الظهور وأولويات المرحلة الأولى من المشروع.",
+    news2Title: "الاستعدادات للأنشطة الدولية جارية",
+    news2Text: "تعمل الشراكة على تطوير الخطوات التنظيمية والمواد التواصلية وإعداد المشاركين للأنشطة القادمة.",
+    news3Title: "تم تقديم إطار الظهور والوصول عبر الموقع الإلكتروني",
+    news3Text: "يوفر موقع المشروع الآن بنية أقوى لعرض معلومات الشراكة والأنشطة والتحديثات المستقبلية.",
+    newsReadMore: "اقرأ المزيد",
 
-    newsDate1: "تحديث مشروع",
-    newsCardTitle1: "إطلاق المشروع وبداية الشراكة",
-    newsCardText1:
-      "يبدأ EYSAE رسميًا بالتزام مشترك بتمكين الشباب من خلال الزراعة المستدامة وريادة الأعمال والتعاون العابر للحدود بين المناطق الشريكة.",
-    newsLink1: "اقرأ المزيد",
-
-    newsDate2: "مرحلة التحضير",
-    newsCardTitle2: "التحضير لأنشطة التنقل الدولية",
-    newsCardText2:
-      "تنسق المنظمات الشريكة الدورة الأولى من الزيارات الدراسية والأنشطة التدريبية، مع مواءمة الجوانب اللوجستية وإشراك المشاركين والأولويات التعليمية.",
-    newsLink2: "اقرأ المزيد",
-
-    newsDate3: "الظهور",
-    newsCardTitle3: "بناء الظهور والوصول المحلي",
-    newsCardText3:
-      "يعمل الائتلاف على إعداد مواد تواصل وأنشطة نشر محلية وتواصل مع أصحاب المصلحة لضمان ظهور قوي وأثر طويل الأمد.",
-    newsLink3: "اقرأ المزيد",
-
-    contactLabel: "اتصل بنا",
-    contactTitle: "تواصل معنا",
-    contactText:
-      "للتواصل الرسمي بشأن مشروع EYSAE أو الشراكات أو فرص النشر أو التعاون المؤسسي، يرجى استخدام بيانات الاتصال أدناه. ويمكن تحديث هذه البيانات لاحقًا بجهات الاتصال الرسمية النهائية للمشروع.",
+    contactKicker: "اتصال",
+    contactTitle: "جهة الاتصال الرسمية للمشروع",
+    contactText: "للتواصل بشأن الشراكة أو الظهور أو مسائل التنفيذ أو الاستفسارات المتعلقة بالنشر، يرجى التواصل مع المنظمة المنسقة.",
+    contactCoordinatorLabel: "المنسق",
     contactEmailLabel: "البريد الإلكتروني",
-    contactPhoneLabel: "الهاتف",
     contactLocationLabel: "الموقع",
-    contactLocation: "ليوبليانا، سلوفينيا",
-    contactCardTitle: "تنسيق المشروع",
-    contactCardText:
-      "للتواصل الرسمي بشأن مشروع EYSAE أو الشراكات أو فرص النشر أو التعاون المؤسسي، يرجى التواصل مع الجهة المنسقة عبر البيانات المتاحة في هذه الصفحة.",
-    contactBtn: "إرسال استفسار",
+    contactSideTitle: "ظهور المشروع والتعاون",
+    contactSideText: "سيستمر تحديث الموقع بأخبار المشروع ومحطات التعاون والأنشطة والنتائج العامة مع تقدم التنفيذ.",
+    contactBtn: "إرسال بريد إلكتروني",
 
-    footerProjectText: "تمكين الشباب من أجل الزراعة المستدامة وريادة الأعمال",
-    footerLinksTitle: "روابط سريعة",
-    footerLink1: "حول المشروع",
-    footerLink2: "الشركاء",
-    footerLink3: "الأنشطة",
-    footerLink4: "اتصل بنا",
-    footerDisclaimerTitle: "إخلاء مسؤولية",
-    footerDisclaimer:
-      "ممول من الاتحاد الأوروبي. إن الآراء ووجهات النظر المعبر عنها تخص المؤلف/المؤلفين فقط ولا تعكس بالضرورة آراء الاتحاد الأوروبي أو برنامج Erasmus+. ولا يمكن تحميل الاتحاد الأوروبي أو الجهة المانحة المسؤولية عنها.",
-    footerCopy: "© 2026 EYSAE. جميع الحقوق محفوظة."
+    footerBrandText: "تمكين الشباب من أجل الزراعة المستدامة وريادة الأعمال",
+    footerText: "موقع مشروع لعرض التعاون والأنشطة والظهور والنتائج المتعلقة بـ EYSAE ضمن إطار Erasmus+.",
+    footerNavTitle: "التنقل",
+    footerLegalTitle: "ملاحظة مؤسسية",
+    footerLegalText: "يجب أن تعكس مشاريع التعاون الممولة والمحتويات التواصلية المرتبطة بها متطلبات الظهور والإشارة المناسبة وفقًا لإطار Erasmus+.",
+    footerDisclaimer: "محتوى هذا الموقع هو مسؤولية شراكة المشروع وهو مخصص لأغراض المعلومات والنشر."
   }
 };
 
-const elements = {
-  fundingText: document.getElementById("funding-text"),
-  brandSubtitle: document.getElementById("brand-subtitle"),
-
-  heroEyebrow: document.getElementById("hero-eyebrow"),
-  heroTitle: document.getElementById("hero-title"),
-  heroText: document.getElementById("hero-text"),
-  heroBtnPrimary: document.getElementById("hero-btn-primary"),
-  heroBtnSecondary: document.getElementById("hero-btn-secondary"),
-
-  stat1: document.getElementById("stat-1"),
-  stat2: document.getElementById("stat-2"),
-  stat3: document.getElementById("stat-3"),
-
-  heroMini1Label: document.getElementById("hero-mini-1-label"),
-  heroMini1Value: document.getElementById("hero-mini-1-value"),
-  heroMini1Text: document.getElementById("hero-mini-1-text"),
-  heroMini2Label: document.getElementById("hero-mini-2-label"),
-  heroMini2Value: document.getElementById("hero-mini-2-value"),
-  heroMini2Text: document.getElementById("hero-mini-2-text"),
-  heroMini3Label: document.getElementById("hero-mini-3-label"),
-  heroMini3Value: document.getElementById("hero-mini-3-value"),
-  heroMini3Text: document.getElementById("hero-mini-3-text"),
-
-  aboutLabel: document.getElementById("about-label"),
-  aboutTitle: document.getElementById("about-title"),
-  aboutText1: document.getElementById("about-text-1"),
-  aboutText2: document.getElementById("about-text-2"),
-
-  objectivesLabel: document.getElementById("objectives-label"),
-  objectivesTitle: document.getElementById("objectives-title"),
-  objective1Title: document.getElementById("objective-1-title"),
-  objective1Text: document.getElementById("objective-1-text"),
-  objective2Title: document.getElementById("objective-2-title"),
-  objective2Text: document.getElementById("objective-2-text"),
-  objective3Title: document.getElementById("objective-3-title"),
-  objective3Text: document.getElementById("objective-3-text"),
-
-  partnersLabel: document.getElementById("partners-label"),
-  partnersTitle: document.getElementById("partners-title"),
-  partnersIntro: document.getElementById("partners-intro"),
-  partnerCountry1: document.getElementById("partner-country-1"),
-  partnerCountry2: document.getElementById("partner-country-2"),
-  partnerCountry3: document.getElementById("partner-country-3"),
-  partnerCountry4: document.getElementById("partner-country-4"),
-  partnerCountry5: document.getElementById("partner-country-5"),
-  partnerCountry6: document.getElementById("partner-country-6"),
-  partnerDesc1: document.getElementById("partner-desc-1"),
-  partnerDesc2: document.getElementById("partner-desc-2"),
-  partnerDesc3: document.getElementById("partner-desc-3"),
-  partnerDesc4: document.getElementById("partner-desc-4"),
-  partnerDesc5: document.getElementById("partner-desc-5"),
-  partnerDesc6: document.getElementById("partner-desc-6"),
-  logosTitle: document.getElementById("logos-title"),
-
-  activitiesLabel: document.getElementById("activities-label"),
-  activitiesTitle: document.getElementById("activities-title"),
-  activitiesIntro: document.getElementById("activities-intro"),
-  activityType1: document.getElementById("activity-type-1"),
-  activityTitle1: document.getElementById("activity-title-1"),
-  activityText1: document.getElementById("activity-text-1"),
-  activityType2: document.getElementById("activity-type-2"),
-  activityTitle2: document.getElementById("activity-title-2"),
-  activityText2: document.getElementById("activity-text-2"),
-  activityType3: document.getElementById("activity-type-3"),
-  activityTitle3: document.getElementById("activity-title-3"),
-  activityText3: document.getElementById("activity-text-3"),
-  activityType4: document.getElementById("activity-type-4"),
-  activityTitle4: document.getElementById("activity-title-4"),
-  activityText4: document.getElementById("activity-text-4"),
-  activityType5: document.getElementById("activity-type-5"),
-  activityTitle5: document.getElementById("activity-title-5"),
-  activityText5: document.getElementById("activity-text-5"),
-  activityType6: document.getElementById("activity-type-6"),
-  activityTitle6: document.getElementById("activity-title-6"),
-  activityText6: document.getElementById("activity-text-6"),
-
-  resultsLabel: document.getElementById("results-label"),
-  resultsTitle: document.getElementById("results-title"),
-  result1Title: document.getElementById("result-1-title"),
-  result1Text: document.getElementById("result-1-text"),
-  result2Title: document.getElementById("result-2-title"),
-  result2Text: document.getElementById("result-2-text"),
-  result3Title: document.getElementById("result-3-title"),
-  result3Text: document.getElementById("result-3-text"),
-
-  newsLabel: document.getElementById("news-label"),
-  newsTitle: document.getElementById("news-title"),
-  newsIntro: document.getElementById("news-intro"),
-  newsDate1: document.getElementById("news-date-1"),
-  newsCardTitle1: document.getElementById("news-card-title-1"),
-  newsCardText1: document.getElementById("news-card-text-1"),
-  newsLink1: document.getElementById("news-link-1"),
-  newsDate2: document.getElementById("news-date-2"),
-  newsCardTitle2: document.getElementById("news-card-title-2"),
-  newsCardText2: document.getElementById("news-card-text-2"),
-  newsLink2: document.getElementById("news-link-2"),
-  newsDate3: document.getElementById("news-date-3"),
-  newsCardTitle3: document.getElementById("news-card-title-3"),
-  newsCardText3: document.getElementById("news-card-text-3"),
-  newsLink3: document.getElementById("news-link-3"),
-
-  contactLabel: document.getElementById("contact-label"),
-  contactTitle: document.getElementById("contact-title"),
-  contactText: document.getElementById("contact-text"),
-  contactEmailLabel: document.getElementById("contact-email-label"),
-  contactPhoneLabel: document.getElementById("contact-phone-label"),
-  contactLocationLabel: document.getElementById("contact-location-label"),
-  contactLocation: document.getElementById("contact-location"),
-  contactCardTitle: document.getElementById("contact-card-title"),
-  contactCardText: document.getElementById("contact-card-text"),
-  contactBtn: document.getElementById("contact-btn"),
-
-  footerProjectText: document.getElementById("footer-project-text"),
-  footerLinksTitle: document.getElementById("footer-links-title"),
-  footerLink1: document.getElementById("footer-link-1"),
-  footerLink2: document.getElementById("footer-link-2"),
-  footerLink3: document.getElementById("footer-link-3"),
-  footerLink4: document.getElementById("footer-link-4"),
-  footerDisclaimerTitle: document.getElementById("footer-disclaimer-title"),
-  footerDisclaimer: document.getElementById("footer-disclaimer"),
-  footerCopy: document.getElementById("footer-copy")
-};
-
-const navElements = {
-  home: document.querySelector('[data-nav="home"]'),
-  project: document.querySelector('[data-nav="project"]'),
-  about: document.querySelector('[data-nav="about"]'),
-  objectives: document.querySelector('[data-nav="objectives"]'),
-  results: document.querySelector('[data-nav="results"]'),
-  partners: document.querySelector('[data-nav="partners"]'),
-  activities: document.querySelector('[data-nav="activities"]'),
-  news: document.querySelector('[data-nav="news"]'),
-  contact: document.querySelector('[data-nav="contact"]')
-};
-
-const languageSelect = document.getElementById("languageSelect");
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
-const dropdownWrapper = document.querySelector(".has-dropdown");
-const dropdownBtn = document.getElementById("projectDropdownBtn");
+const languageSwitcher = document.getElementById("languageSwitcher");
+const dropdown = document.querySelector(".has-dropdown");
+const dropdownToggle = document.querySelector(".dropdown-toggle");
+
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener("click", () => {
+    const isOpen = mainNav.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+if (dropdown && dropdownToggle) {
+  dropdownToggle.addEventListener("click", () => {
+    const isOpen = dropdown.classList.toggle("open");
+    dropdownToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+}
+
+document.querySelectorAll('.nav a').forEach((link) => {
+  link.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    menuToggle.setAttribute("aria-expanded", "false");
+  });
+});
 
 function applyLanguage(lang) {
-  const content = translations[lang] || translations.en;
+  const selected = translations[lang] || translations.en;
 
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-
-  elements.fundingText.textContent = content.fundingText;
-  elements.brandSubtitle.textContent = content.brandSubtitle;
-
-  navElements.home.textContent = content.navHome;
-  navElements.project.textContent = content.navProject;
-  navElements.about.textContent = content.navAbout;
-  navElements.objectives.textContent = content.navObjectives;
-  navElements.results.textContent = content.navResults;
-  navElements.partners.textContent = content.navPartners;
-  navElements.activities.textContent = content.navActivities;
-  navElements.news.textContent = content.navNews;
-  navElements.contact.textContent = content.navContact;
-
-  Object.keys(elements).forEach((key) => {
-    if (content[key] && elements[key]) {
-      elements[key].textContent = content[key];
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+    if (selected[key]) {
+      element.textContent = selected[key];
     }
   });
+
+  document.documentElement.lang = lang;
+
+  if (lang === "ar") {
+    document.body.setAttribute("dir", "rtl");
+  } else {
+    document.body.setAttribute("dir", "ltr");
+  }
 
   localStorage.setItem("eysae-language", lang);
 }
 
-function toggleMobileMenu() {
-  const isOpen = mainNav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-}
-
-function closeMobileMenu() {
-  mainNav.classList.remove("open");
-  menuToggle.setAttribute("aria-expanded", "false");
-}
-
-function toggleDropdown() {
-  const isOpen = dropdownWrapper.classList.toggle("open");
-  dropdownBtn.setAttribute("aria-expanded", String(isOpen));
-}
-
-function closeDropdown() {
-  dropdownWrapper.classList.remove("open");
-  dropdownBtn.setAttribute("aria-expanded", "false");
-}
-
-menuToggle.addEventListener("click", toggleMobileMenu);
-
-dropdownBtn.addEventListener("click", (event) => {
-  event.stopPropagation();
-  toggleDropdown();
-});
-
-document.addEventListener("click", (event) => {
-  if (!dropdownWrapper.contains(event.target)) {
-    closeDropdown();
-  }
-});
-
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", () => {
-    closeMobileMenu();
-    if (window.innerWidth <= 900) {
-      closeDropdown();
-    }
+if (languageSwitcher) {
+  languageSwitcher.addEventListener("change", (event) => {
+    applyLanguage(event.target.value);
   });
-});
+}
 
-languageSelect.addEventListener("change", (event) => {
-  applyLanguage(event.target.value);
-});
-
-const savedLanguage = localStorage.getItem("eysae-language") || "sl";
-languageSelect.value = savedLanguage;
+const savedLanguage = localStorage.getItem("eysae-language") || "en";
+if (languageSwitcher) {
+  languageSwitcher.value = savedLanguage;
+}
 applyLanguage(savedLanguage);
 
-const sections = document.querySelectorAll("main section[id]");
-const menuLinks = document.querySelectorAll(".nav-link");
-
-function setActiveNav() {
-  let currentSection = "hero";
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 140;
-    if (window.scrollY >= sectionTop) {
-      currentSection = section.getAttribute("id");
-    }
-  });
-
-  menuLinks.forEach((link) => {
-    link.classList.remove("active");
-    const target = link.getAttribute("href").replace("#", "");
-    if (target === currentSection) {
-      link.classList.add("active");
-    }
-  });
-
-  if (currentSection === "hero") {
-    navElements.home.classList.add("active");
-  }
-}
-
-window.addEventListener("scroll", setActiveNav);
-window.addEventListener("load", setActiveNav);
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 900) {
-    closeMobileMenu();
+document.addEventListener("click", (event) => {
+  if (dropdown && !dropdown.contains(event.target)) {
+    dropdown.classList.remove("open");
+    dropdownToggle.setAttribute("aria-expanded", "false");
   }
 });
