@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="sl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EYSAE — Empowering Youth for Sustainable Agriculture and Entrepreneurship</title>
   <meta
     name="description"
-    content="EYSAE — Empowering Youth for Sustainable Agriculture and Entrepreneurship. Erasmus+ project website focused on youth empowerment, sustainable agriculture and entrepreneurship."
+    content="EYSAE — Empowering Youth for Sustainable Agriculture and Entrepreneurship. Erasmus+ project website with partners, activities, results, news and contact information."
   />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
@@ -17,60 +17,46 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <div class="top-strip">
-    <div class="container top-strip__inner">
-      <p id="funding-text">
-        Projekt EYSAE se izvaja s podporo programa Erasmus+ Evropske unije.
-      </p>
-      <div class="top-strip__badge">Erasmus+ Project</div>
-    </div>
-  </div>
-
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a href="#hero" class="brand">
-        <span class="brand__mark">EY</span>
-        <div class="brand__text">
+        <span class="brand-mark">EY</span>
+        <div class="brand-text">
           <strong>EYSAE</strong>
-          <span id="brand-subtitle">Empowering Youth for Sustainable Agriculture and Entrepreneurship</span>
+          <span data-i18n="brandSubtitle">Empowering Youth for Sustainable Agriculture and Entrepreneurship</span>
         </div>
       </a>
 
-      <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <nav class="nav" id="mainNav">
         <ul class="nav-list">
-          <li><a href="#hero" class="nav-link" data-nav="home">Domov</a></li>
-
+          <li><a href="#hero" data-i18n="navHome">Home</a></li>
           <li class="has-dropdown">
-            <button class="nav-dropdown-toggle" id="projectDropdownBtn" aria-expanded="false" aria-controls="projectDropdownMenu">
-              <span data-nav="project">Projekt</span>
-              <span class="caret">▾</span>
+            <button class="dropdown-toggle" type="button" aria-expanded="false">
+              <span data-i18n="navProject">Project</span>
+              <span class="dropdown-arrow">▾</span>
             </button>
-            <ul class="dropdown-menu" id="projectDropdownMenu">
-              <li><a href="#about" class="dropdown-link" data-nav="about">O projektu</a></li>
-              <li><a href="#objectives" class="dropdown-link" data-nav="objectives">Cilji</a></li>
-              <li><a href="#results" class="dropdown-link" data-nav="results">Rezultati</a></li>
+            <ul class="dropdown-menu">
+              <li><a href="#about" data-i18n="navAbout">About</a></li>
+              <li><a href="#objectives" data-i18n="navObjectives">Objectives</a></li>
+              <li><a href="#activities" data-i18n="navActivities">Activities</a></li>
+              <li><a href="#results" data-i18n="navResults">Results</a></li>
             </ul>
           </li>
-
-          <li><a href="#partners" class="nav-link" data-nav="partners">Partnerji</a></li>
-          <li><a href="#activities" class="nav-link" data-nav="activities">Aktivnosti</a></li>
-          <li><a href="#news" class="nav-link" data-nav="news">Novice</a></li>
-          <li><a href="#contact" class="nav-link" data-nav="contact">Kontakt</a></li>
+          <li><a href="#partners" data-i18n="navPartners">Partners</a></li>
+          <li><a href="#news" data-i18n="navNews">News</a></li>
+          <li><a href="#contact" data-i18n="navContact">Contact</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
-        <div class="language-switcher">
-          <label for="languageSelect" class="sr-only">Select language</label>
-          <select id="languageSelect" aria-label="Language switcher">
-            <option value="sl" selected>SL</option>
-            <option value="en">EN</option>
-            <option value="el">GR</option>
-            <option value="ar">AR</option>
-          </select>
-        </div>
+        <select id="languageSwitcher" class="language-switcher" aria-label="Language switcher">
+          <option value="en">EN</option>
+          <option value="sl">SL</option>
+          <option value="el">GR</option>
+          <option value="ar">AR</option>
+        </select>
 
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
           <span></span>
           <span></span>
           <span></span>
@@ -80,435 +66,401 @@
   </header>
 
   <main>
-    <section class="hero-section" id="hero">
+    <section class="hero" id="hero">
       <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow" id="hero-eyebrow">Erasmus+ Cooperation Project</span>
-
-          <h1 id="hero-title">
-            Empowering youth through sustainable agriculture, entrepreneurship and regional cooperation.
-          </h1>
-
-          <p class="hero-text" id="hero-text">
-            EYSAE brings together youth-focused organisations from Europe, North Africa and the Middle East to equip young people with practical skills, entrepreneurial confidence and sustainable agriculture knowledge for resilient local development.
+        <div class="hero-content">
+          <div class="eyebrow" data-i18n="heroEyebrow">Erasmus+ Cooperation Project</div>
+          <h1 data-i18n="heroTitle">Empowering Youth for Sustainable Agriculture and Entrepreneurship</h1>
+          <p class="hero-lead" data-i18n="heroText">
+            EYSAE supports young people through practical learning, entrepreneurial thinking, sustainable agriculture knowledge and international cooperation.
           </p>
 
           <div class="hero-actions">
-            <a href="#about" class="btn btn-primary" id="hero-btn-primary">Razišči projekt</a>
-            <a href="#partners" class="btn btn-secondary" id="hero-btn-secondary">Spoznaj partnerje</a>
+            <a href="#about" class="btn btn-primary" data-i18n="heroBtnPrimary">Explore the Project</a>
+            <a href="#partners" class="btn btn-secondary" data-i18n="heroBtnSecondary">Meet the Partners</a>
           </div>
 
-          <div class="hero-stats">
-            <article class="stat-card">
-              <strong>6</strong>
-              <span id="stat-1">mednarodnih aktivnosti</span>
-            </article>
-            <article class="stat-card">
-              <strong>6</strong>
-              <span id="stat-2">partnerskih organizacij</span>
-            </article>
-            <article class="stat-card">
-              <strong>4+</strong>
-              <span id="stat-3">regije sodelovanja</span>
-            </article>
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <strong>6+</strong>
+              <span data-i18n="metricPartners">Partner organisations</span>
+            </div>
+            <div class="metric-card">
+              <strong>4</strong>
+              <span data-i18n="metricLanguages">Website languages</span>
+            </div>
+            <div class="metric-card">
+              <strong>EU</strong>
+              <span data-i18n="metricFocus">Youth, sustainability, mobility</span>
+            </div>
           </div>
         </div>
 
         <div class="hero-visual">
-          <div class="hero-visual-card">
-            <div class="hero-banner">
-              <div class="hero-banner__label">EU / Erasmus+ Banner</div>
-              <div class="hero-banner__placeholder">Dodaj banner v assets/img/logos/eu-erasmus-banner.png</div>
+          <div class="hero-image-card">
+            <img src="assets/images/hero-eysae.jpg" alt="Young people in sustainable agriculture project activity" />
+            <div class="hero-floating-note note-top">
+              <span class="note-label" data-i18n="heroNote1Label">Focus</span>
+              <strong data-i18n="heroNote1Text">Green skills & youth entrepreneurship</strong>
             </div>
-
-            <div class="hero-focus-grid">
-              <div class="hero-focus-card">
-                <span class="mini-label" id="hero-mini-1-label">Fokus</span>
-                <strong id="hero-mini-1-value">Sustainable Agriculture</strong>
-                <p id="hero-mini-1-text">
-                  Practical sustainability knowledge linked to local resilience and green skills.
-                </p>
-              </div>
-
-              <div class="hero-focus-card">
-                <span class="mini-label" id="hero-mini-2-label">Pristop</span>
-                <strong id="hero-mini-2-value">Youth Entrepreneurship</strong>
-                <p id="hero-mini-2-text">
-                  Entrepreneurial thinking, initiative and employability for young participants.
-                </p>
-              </div>
-
-              <div class="hero-focus-card">
-                <span class="mini-label" id="hero-mini-3-label">Doseg</span>
-                <strong id="hero-mini-3-value">Cross-Regional Cooperation</strong>
-                <p id="hero-mini-3-text">
-                  Learning and cooperation between Europe, North Africa and the Middle East.
-                </p>
-              </div>
+            <div class="hero-floating-note note-bottom">
+              <span class="note-label" data-i18n="heroNote2Label">Approach</span>
+              <strong data-i18n="heroNote2Text">International learning and local impact</strong>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-light" id="about">
-      <div class="container section-grid about-grid">
-        <div>
-          <span class="section-label" id="about-label">O projektu</span>
-          <h2 id="about-title">A collaborative platform for youth empowerment, innovation and sustainable local growth.</h2>
-        </div>
-        <div>
-          <p id="about-text-1">
-            EYSAE is designed to strengthen the role of young people in shaping greener and more entrepreneurial communities. Through transnational learning, practice-based activities and cooperation between civil society actors, the project creates pathways for youth participation, skills development and sustainable economic opportunity.
-          </p>
-          <p id="about-text-2">
-            The partnership combines expertise in youth work, community development, social innovation and education in order to build practical tools, mobility experiences and dissemination outputs that remain relevant beyond the lifetime of the project.
-          </p>
+    <section class="eu-banner-section">
+      <div class="container">
+        <div class="eu-banner-card">
+          <div class="eu-banner-logo">
+            <img src="assets/images/eu-banner.png" alt="European Union and Erasmus+ visual identity" />
+          </div>
+          <div class="eu-banner-text">
+            <p class="eu-kicker" data-i18n="euKicker">Project framework</p>
+            <h2 data-i18n="euTitle">Implemented within the Erasmus+ cooperation framework</h2>
+            <p data-i18n="euText">
+              This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="objectives">
+    <section class="section" id="about">
       <div class="container">
         <div class="section-heading">
-          <span class="section-label" id="objectives-label">Cilji</span>
-          <h2 id="objectives-title">Key objectives of the EYSAE project</h2>
+          <span class="section-kicker" data-i18n="aboutKicker">About</span>
+          <h2 data-i18n="aboutTitle">About the Project</h2>
+          <p data-i18n="aboutText">
+            EYSAE is designed to strengthen youth capacities in sustainable agriculture and entrepreneurship by combining learning, cooperation, practical engagement and international exchange.
+          </p>
         </div>
 
-        <div class="cards-grid three-col">
-          <article class="info-card">
-            <h3 id="objective-1-title">Youth capacity building</h3>
-            <p id="objective-1-text">
-              Strengthen young people’s competencies in sustainable agriculture, initiative-taking, problem-solving and entrepreneurial thinking through practical and international learning experiences.
+        <div class="info-grid two-col">
+          <div class="info-card">
+            <h3 data-i18n="aboutCard1Title">Why this project matters</h3>
+            <p data-i18n="aboutCard1Text">
+              Young people need practical pathways to build green skills, entrepreneurial confidence and stronger links to sustainable local economies.
             </p>
-          </article>
+          </div>
+          <div class="info-card">
+            <h3 data-i18n="aboutCard2Title">What EYSAE delivers</h3>
+            <p data-i18n="aboutCard2Text">
+              The project creates learning opportunities, cooperation activities, visibility actions and transferable results for youth workers, young participants and partner organisations.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <article class="info-card">
-            <h3 id="objective-2-title">Cross-border cooperation</h3>
-            <p id="objective-2-text">
-              Foster meaningful cooperation between partner organisations across Europe, North Africa and the Middle East in order to share methods, strengthen networks and co-create relevant youth-focused approaches.
-            </p>
-          </article>
+    <section class="section section-soft" id="objectives">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker" data-i18n="objectivesKicker">Objectives</span>
+          <h2 data-i18n="objectivesTitle">Project Objectives</h2>
+        </div>
 
-          <article class="info-card">
-            <h3 id="objective-3-title">Sustainable local impact</h3>
-            <p id="objective-3-text">
-              Encourage locally adaptable solutions that connect sustainability, employability and youth engagement, ensuring that knowledge gained through the project can be applied in communities after the project ends.
-            </p>
+        <div class="objectives-grid">
+          <article class="objective-card">
+            <span class="objective-number">01</span>
+            <h3 data-i18n="obj1Title">Strengthen green competencies</h3>
+            <p data-i18n="obj1Text">Support young people in understanding sustainable agriculture, environmental responsibility and local resilience.</p>
+          </article>
+          <article class="objective-card">
+            <span class="objective-number">02</span>
+            <h3 data-i18n="obj2Title">Promote entrepreneurship</h3>
+            <p data-i18n="obj2Text">Encourage initiative, innovation and entrepreneurial thinking linked to rural and sustainable development opportunities.</p>
+          </article>
+          <article class="objective-card">
+            <span class="objective-number">03</span>
+            <h3 data-i18n="obj3Title">Build international cooperation</h3>
+            <p data-i18n="obj3Text">Create stronger collaboration between partners, communities and youth stakeholders across participating countries.</p>
+          </article>
+          <article class="objective-card">
+            <span class="objective-number">04</span>
+            <h3 data-i18n="obj4Title">Increase visibility and transferability</h3>
+            <p data-i18n="obj4Text">Share methods, activities and project results in a way that supports broader use and long-term sustainability.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-light" id="partners">
+    <section class="section" id="partners">
       <div class="container">
         <div class="section-heading">
-          <span class="section-label" id="partners-label">Partnerji</span>
-          <h2 id="partners-title">Project partnership</h2>
-          <p id="partners-intro">
-            EYSAE is built on a diverse consortium of organisations experienced in youth work, inclusion, education, entrepreneurship and community-based development.
+          <span class="section-kicker" data-i18n="partnersKicker">Partnership</span>
+          <h2 data-i18n="partnersTitle">Project Partners</h2>
+          <p data-i18n="partnersText">
+            EYSAE is implemented through a partnership of organisations committed to youth development, sustainability, entrepreneurship and European cooperation.
           </p>
         </div>
 
         <div class="partners-grid">
           <article class="partner-card">
-            <div class="partner-logo-placeholder">POVOD LOGO</div>
-            <h3>POVOD, so.p.</h3>
-            <span class="partner-country" id="partner-country-1">Slovenia</span>
-            <p id="partner-desc-1">
-              POVOD, so.p. contributes expertise in project coordination, youth engagement and local capacity-building, ensuring strategic implementation and strong connection to community-based educational processes.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-1.png" alt="Partner 1 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Slovenia</span>
+              <h3>New Start Institute</h3>
+              <p data-i18n="partner1Role">Project coordination, management and dissemination support.</p>
+            </div>
           </article>
 
           <article class="partner-card">
-            <div class="partner-logo-placeholder">IASIS LOGO</div>
-            <h3>IASIS</h3>
-            <span class="partner-country" id="partner-country-2">Greece</span>
-            <p id="partner-desc-2">
-              IASIS brings experience in social innovation, vulnerable group support and international cooperation, contributing methodologies that connect inclusion, resilience and sustainable youth empowerment.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-2.png" alt="Partner 2 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Greece</span>
+              <h3>Partner Organisation</h3>
+              <p data-i18n="partner2Role">Youth engagement, educational activities and local implementation.</p>
+            </div>
           </article>
 
           <article class="partner-card">
-            <div class="partner-logo-placeholder">AMUDDU LOGO</div>
-            <h3>Amuddu CSF</h3>
-            <span class="partner-country" id="partner-country-3">Morocco</span>
-            <p id="partner-desc-3">
-              Amuddu CSF supports community-centred development and youth participation initiatives, with a practical approach to local sustainability, civic engagement and regional cooperation.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-3.png" alt="Partner 3 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Croatia</span>
+              <h3>Partner Organisation</h3>
+              <p data-i18n="partner3Role">Training support, cross-border cooperation and participant outreach.</p>
+            </div>
           </article>
 
           <article class="partner-card">
-            <div class="partner-logo-placeholder">SOUSSE LOGO</div>
-            <h3>We Love Sousse</h3>
-            <span class="partner-country" id="partner-country-4">Tunisia</span>
-            <p id="partner-desc-4">
-              We Love Sousse contributes strong experience in community activation, local innovation and public engagement, helping transform project learning into visible local action.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-4.png" alt="Partner 4 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Italy</span>
+              <h3>Partner Organisation</h3>
+              <p data-i18n="partner4Role">Community engagement, sustainability methods and youth participation.</p>
+            </div>
           </article>
 
           <article class="partner-card">
-            <div class="partner-logo-placeholder">SHOURA LOGO</div>
-            <h3>Shoura Organization</h3>
-            <span class="partner-country" id="partner-country-5">Jordan</span>
-            <p id="partner-desc-5">
-              Shoura Organization strengthens the partnership with experience in youth development, dialogue-based learning and organisational outreach across community and educational contexts.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-5.png" alt="Partner 5 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Spain</span>
+              <h3>Partner Organisation</h3>
+              <p data-i18n="partner5Role">Communication support, visibility actions and dissemination outputs.</p>
+            </div>
           </article>
 
           <article class="partner-card">
-            <div class="partner-logo-placeholder">SANAD LOGO</div>
-            <h3>Sanad Youth for Development Foundation</h3>
-            <span class="partner-country" id="partner-country-6">Syria</span>
-            <p id="partner-desc-6">
-              Sanad Youth for Development Foundation adds practical knowledge in youth mobilisation, local development and empowerment-based programming aimed at long-term social benefit.
-            </p>
+            <div class="partner-logo-box">
+              <img src="assets/images/partners/partner-6.png" alt="Partner 6 logo" />
+            </div>
+            <div class="partner-meta">
+              <span class="partner-country">Cyprus</span>
+              <h3>Partner Organisation</h3>
+              <p data-i18n="partner6Role">Local coordination, stakeholder cooperation and pilot support.</p>
+            </div>
           </article>
         </div>
+      </div>
+    </section>
 
-        <div class="logo-banner">
-          <h3 id="logos-title">Partner and programme logo area</h3>
-          <div class="logo-strip">
-            <div class="logo-slot">EU</div>
-            <div class="logo-slot">Erasmus+</div>
-            <div class="logo-slot">POVOD</div>
-            <div class="logo-slot">IASIS</div>
-            <div class="logo-slot">Amuddu</div>
-            <div class="logo-slot">Sousse</div>
-            <div class="logo-slot">Shoura</div>
-            <div class="logo-slot">Sanad</div>
+    <section class="section section-soft" id="activities">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker" data-i18n="activitiesKicker">Activities</span>
+          <h2 data-i18n="activitiesTitle">Main Activities</h2>
+        </div>
+
+        <div class="info-grid three-col">
+          <div class="info-card">
+            <h3 data-i18n="act1Title">Workshops</h3>
+            <p data-i18n="act1Text">Hands-on educational sessions on sustainability, agriculture and entrepreneurial thinking.</p>
+          </div>
+          <div class="info-card">
+            <h3 data-i18n="act2Title">Mobility & Exchange</h3>
+            <p data-i18n="act2Text">International cooperation and exchange activities that build intercultural learning and shared practice.</p>
+          </div>
+          <div class="info-card">
+            <h3 data-i18n="act3Title">Dissemination</h3>
+            <p data-i18n="act3Text">Visibility, communication and outreach actions to share results with wider audiences.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="activities">
+    <section class="section" id="results">
       <div class="container">
         <div class="section-heading">
-          <span class="section-label" id="activities-label">Aktivnosti</span>
-          <h2 id="activities-title">International project activities</h2>
-          <p id="activities-intro">
-            The project combines study visits, training activities, exchange-based learning and dissemination events to support practical knowledge transfer and strong partnership cooperation.
-          </p>
+          <span class="section-kicker" data-i18n="resultsKicker">Results</span>
+          <h2 data-i18n="resultsTitle">Expected Results</h2>
         </div>
 
-        <div class="timeline">
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-1">Study Visit 1</span>
-              <h3 id="activity-title-1">Athens, Greece</h3>
-              <p id="activity-text-1">
-                An international study visit focused on exchanging practices in youth empowerment, social inclusion and sustainable community-based development.
-              </p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-2">Study Visit 2</span>
-              <h3 id="activity-title-2">Tunis, Tunisia</h3>
-              <p id="activity-text-2">
-                A field-based visit exploring local engagement models, entrepreneurship opportunities and ways to connect sustainability with youth-led initiatives.
-              </p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-3">Training Course 1</span>
-              <h3 id="activity-title-3">Damascus, Syria</h3>
-              <p id="activity-text-3">
-                A structured training activity designed to strengthen participant skills in project participation, sustainable thinking and practical youth-oriented methodologies.
-              </p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-4">Training Course 2</span>
-              <h3 id="activity-title-4">Amman, Jordan</h3>
-              <p id="activity-text-4">
-                A second training cycle dedicated to entrepreneurship, local implementation models and peer learning between partner representatives and youth participants.
-              </p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-5">Youth Exchange</span>
-              <h3 id="activity-title-5">Rabat, Morocco</h3>
-              <p id="activity-text-5">
-                A youth exchange encouraging intercultural dialogue, team-based learning and collaborative exploration of sustainable agricultural and entrepreneurial opportunities.
-              </p>
-            </div>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-marker"></div>
-            <div class="timeline-card">
-              <span class="timeline-type" id="activity-type-6">Hackathon & Final Dissemination Conference</span>
-              <h3 id="activity-title-6">Ljubljana, Slovenia</h3>
-              <p id="activity-text-6">
-                A final flagship event showcasing project learning, collaborative solutions, dissemination outputs and future cooperation perspectives for broader stakeholder engagement.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-light" id="results">
-      <div class="container">
-        <div class="section-heading">
-          <span class="section-label" id="results-label">Rezultati</span>
-          <h2 id="results-title">Expected results</h2>
-        </div>
-
-        <div class="cards-grid three-col">
-          <article class="info-card">
-            <h3 id="result-1-title">Improved youth competences</h3>
-            <p id="result-1-text">
-              Participants gain increased knowledge, confidence and practical skills related to sustainability, entrepreneurship and international cooperation.
-            </p>
-          </article>
-
-          <article class="info-card">
-            <h3 id="result-2-title">Transferable methods and tools</h3>
-            <p id="result-2-text">
-              Partner organisations co-develop approaches, materials and practical learning models that can be adapted and reused in different local contexts.
-            </p>
-          </article>
-
-          <article class="info-card">
-            <h3 id="result-3-title">Long-term cooperation and visibility</h3>
-            <p id="result-3-text">
-              The project strengthens international partnerships, increases visibility of Erasmus+ values and creates a strong basis for future collaborative initiatives.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="news">
-      <div class="container">
-        <div class="section-heading">
-          <span class="section-label" id="news-label">Novice</span>
-          <h2 id="news-title">Project news and updates</h2>
-          <p id="news-intro">
-            This section highlights the first communication milestones of the project and prepares the ground for future mobility and dissemination updates.
-          </p>
-        </div>
-
-        <div class="cards-grid three-col">
-          <article class="news-card">
-            <div class="news-image-placeholder">LAUNCH</div>
-            <div class="news-content">
-              <span class="news-date" id="news-date-1">Project Update</span>
-              <h3 id="news-card-title-1">Project Launch and Partnership Start</h3>
-              <p id="news-card-text-1">
-                EYSAE officially begins with a shared commitment to empowering youth through sustainable agriculture, entrepreneurship and transnational cooperation across partner regions.
-              </p>
-              <a href="#contact" class="text-link" id="news-link-1">Read more</a>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <div class="news-image-placeholder">MOBILITY</div>
-            <div class="news-content">
-              <span class="news-date" id="news-date-2">Preparation Phase</span>
-              <h3 id="news-card-title-2">Preparation for International Mobility Activities</h3>
-              <p id="news-card-text-2">
-                Partner organisations are coordinating the first cycle of study visits and training activities, aligning logistics, participant engagement and thematic learning priorities.
-              </p>
-              <a href="#activities" class="text-link" id="news-link-2">Read more</a>
-            </div>
-          </article>
-
-          <article class="news-card">
-            <div class="news-image-placeholder">OUTREACH</div>
-            <div class="news-content">
-              <span class="news-date" id="news-date-3">Visibility</span>
-              <h3 id="news-card-title-3">Building Visibility and Local Outreach</h3>
-              <p id="news-card-text-3">
-                The consortium is preparing communication materials, local dissemination actions and stakeholder outreach to ensure strong visibility and long-term impact.
-              </p>
-              <a href="#news" class="text-link" id="news-link-3">Read more</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-light" id="contact">
-      <div class="container contact-grid">
-        <div>
-          <span class="section-label" id="contact-label">Kontakt</span>
-          <h2 id="contact-title">Get in touch</h2>
-          <p id="contact-text">
-            For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please use the contact details below. These details can be updated later with the final official project contact points.
-          </p>
-
-          <div class="contact-list">
-            <div class="contact-item">
-              <span class="contact-item__label" id="contact-email-label">E-pošta</span>
-              <a href="mailto:info@eysae-project.eu" id="contact-email">info@eysae-project.eu</a>
-            </div>
-            <div class="contact-item">
-              <span class="contact-item__label" id="contact-phone-label">Telefon</span>
-              <a href="tel:+38640123456" id="contact-phone">+386 40 123 456</a>
-            </div>
-            <div class="contact-item">
-              <span class="contact-item__label" id="contact-location-label">Lokacija</span>
-              <span id="contact-location">Ljubljana, Slovenia</span>
-            </div>
+        <div class="results-grid">
+          <div class="result-card">
+            <h3 data-i18n="res1Title">Improved youth competencies</h3>
+            <p data-i18n="res1Text">Young participants develop practical knowledge, confidence and stronger engagement in sustainable topics.</p>
+          </div>
+          <div class="result-card">
+            <h3 data-i18n="res2Title">Stronger partner cooperation</h3>
+            <p data-i18n="res2Text">Organisations build shared methods, cross-border relationships and better long-term collaboration.</p>
+          </div>
+          <div class="result-card">
+            <h3 data-i18n="res3Title">Visible project outputs</h3>
+            <p data-i18n="res3Text">Activities, materials and communication actions create a durable and transferable project footprint.</p>
           </div>
         </div>
+      </div>
+    </section>
 
+    <section class="section section-soft" id="news">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-kicker" data-i18n="newsKicker">News</span>
+          <h2 data-i18n="newsTitle">Latest Project Updates</h2>
+          <p data-i18n="newsText">
+            Follow the latest visibility actions, partnership steps and implementation highlights from the EYSAE project.
+          </p>
+        </div>
+
+        <div class="news-grid">
+          <article class="news-card">
+            <div class="news-thumb">
+              <img src="assets/images/news/news-1.jpg" alt="Project launch meeting" />
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span>March 2026</span>
+                <span data-i18n="newsTag1">Project Launch</span>
+              </div>
+              <h3 data-i18n="news1Title">EYSAE project implementation officially begins</h3>
+              <p data-i18n="news1Text">
+                Partners have aligned the initial coordination steps, visibility direction and implementation priorities for the first phase of the project.
+              </p>
+              <a href="#contact" class="news-link" data-i18n="newsReadMore">Read more</a>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-thumb">
+              <img src="assets/images/news/news-2.jpg" alt="Preparations for project mobility" />
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span>March 2026</span>
+                <span data-i18n="newsTag2">Mobility Preparation</span>
+              </div>
+              <h3 data-i18n="news2Title">Preparations for international project activities are underway</h3>
+              <p data-i18n="news2Text">
+                The partnership is developing organisational steps, communication materials and participant-oriented preparation for upcoming cooperation activities.
+              </p>
+              <a href="#contact" class="news-link" data-i18n="newsReadMore">Read more</a>
+            </div>
+          </article>
+
+          <article class="news-card">
+            <div class="news-thumb">
+              <img src="assets/images/news/news-3.jpg" alt="Project outreach and dissemination" />
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span>March 2026</span>
+                <span data-i18n="newsTag3">Visibility</span>
+              </div>
+              <h3 data-i18n="news3Title">Visibility and outreach framework introduced on the website</h3>
+              <p data-i18n="news3Text">
+                The project website now provides a stronger public-facing structure for presenting partnership information, activities and future updates.
+              </p>
+              <a href="#contact" class="news-link" data-i18n="newsReadMore">Read more</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
         <div class="contact-card">
-          <h3 id="contact-card-title">Project Coordination</h3>
-          <p id="contact-card-text">
-            For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please contact the coordinating organisation through the details provided on this page.
-          </p>
-          <a href="mailto:info@eysae-project.eu" class="btn btn-primary" id="contact-btn">Send inquiry</a>
+          <div class="contact-content">
+            <span class="section-kicker" data-i18n="contactKicker">Contact</span>
+            <h2 data-i18n="contactTitle">Official Project Contact</h2>
+            <p data-i18n="contactText">
+              For partnership communication, project visibility, implementation-related questions or dissemination enquiries, please contact the coordinating organisation.
+            </p>
+
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contactCoordinatorLabel">Coordinator</span>
+                <strong>New Start Institute</strong>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contactEmailLabel">Email</span>
+                <strong>info@example.org</strong>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label" data-i18n="contactLocationLabel">Location</span>
+                <strong>Slovenia</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-side">
+            <div class="contact-side-box">
+              <h3 data-i18n="contactSideTitle">Project visibility and cooperation</h3>
+              <p data-i18n="contactSideText">
+                The website will continue to be updated with project news, cooperation milestones, activities and public-facing results as implementation progresses.
+              </p>
+              <a href="mailto:info@example.org" class="btn btn-primary" data-i18n="contactBtn">Send an Email</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <h3>EYSAE</h3>
-        <p id="footer-project-text">
-          Empowering Youth for Sustainable Agriculture and Entrepreneurship
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="brand footer-brand-inner">
+          <span class="brand-mark">EY</span>
+          <div class="brand-text">
+            <strong>EYSAE</strong>
+            <span data-i18n="footerBrandText">Empowering Youth for Sustainable Agriculture and Entrepreneurship</span>
+          </div>
+        </div>
+        <p data-i18n="footerText">
+          A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.
         </p>
       </div>
 
-      <div>
-        <h4 id="footer-links-title">Quick links</h4>
-        <ul class="footer-links">
-          <li><a href="#about" id="footer-link-1">About the project</a></li>
-          <li><a href="#partners" id="footer-link-2">Partners</a></li>
-          <li><a href="#activities" id="footer-link-3">Activities</a></li>
-          <li><a href="#contact" id="footer-link-4">Contact</a></li>
-        </ul>
-      </div>
+      <div class="footer-links">
+        <div>
+          <h4 data-i18n="footerNavTitle">Navigation</h4>
+          <ul>
+            <li><a href="#about" data-i18n="navAbout">About</a></li>
+            <li><a href="#partners" data-i18n="navPartners">Partners</a></li>
+            <li><a href="#news" data-i18n="navNews">News</a></li>
+            <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+          </ul>
+        </div>
 
-      <div>
-        <h4 id="footer-disclaimer-title">Disclaimer</h4>
-        <p class="footer-disclaimer" id="footer-disclaimer">
-          Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the Erasmus+ Programme. Neither the European Union nor the granting authority can be held responsible for them.
-        </p>
+        <div>
+          <h4 data-i18n="footerLegalTitle">Institutional Note</h4>
+          <p data-i18n="footerLegalText">
+            Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.
+          </p>
+        </div>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <p id="footer-copy">© 2026 EYSAE. All rights reserved.</p>
+      <p>© 2026 EYSAE</p>
+      <p data-i18n="footerDisclaimer">
+        The content of this website is the responsibility of the project partnership and is intended for information and dissemination purposes.
+      </p>
     </div>
   </footer>
 
