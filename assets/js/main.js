@@ -26,10 +26,13 @@ const translations = {
 
     heroMini1Label: "Fokus",
     heroMini1Value: "Trajnostno kmetijstvo",
+    heroMini1Text: "Praktično znanje o trajnosti, povezano z lokalno odpornostjo in zelenimi veščinami.",
     heroMini2Label: "Pristop",
     heroMini2Value: "Mladinsko podjetništvo",
+    heroMini2Text: "Podjetniško razmišljanje, iniciativnost in zaposljivost za mlade udeležence.",
     heroMini3Label: "Doseg",
     heroMini3Value: "Medregionalno sodelovanje",
+    heroMini3Text: "Učenje in sodelovanje med Evropo, Severno Afriko in Bližnjim vzhodom.",
 
     aboutLabel: "O projektu",
     aboutTitle: "Sodelovalna platforma za opolnomočenje mladih, inovacije in trajnostno lokalno rast.",
@@ -122,37 +125,37 @@ const translations = {
     newsLabel: "Novice",
     newsTitle: "Projektne novice in posodobitve",
     newsIntro:
-      "Ta sekcija je pripravljena za prihodnjo objavo projektnih mejnikov, utrinkov z mobilnosti, partnerskih srečanj in diseminacijskih aktivnosti.",
+      "Ta sekcija predstavlja prve komunikacijske mejnike projekta in pripravlja prostor za prihodnje objave o mobilnostih ter diseminaciji.",
 
-    newsDate1: "Nadomestna objava",
-    newsCardTitle1: "Napoved uvodnega srečanja",
+    newsDate1: "Projektna novica",
+    newsCardTitle1: "Začetek projekta in zagon partnerstva",
     newsCardText1:
-      "Pripravljen nadomestni prostor za prvo uradno novico, ki predstavi začetek projekta, začetno koordinacijo partnerjev in prve korake izvajanja.",
+      "EYSAE se uradno začenja s skupno zavezo opolnomočenju mladih skozi trajnostno kmetijstvo, podjetništvo in transnacionalno sodelovanje med partnerskimi regijami.",
     newsLink1: "Preberi več",
 
-    newsDate2: "Nadomestna objava",
-    newsCardTitle2: "Poudarki študijskih obiskov",
+    newsDate2: "Pripravljalna faza",
+    newsCardTitle2: "Priprava na mednarodne mobilnostne aktivnosti",
     newsCardText2:
-      "Kartica za objavo vpogledov, praktičnih učnih trenutkov in lokalnih izkušenj vključevanja s prihajajočih študijskih obiskov.",
+      "Partnerske organizacije usklajujejo prvi cikel študijskih obiskov in usposabljanj, vključno z logistiko, vključevanjem udeležencev in tematskimi učnimi prioritetami.",
     newsLink2: "Preberi več",
 
-    newsDate3: "Nadomestna objava",
-    newsCardTitle3: "Zaključni dogodek in diseminacija",
+    newsDate3: "Vidnost",
+    newsCardTitle3: "Krepitev prepoznavnosti in lokalnega dosega",
     newsCardText3:
-      "Pripravljen prostor za zadnjo fazo projekta z rezultati hackathona, diseminacijskimi poudarki in prihodnjimi perspektivami.",
+      "Konzorcij pripravlja komunikacijska gradiva, lokalne diseminacijske aktivnosti in outreach do deležnikov za močno vidnost in dolgoročen učinek.",
     newsLink3: "Preberi več",
 
     contactLabel: "Kontakt",
     contactTitle: "Stopite v stik",
     contactText:
-      "Za komunikacijo glede partnerstva, diseminacijskega sodelovanja ali splošnih informacij o projektu uporabite spodnje kontaktne podatke. Nadomestne podatke lahko pozneje zamenjate z uradnimi projektnimi kontakti.",
+      "Za uradno komunikacijo glede projekta EYSAE, partnerstev, diseminacijskih priložnosti in institucionalnega sodelovanja uporabite spodnje kontaktne podatke. Te podatke lahko kasneje posodobite z dokončnimi uradnimi kontaktnimi točkami projekta.",
     contactEmailLabel: "E-pošta",
     contactPhoneLabel: "Telefon",
     contactLocationLabel: "Lokacija",
     contactLocation: "Ljubljana, Slovenija",
-    contactCardTitle: "Nadomestni prostor za projektno koordinacijo",
+    contactCardTitle: "Projektna koordinacija",
     contactCardText:
-      "Ta blok pozneje zamenjajte z uradnimi podatki koordinacijske organizacije, poštnim naslovom, komunikacijskimi kanali ali obrazcem.",
+      "Za uradno komunikacijo glede projekta EYSAE, partnerstev, diseminacijskih priložnosti in institucionalnega sodelovanja se obrnite na koordinacijsko organizacijo preko podatkov na tej strani.",
     contactBtn: "Pošlji povpraševanje",
 
     footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
@@ -194,10 +197,13 @@ const translations = {
 
     heroMini1Label: "Focus",
     heroMini1Value: "Sustainable Agriculture",
+    heroMini1Text: "Practical sustainability knowledge linked to local resilience and green skills.",
     heroMini2Label: "Approach",
     heroMini2Value: "Youth Entrepreneurship",
+    heroMini2Text: "Entrepreneurial thinking, initiative and employability for young participants.",
     heroMini3Label: "Scope",
     heroMini3Value: "Cross-Regional Cooperation",
+    heroMini3Text: "Learning and cooperation between Europe, North Africa and the Middle East.",
 
     aboutLabel: "About the Project",
     aboutTitle: "A collaborative platform for youth empowerment, innovation and sustainable local growth.",
@@ -290,37 +296,37 @@ const translations = {
     newsLabel: "News",
     newsTitle: "Project news and updates",
     newsIntro:
-      "This section is prepared for future publication of project milestones, mobility highlights, partner meetings and dissemination updates.",
+      "This section highlights the first communication milestones of the project and prepares the ground for future mobility and dissemination updates.",
 
-    newsDate1: "Placeholder update",
-    newsCardTitle1: "Kick-off meeting announcement",
+    newsDate1: "Project Update",
+    newsCardTitle1: "Project Launch and Partnership Start",
     newsCardText1:
-      "A ready-to-replace placeholder for the first official update introducing the project launch, initial partner coordination and first implementation steps.",
+      "EYSAE officially begins with a shared commitment to empowering youth through sustainable agriculture, entrepreneurship and transnational cooperation across partner regions.",
     newsLink1: "Read more",
 
-    newsDate2: "Placeholder update",
-    newsCardTitle2: "Study visit highlights",
+    newsDate2: "Preparation Phase",
+    newsCardTitle2: "Preparation for International Mobility Activities",
     newsCardText2:
-      "A placeholder card intended for publication of insights, practical learning moments and local engagement experiences from upcoming study visits.",
+      "Partner organisations are coordinating the first cycle of study visits and training activities, aligning logistics, participant engagement and thematic learning priorities.",
     newsLink2: "Read more",
 
-    newsDate3: "Placeholder update",
-    newsCardTitle3: "Final event and dissemination",
+    newsDate3: "Visibility",
+    newsCardTitle3: "Building Visibility and Local Outreach",
     newsCardText3:
-      "A placeholder prepared for the final stage of the project, with space for hackathon outcomes, dissemination highlights and future perspectives.",
+      "The consortium is preparing communication materials, local dissemination actions and stakeholder outreach to ensure strong visibility and long-term impact.",
     newsLink3: "Read more",
 
     contactLabel: "Contact",
     contactTitle: "Get in touch",
     contactText:
-      "For partnership communication, dissemination cooperation or general project-related information, please use the contact details below. You can replace these placeholders with official project contacts later.",
+      "For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please use the contact details below. These details can be updated later with the final official project contact points.",
     contactEmailLabel: "Email",
     contactPhoneLabel: "Phone",
     contactLocationLabel: "Location",
     contactLocation: "Ljubljana, Slovenia",
-    contactCardTitle: "Project coordination placeholder",
+    contactCardTitle: "Project Coordination",
     contactCardText:
-      "Replace this block with the official coordinating organisation details, postal address, communication channels or embedded form if needed later.",
+      "For official communication regarding the EYSAE project, partnerships, dissemination opportunities and institutional cooperation, please contact the coordinating organisation through the details provided on this page.",
     contactBtn: "Send inquiry",
 
     footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
@@ -362,10 +368,13 @@ const translations = {
 
     heroMini1Label: "Εστίαση",
     heroMini1Value: "Βιώσιμη Γεωργία",
+    heroMini1Text: "Πρακτική γνώση βιωσιμότητας συνδεδεμένη με τοπική ανθεκτικότητα και πράσινες δεξιότητες.",
     heroMini2Label: "Προσέγγιση",
     heroMini2Value: "Νεανική Επιχειρηματικότητα",
+    heroMini2Text: "Επιχειρηματική σκέψη, πρωτοβουλία και απασχολησιμότητα για τους νέους συμμετέχοντες.",
     heroMini3Label: "Εμβέλεια",
     heroMini3Value: "Διαπεριφερειακή Συνεργασία",
+    heroMini3Text: "Μάθηση και συνεργασία μεταξύ Ευρώπης, Βόρειας Αφρικής και Μέσης Ανατολής.",
 
     aboutLabel: "Σχετικά με το έργο",
     aboutTitle: "Μια συνεργατική πλατφόρμα για ενδυνάμωση νέων, καινοτομία και βιώσιμη τοπική ανάπτυξη.",
@@ -458,37 +467,37 @@ const translations = {
     newsLabel: "Νέα",
     newsTitle: "Νέα και ενημερώσεις έργου",
     newsIntro:
-      "Αυτή η ενότητα είναι έτοιμη για μελλοντική δημοσίευση ορόσημων του έργου, στιγμιότυπων κινητικότητας, συναντήσεων εταίρων και δράσεων διάδοσης.",
+      "Αυτή η ενότητα παρουσιάζει τα πρώτα επικοινωνιακά ορόσημα του έργου και προετοιμάζει το έδαφος για μελλοντικές ενημερώσεις κινητικότητας και διάδοσης.",
 
-    newsDate1: "Ενημέρωση placeholder",
-    newsCardTitle1: "Ανακοίνωση εναρκτήριας συνάντησης",
+    newsDate1: "Ενημέρωση έργου",
+    newsCardTitle1: "Έναρξη έργου και έναρξη συνεργασίας",
     newsCardText1:
-      "Ένα έτοιμο placeholder για την πρώτη επίσημη ενημέρωση που παρουσιάζει την έναρξη του έργου, τον αρχικό συντονισμό των εταίρων και τα πρώτα βήματα υλοποίησης.",
+      "Το EYSAE ξεκινά επίσημα με κοινή δέσμευση για ενδυνάμωση των νέων μέσω βιώσιμης γεωργίας, επιχειρηματικότητας και διακρατικής συνεργασίας.",
     newsLink1: "Διαβάστε περισσότερα",
 
-    newsDate2: "Ενημέρωση placeholder",
-    newsCardTitle2: "Στιγμιότυπα από επισκέψεις μελέτης",
+    newsDate2: "Φάση προετοιμασίας",
+    newsCardTitle2: "Προετοιμασία για διεθνείς δραστηριότητες κινητικότητας",
     newsCardText2:
-      "Μια κάρτα placeholder για δημοσίευση ιδεών, πρακτικών μαθησιακών στιγμών και εμπειριών τοπικής συμμετοχής από τις επερχόμενες επισκέψεις μελέτης.",
+      "Οι οργανισμοί εταίροι συντονίζουν τον πρώτο κύκλο επισκέψεων μελέτης και εκπαιδευτικών δραστηριοτήτων, ευθυγραμμίζοντας τη διοργάνωση και τις θεματικές προτεραιότητες.",
     newsLink2: "Διαβάστε περισσότερα",
 
-    newsDate3: "Ενημέρωση placeholder",
-    newsCardTitle3: "Τελική εκδήλωση και διάδοση",
+    newsDate3: "Ορατότητα",
+    newsCardTitle3: "Ενίσχυση ορατότητας και τοπικής απήχησης",
     newsCardText3:
-      "Ένα placeholder για το τελικό στάδιο του έργου, με χώρο για αποτελέσματα hackathon, κύρια σημεία διάδοσης και μελλοντικές προοπτικές.",
+      "Η κοινοπραξία προετοιμάζει επικοινωνιακό υλικό, τοπικές δράσεις διάδοσης και προσέγγιση φορέων για ισχυρή ορατότητα και μακροπρόθεσμο αντίκτυπο.",
     newsLink3: "Διαβάστε περισσότερα",
 
     contactLabel: "Επικοινωνία",
     contactTitle: "Επικοινωνήστε μαζί μας",
     contactText:
-      "Για επικοινωνία σχετικά με συνεργασίες, διάδοση ή γενικές πληροφορίες για το έργο, χρησιμοποιήστε τα παρακάτω στοιχεία. Μπορείτε αργότερα να αντικαταστήσετε αυτά τα placeholders με επίσημα στοιχεία επικοινωνίας.",
+      "Για επίσημη επικοινωνία σχετικά με το έργο EYSAE, τις συνεργασίες, τις ευκαιρίες διάδοσης και τη θεσμική συνεργασία, χρησιμοποιήστε τα παρακάτω στοιχεία επικοινωνίας. Αυτά μπορούν αργότερα να ενημερωθούν με τα τελικά επίσημα σημεία επαφής.",
     contactEmailLabel: "Email",
     contactPhoneLabel: "Τηλέφωνο",
     contactLocationLabel: "Τοποθεσία",
     contactLocation: "Λιουμπλιάνα, Σλοβενία",
-    contactCardTitle: "Placeholder συντονισμού έργου",
+    contactCardTitle: "Συντονισμός έργου",
     contactCardText:
-      "Αντικαταστήστε αυτό το μπλοκ με τα επίσημα στοιχεία του συντονιστικού οργανισμού, τη διεύθυνση, τα κανάλια επικοινωνίας ή φόρμα αν χρειαστεί.",
+      "Για επίσημη επικοινωνία σχετικά με το έργο EYSAE, τις συνεργασίες, τις ευκαιρίες διάδοσης και τη θεσμική συνεργασία, επικοινωνήστε με τον συντονιστικό οργανισμό μέσω των στοιχείων αυτής της σελίδας.",
     contactBtn: "Αποστολή ερωτήματος",
 
     footerProjectText: "Empowering Youth for Sustainable Agriculture and Entrepreneurship",
@@ -530,10 +539,13 @@ const translations = {
 
     heroMini1Label: "التركيز",
     heroMini1Value: "الزراعة المستدامة",
+    heroMini1Text: "معرفة عملية بالاستدامة مرتبطة بالمرونة المحلية والمهارات الخضراء.",
     heroMini2Label: "النهج",
     heroMini2Value: "ريادة الأعمال الشبابية",
+    heroMini2Text: "تفكير ريادي ومبادرة وقابلية للتوظيف للمشاركين الشباب.",
     heroMini3Label: "النطاق",
     heroMini3Value: "تعاون عابر للمناطق",
+    heroMini3Text: "تعلم وتعاون بين أوروبا وشمال أفريقيا والشرق الأوسط.",
 
     aboutLabel: "حول المشروع",
     aboutTitle: "منصة تعاونية لتمكين الشباب والابتكار والنمو المحلي المستدام.",
@@ -626,37 +638,37 @@ const translations = {
     newsLabel: "الأخبار",
     newsTitle: "أخبار المشروع وتحديثاته",
     newsIntro:
-      "تم إعداد هذا القسم للنشر المستقبلي لمحطات المشروع الأساسية ولمحات التنقل واجتماعات الشركاء وتحديثات النشر.",
+      "يبرز هذا القسم أولى المحطات الاتصالية للمشروع ويمهّد للتحديثات المستقبلية المتعلقة بالتنقل والنشر.",
 
-    newsDate1: "تحديث تجريبي",
-    newsCardTitle1: "إعلان الاجتماع الافتتاحي",
+    newsDate1: "تحديث مشروع",
+    newsCardTitle1: "إطلاق المشروع وبداية الشراكة",
     newsCardText1:
-      "مساحة جاهزة للاستبدال لأول تحديث رسمي يقدم انطلاق المشروع والتنسيق الأولي بين الشركاء وخطوات التنفيذ الأولى.",
+      "يبدأ EYSAE رسميًا بالتزام مشترك بتمكين الشباب من خلال الزراعة المستدامة وريادة الأعمال والتعاون العابر للحدود بين المناطق الشريكة.",
     newsLink1: "اقرأ المزيد",
 
-    newsDate2: "تحديث تجريبي",
-    newsCardTitle2: "أبرز محطات الزيارات الدراسية",
+    newsDate2: "مرحلة التحضير",
+    newsCardTitle2: "التحضير لأنشطة التنقل الدولية",
     newsCardText2:
-      "بطاقة تجريبية مخصصة لنشر الأفكار والتجارب التعليمية العملية وخبرات المشاركة المحلية من الزيارات الدراسية القادمة.",
+      "تنسق المنظمات الشريكة الدورة الأولى من الزيارات الدراسية والأنشطة التدريبية، مع مواءمة الجوانب اللوجستية وإشراك المشاركين والأولويات التعليمية.",
     newsLink2: "اقرأ المزيد",
 
-    newsDate3: "تحديث تجريبي",
-    newsCardTitle3: "الفعالية الختامية والنشر",
+    newsDate3: "الظهور",
+    newsCardTitle3: "بناء الظهور والوصول المحلي",
     newsCardText3:
-      "مساحة مخصصة للمرحلة الأخيرة من المشروع تتضمن نتائج الهاكاثون وأبرز مخرجات النشر وآفاق المستقبل.",
+      "يعمل الائتلاف على إعداد مواد تواصل وأنشطة نشر محلية وتواصل مع أصحاب المصلحة لضمان ظهور قوي وأثر طويل الأمد.",
     newsLink3: "اقرأ المزيد",
 
     contactLabel: "اتصل بنا",
     contactTitle: "تواصل معنا",
     contactText:
-      "للتواصل بخصوص الشراكات أو التعاون في النشر أو أي معلومات عامة متعلقة بالمشروع، يرجى استخدام بيانات الاتصال أدناه. ويمكنكم لاحقًا استبدال هذه البيانات بجهات الاتصال الرسمية للمشروع.",
+      "للتواصل الرسمي بشأن مشروع EYSAE أو الشراكات أو فرص النشر أو التعاون المؤسسي، يرجى استخدام بيانات الاتصال أدناه. ويمكن تحديث هذه البيانات لاحقًا بجهات الاتصال الرسمية النهائية للمشروع.",
     contactEmailLabel: "البريد الإلكتروني",
     contactPhoneLabel: "الهاتف",
     contactLocationLabel: "الموقع",
     contactLocation: "ليوبليانا، سلوفينيا",
-    contactCardTitle: "مساحة تنسيق المشروع",
+    contactCardTitle: "تنسيق المشروع",
     contactCardText:
-      "استبدل هذا القسم لاحقًا ببيانات الجهة المنسقة الرسمية أو العنوان البريدي أو قنوات الاتصال أو نموذج مراسلة عند الحاجة.",
+      "للتواصل الرسمي بشأن مشروع EYSAE أو الشراكات أو فرص النشر أو التعاون المؤسسي، يرجى التواصل مع الجهة المنسقة عبر البيانات المتاحة في هذه الصفحة.",
     contactBtn: "إرسال استفسار",
 
     footerProjectText: "تمكين الشباب من أجل الزراعة المستدامة وريادة الأعمال",
@@ -688,10 +700,13 @@ const elements = {
 
   heroMini1Label: document.getElementById("hero-mini-1-label"),
   heroMini1Value: document.getElementById("hero-mini-1-value"),
+  heroMini1Text: document.getElementById("hero-mini-1-text"),
   heroMini2Label: document.getElementById("hero-mini-2-label"),
   heroMini2Value: document.getElementById("hero-mini-2-value"),
+  heroMini2Text: document.getElementById("hero-mini-2-text"),
   heroMini3Label: document.getElementById("hero-mini-3-label"),
   heroMini3Value: document.getElementById("hero-mini-3-value"),
+  heroMini3Text: document.getElementById("hero-mini-3-text"),
 
   aboutLabel: document.getElementById("about-label"),
   aboutTitle: document.getElementById("about-title"),
@@ -810,7 +825,6 @@ const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 const dropdownWrapper = document.querySelector(".has-dropdown");
 const dropdownBtn = document.getElementById("projectDropdownBtn");
-const dropdownMenu = document.getElementById("projectDropdownMenu");
 
 function applyLanguage(lang) {
   const content = translations[lang] || translations.en;
@@ -876,7 +890,6 @@ document.addEventListener("click", (event) => {
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", () => {
     closeMobileMenu();
-
     if (window.innerWidth <= 900) {
       closeDropdown();
     }
@@ -909,11 +922,6 @@ function setActiveNav() {
     const target = link.getAttribute("href").replace("#", "");
     if (target === currentSection) {
       link.classList.add("active");
-    }
-    if (currentSection === "about" || currentSection === "objectives" || currentSection === "results") {
-      if (target === "hero") {
-        link.classList.remove("active");
-      }
     }
   });
 
