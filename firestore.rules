@@ -1,0 +1,147 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function isShortText(value, max) {
+      return value is string && value.size() <= max;
+    }
+
+    function isRequiredText(value, min, max) {
+      return value is string && value.size() >= min && value.size() <= max;
+    }
+
+    function isValidUrlOrEmpty(value) {
+      return value is string && (
+        value.size() == 0 ||
+        value.matches('^https?://.+')
+      );
+    }
+
+    function validUserDoc() {
+      return request.resource.data.keys().hasOnly([
+        'displayName',
+        'email',
+        'role',
+        'bio',
+        'socialLink',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      request.resource.data.keys().hasAll([
+        'displayName',
+        'email',
+        'role',
+        'bio',
+        'socialLink',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      request.resource.data.displayName is string &&
+      request.resource.data.displayName.size() >= 2 &&
+      request.resource.data.displayName.size() <= 80 &&
+      request.resource.data.email is string &&
+      request.resource.data.email == request.auth.token.email &&
+      request.resource.data.role is string &&
+      request.resource.data.role.size() <= 80 &&
+      request.resource.data.bio is string &&
+      request.resource.data.bio.size() <= 500 &&
+      isValidUrlOrEmpty(request.resource.data.socialLink) &&
+      request.resource.data.createdAt is timestamp &&
+      request.resource.data.updatedAt is timestamp;
+    }
+
+    function validPostDoc() {
+      return request.resource.data.keys().hasOnly([
+        'authorId',
+        'authorName',
+        'authorRole',
+        'socialLink',
+        'type',
+        'tag',
+        'content',
+        'createdAt'
+      ]) &&
+      request.resource.data.keys().hasAll([
+        'authorId',
+        'authorName',
+        'authorRole',
+        'socialLink',
+        'type',
+        'tag',
+        'content',
+        'createdAt'
+      ]) &&
+      request.resource.data.authorId == request.auth.uid &&
+      isRequiredText(request.resource.data.authorName, 2, 80) &&
+      isShortText(request.resource.data.authorRole, 80) &&
+      isValidUrlOrEmpty(request.resource.data.socialLink) &&
+      request.resource.data.type in ['update', 'discussion', 'notice'] &&
+      isShortText(request.resource.data.tag, 60) &&
+      isRequiredText(request.resource.data.content, 1, 2000) &&
+      request.resource.data.createdAt is timestamp;
+    }
+
+    function validMessageDoc(recipientUid) {
+      return request.resource.data.keys().hasOnly([
+        'fromId',
+        'fromName',
+        'text',
+        'toId',
+        'createdAt'
+      ]) &&
+      request.resource.data.keys().hasAll([
+        'fromId',
+        'fromName',
+        'text',
+        'toId',
+        'createdAt'
+      ]) &&
+      request.resource.data.fromId == request.auth.uid &&
+      request.resource.data.toId == recipientUid &&
+      isRequiredText(request.resource.data.fromName, 2, 80) &&
+      isRequiredText(request.resource.data.text, 1, 1000) &&
+      request.resource.data.createdAt is timestamp;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn();
+
+      allow create: if isSelf(uid) && validUserDoc();
+
+      allow update: if isSelf(uid) &&
+        validUserDoc() &&
+        request.resource.data.email == resource.data.email &&
+        request.resource.data.createdAt == resource.data.createdAt;
+
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if isSelf(uid);
+        allow create: if signedIn() && validMessageDoc(uid);
+        allow update, delete: if false;
+      }
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+
+      allow create: if signedIn() && validPostDoc();
+
+      allow update: if signedIn() &&
+        resource.data.authorId == request.auth.uid &&
+        validPostDoc() &&
+        request.resource.data.authorId == resource.data.authorId &&
+        request.resource.data.createdAt == resource.data.createdAt;
+
+      allow delete: if signedIn() && resource.data.authorId == request.auth.uid;
+    }
+  }
+}
