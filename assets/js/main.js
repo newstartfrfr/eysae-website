@@ -2,6 +2,18 @@
   const menuToggle = document.getElementById('menuToggle');
   const mainNav = document.getElementById('mainNav');
   const languageSwitcher = document.getElementById('languageSwitcher');
+  const RTL_LANGS = new Set(['ar']);
+
+  function applyDirection(lang) {
+    const dir = RTL_LANGS.has(lang) ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+    document.documentElement.setAttribute('dir', dir);
+
+    if (document.body) {
+      document.body.setAttribute('dir', dir);
+      document.body.classList.toggle('is-rtl', dir === 'rtl');
+    }
+  }
 
   if (menuToggle && mainNav) {
     menuToggle.addEventListener('click', () => {
@@ -31,15 +43,17 @@
     });
   });
 
+  const savedLang = localStorage.getItem('eysae-lang') || 'en';
+  applyDirection(savedLang);
+
   if (languageSwitcher) {
-    const savedLang = localStorage.getItem('eysae-lang') || 'en';
     languageSwitcher.value = savedLang;
-    document.documentElement.lang = savedLang;
 
     languageSwitcher.addEventListener('change', () => {
       const nextLang = languageSwitcher.value;
       localStorage.setItem('eysae-lang', nextLang);
-      document.documentElement.lang = nextLang;
+      applyDirection(nextLang);
+      window.dispatchEvent(new CustomEvent('eysae:languagechange', { detail: { lang: nextLang } }));
     });
   }
 })();
