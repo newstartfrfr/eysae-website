@@ -1,1 +1,236 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EYSAE Community Hub</title>
+  <meta name="description" content="Community hub for EYSAE members with sign-up, posts, updates and private messages." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="index.html#hero" class="brand">
+        <span class="brand-mark">EY</span>
+        <div class="brand-text">
+          <strong>EYSAE</strong>
+          <span>Community hub</span>
+        </div>
+      </a>
+
+      <nav class="nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="projects.html">Project</a></li>
+          <li><a href="index.html#partners">Partners</a></li>
+          <li><a href="index.html#news">News</a></li>
+          <li><a href="community.html" class="nav-link-current">Community</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-community-header" id="logoutBtn" type="button">Log out</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero-community">
+      <div class="container page-hero-grid">
+        <div>
+          <span class="eyebrow">Member space</span>
+          <h1>Sign up, post updates and message other members</h1>
+          <p>
+            This page adds the social layer you asked for: member registration, editable social profile, public posts and direct messages.
+          </p>
+        </div>
+        <div class="page-hero-panel">
+          <div class="page-hero-stat"><strong>Auth</strong><span>Email + password sign-in</span></div>
+          <div class="page-hero-stat"><strong>Feed</strong><span>Posts, news and updates</span></div>
+          <div class="page-hero-stat"><strong>Inbox</strong><span>Private member messages</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section community-shell">
+      <div class="container">
+        <div class="setup-notice" id="setupNotice">
+          <strong>Setup required:</strong> add your Firebase project keys to <code>assets/js/firebase-config.js</code>, then refresh this page.
+        </div>
+
+        <div class="community-layout">
+          <aside class="community-sidebar">
+            <section class="community-panel" id="authPanel">
+              <div class="panel-heading">
+                <span class="section-kicker">Authentication</span>
+                <h2>Access the hub</h2>
+              </div>
+
+              <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-auth-tab="signin">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-tab="signup">Create account</button>
+              </div>
+
+              <form id="signinForm" class="stack-form auth-form">
+                <label>
+                  <span>Email</span>
+                  <input type="email" id="signinEmail" placeholder="name@example.org" required />
+                </label>
+                <label>
+                  <span>Password</span>
+                  <input type="password" id="signinPassword" placeholder="••••••••" required />
+                </label>
+                <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+              </form>
+
+              <form id="signupForm" class="stack-form auth-form hidden">
+                <label>
+                  <span>Display name</span>
+                  <input type="text" id="signupName" placeholder="Your name" required />
+                </label>
+                <label>
+                  <span>Email</span>
+                  <input type="email" id="signupEmail" placeholder="name@example.org" required />
+                </label>
+                <label>
+                  <span>Password</span>
+                  <input type="password" id="signupPassword" placeholder="At least 6 characters" required />
+                </label>
+                <button class="btn btn-primary btn-block" type="submit">Create account</button>
+              </form>
+
+              <p id="authStatus" class="status-text">Not signed in.</p>
+            </section>
+
+            <section class="community-panel hidden" id="profilePanel">
+              <div class="panel-heading">
+                <span class="section-kicker">Profile</span>
+                <h2>Your public member card</h2>
+              </div>
+
+              <form id="profileForm" class="stack-form">
+                <label>
+                  <span>Display name</span>
+                  <input type="text" id="profileName" required />
+                </label>
+                <label>
+                  <span>Organisation / role</span>
+                  <input type="text" id="profileRole" placeholder="Partner, youth worker, volunteer…" />
+                </label>
+                <label>
+                  <span>Bio</span>
+                  <textarea id="profileBio" rows="4" placeholder="Short intro"></textarea>
+                </label>
+                <label>
+                  <span>Social link</span>
+                  <input type="url" id="profileSocial" placeholder="https://instagram.com/..." />
+                </label>
+                <button class="btn btn-secondary btn-block" type="submit">Save profile</button>
+              </form>
+            </section>
+          </aside>
+
+          <div class="community-main">
+            <section class="community-panel hidden" id="composerPanel">
+              <div class="panel-heading">
+                <span class="section-kicker">Publish</span>
+                <h2>Share a post or project update</h2>
+              </div>
+
+              <form id="postForm" class="stack-form">
+                <div class="form-row two-up">
+                  <label>
+                    <span>Post type</span>
+                    <select id="postType">
+                      <option value="update">Project update</option>
+                      <option value="discussion">Discussion</option>
+                      <option value="notice">Notice</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Tag</span>
+                    <input type="text" id="postTag" placeholder="Mobility / Workshop / Dissemination" />
+                  </label>
+                </div>
+                <label>
+                  <span>Message</span>
+                  <textarea id="postContent" rows="5" placeholder="Write your update here…" required></textarea>
+                </label>
+                <button class="btn btn-primary" type="submit">Publish post</button>
+              </form>
+            </section>
+
+            <section class="community-panel">
+              <div class="panel-heading panel-heading-inline">
+                <div>
+                  <span class="section-kicker">Feed</span>
+                  <h2>Latest community activity</h2>
+                </div>
+                <button class="btn btn-secondary btn-small" type="button" id="refreshFeedBtn">Refresh</button>
+              </div>
+              <div id="feedList" class="feed-list">
+                <p class="empty-state">No posts yet.</p>
+              </div>
+            </section>
+          </div>
+
+          <aside class="community-sidebar community-sidebar-right hidden" id="memberPanels">
+            <section class="community-panel">
+              <div class="panel-heading">
+                <span class="section-kicker">Members</span>
+                <h2>People in the hub</h2>
+              </div>
+              <div id="memberList" class="member-list">
+                <p class="empty-state">No members yet.</p>
+              </div>
+            </section>
+
+            <section class="community-panel">
+              <div class="panel-heading">
+                <span class="section-kicker">Inbox</span>
+                <h2>Direct messages</h2>
+              </div>
+
+              <form id="messageForm" class="stack-form">
+                <label>
+                  <span>Send to</span>
+                  <select id="messageRecipient"></select>
+                </label>
+                <label>
+                  <span>Message</span>
+                  <textarea id="messageText" rows="4" placeholder="Write a direct message" required></textarea>
+                </label>
+                <button class="btn btn-primary btn-block" type="submit">Send message</button>
+              </form>
+
+              <div id="inboxList" class="inbox-list">
+                <p class="empty-state">No messages yet.</p>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom footer-bottom-simple">
+      <p>© 2026 EYSAE</p>
+      <p><a href="index.html">Back to homepage</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/community.js"></script>
+</body>
+</html>
