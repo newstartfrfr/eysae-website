@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="community.metaTitle">EYSAE Community Hub</title>
-  <meta name="description" content="EYSAE community hub with Firebase authentication, member profiles, public updates and direct messages." />
+  <meta name="description" content="EYSAE member hub with Firebase authentication, profile editing, posts, members and direct messages." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -35,7 +36,7 @@
       </nav>
 
       <div class="header-actions">
-        <button class="button button-secondary button-small hidden" id="logoutBtn" type="button" data-i18n="community.logoutBtn">Log out</button>
+        <button class="button button-secondary button-small" id="logoutBtn" type="button" data-i18n="community.logoutBtn">Log out</button>
         <div class="language-switcher" aria-label="Language switcher">
           <button type="button" class="lang-btn" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="sl">SL</button>
@@ -53,7 +54,6 @@
           <span class="eyebrow" data-i18n="community.kicker">Member space</span>
           <h1 data-i18n="community.title">Sign up, post updates and message other members</h1>
           <p class="hero-lead" data-i18n="community.body">This page adds the social layer you asked for: member registration, editable social profile, public posts and direct messages.</p>
-
           <div class="pill-list">
             <span class="pill" data-i18n="community.pill1">Auth — Email + password sign-in</span>
             <span class="pill" data-i18n="community.pill2">Feed — Posts, news and updates</span>
@@ -66,26 +66,13 @@
             <strong data-i18n="community.setupTitle">Firebase setup</strong>
             <p data-i18n="community.setupNote">Confirm your Firebase keys, authorised domain and Firestore rules if sign-in does not complete correctly.</p>
           </div>
-
           <div id="authStatus" class="status-bar" data-i18n="community.authSignedOut">Not signed in.</div>
-
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
             <div>
-              <strong>EYSAE Member</strong>
-              <p>Sign in to activate your public profile card and post updates.</p>
+              <strong>EYSAE</strong>
+              <p>Sign in to activate your public member card.</p>
             </div>
-          </div>
-
-          <div class="community-quick-points">
-            <article class="mini-metric">
-              <strong>Profiles</strong>
-              <span>Member cards with organisation, short bio and one social link.</span>
-            </article>
-            <article class="mini-metric">
-              <strong>Updates</strong>
-              <span>Project updates, discussions and notices in one clean shared feed.</span>
-            </article>
           </div>
         </div>
       </div>
@@ -101,8 +88,8 @@
                 <h2 data-i18n="community.authTitle">Access the hub</h2>
               </div>
               <div class="auth-tabs">
-                <button type="button" class="auth-tab active" data-auth-mode="signin" data-i18n="community.signInTitle">Sign in</button>
-                <button type="button" class="auth-tab" data-auth-mode="signup" data-i18n="community.signUpTitle">Create account</button>
+                <button type="button" class="auth-tab active" data-auth-tab="signin" data-i18n="community.signInTitle">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-tab="signup" data-i18n="community.signUpTitle">Create account</button>
               </div>
             </div>
 
@@ -179,8 +166,8 @@
                 <label for="postType" data-i18n="community.postTypeLabel">Post type</label>
                 <select id="postType">
                   <option value="update" data-i18n="community.postType1">Project update</option>
-                  <option value="discussion" data-i18n="community.postType2">Discussion</option>
-                  <option value="notice" data-i18n="community.postType3">Notice</option>
+                  <option value="discussion">Discussion</option>
+                  <option value="notice">Notice</option>
                 </select>
               </div>
               <div>
@@ -198,7 +185,7 @@
           </article>
         </div>
 
-        <aside class="community-side">
+        <aside class="community-side" id="memberPanels">
           <article class="community-card">
             <div class="card-heading card-heading-inline">
               <div>
@@ -227,11 +214,13 @@
               <span class="eyebrow" data-i18n="community.inboxEyebrow">Inbox</span>
               <h2 data-i18n="community.inboxTitle">Direct messages</h2>
             </div>
-            <form id="messageForm" class="form-grid compact-grid hidden">
+            <form id="messageForm" class="form-grid compact-grid hidden" data-message-form>
               <div class="span-2">
                 <label for="recipientUid" data-i18n="community.inboxRecipientLabel">Send to</label>
                 <select id="recipientUid">
-                  <option value="" data-i18n="community.inboxRecipientPlaceholder">Select a member</option>
+                  <option value="update" data-i18n="community.postType1">Project update</option>
+                  <option value="discussion">Discussion</option>
+                  <option value="notice">Notice</option>
                 </select>
               </div>
               <div class="span-2">
