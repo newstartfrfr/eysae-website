@@ -1,236 +1,260 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EYSAE Community Hub</title>
-  <meta name="description" content="Community hub for EYSAE members with sign-up, posts, updates and private messages." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title data-i18n="community.metaTitle">EYSAE Community Hub</title>
+  <meta name="description" content="EYSAE member hub with Firebase authentication, profile editing, posts, members and direct messages." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
-  <header class="site-header" id="top">
+<body data-page="community">
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html#hero" class="brand">
+      <a class="brand" href="index.html" aria-label="EYSAE home">
         <span class="brand-mark">EY</span>
-        <div class="brand-text">
+        <span class="brand-text">
           <strong>EYSAE</strong>
-          <span>Community hub</span>
-        </div>
+          <small data-i18n="community.brandTitle">Community hub</small>
+        </span>
       </a>
 
-      <nav class="nav" id="mainNav">
-        <ul class="nav-list">
-          <li><a href="index.html#hero">Home</a></li>
-          <li><a href="projects.html">Project</a></li>
-          <li><a href="index.html#partners">Partners</a></li>
-          <li><a href="index.html#news">News</a></li>
-          <li><a href="community.html" class="nav-link-current">Community</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" data-i18n-aria-label="common.openMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav">
+        <a class="nav-link" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
+        <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
+        <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
+        <a class="nav-link" href="community.html" data-i18n="nav.community">Community</a>
+        <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <button class="btn btn-community-header" id="logoutBtn" type="button">Log out</button>
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <button class="button button-secondary button-small" id="logoutBtn" type="button" data-i18n="community.logoutBtn">Log out</button>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="sl">SL</button>
+          <button type="button" class="lang-btn" data-lang="gr">GR</button>
+          <button type="button" class="lang-btn" data-lang="ar">AR</button>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="page-hero page-hero-community">
+    <section class="page-hero">
       <div class="container page-hero-grid">
         <div>
-          <span class="eyebrow">Member space</span>
-          <h1>Sign up, post updates and message other members</h1>
-          <p>
-            This page adds the social layer you asked for: member registration, editable social profile, public posts and direct messages.
-          </p>
+          <span class="eyebrow" data-i18n="community.kicker">Member space</span>
+          <h1 data-i18n="community.title">Sign up, post updates and message other members</h1>
+          <p class="hero-lead" data-i18n="community.body">This page adds the social layer you asked for: member registration, editable social profile, public posts and direct messages.</p>
+
+          <div class="pill-list">
+            <span class="pill" data-i18n="community.pill1">Auth — Email + password sign-in</span>
+            <span class="pill" data-i18n="community.pill2">Feed — Posts, news and updates</span>
+            <span class="pill" data-i18n="community.pill3">Inbox — Private member messages</span>
+          </div>
         </div>
+
         <div class="page-hero-panel">
-          <div class="page-hero-stat"><strong>Auth</strong><span>Email + password sign-in</span></div>
-          <div class="page-hero-stat"><strong>Feed</strong><span>Posts, news and updates</span></div>
-          <div class="page-hero-stat"><strong>Inbox</strong><span>Private member messages</span></div>
+          <div class="notice-box">
+            <strong data-i18n="community.setupTitle">Firebase setup</strong>
+            <p data-i18n="community.setupNote">Confirm your Firebase keys, authorised domain and Firestore rules if sign-in does not complete correctly.</p>
+          </div>
+          <div id="authStatus" class="status-bar" data-i18n="community.authSignedOut">Not signed in.</div>
         </div>
       </div>
     </section>
 
-    <section class="section community-shell">
-      <div class="container">
-        <div class="setup-notice" id="setupNotice">
-          <strong>Setup required:</strong> add your Firebase project keys to <code>assets/js/firebase-config.js</code>, then refresh this page.
+    <section class="section">
+      <div class="container community-shell">
+        <div class="community-main">
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow" data-i18n="community.authEyebrow">Authentication</span>
+              <h2 data-i18n="community.authTitle">Access the hub</h2>
+            </div>
+
+            <div class="split-auth">
+              <form id="signInForm" class="form-card">
+                <h3 data-i18n="community.signInTitle">Sign in</h3>
+                <label for="signInEmail" data-i18n="community.signInEmailLabel">Email</label>
+                <input id="signInEmail" name="signInEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signInEmailPlaceholder" placeholder="Enter your email" />
+                <label for="signInPassword" data-i18n="community.signInPasswordLabel">Password</label>
+                <input id="signInPassword" name="signInPassword" type="password" autocomplete="current-password" required data-i18n-placeholder="community.signInPasswordPlaceholder" placeholder="Enter your password" />
+                <button type="submit" class="button button-full" data-i18n="community.signInBtn">Sign in</button>
+              </form>
+
+              <form id="signUpForm" class="form-card">
+                <h3 data-i18n="community.signUpTitle">Create account</h3>
+                <label for="signUpName" data-i18n="community.signUpNameLabel">Display name</label>
+                <input id="signUpName" name="displayName" type="text" required data-i18n-placeholder="community.signUpNamePlaceholder" placeholder="Your display name" />
+                <label for="signUpEmail" data-i18n="community.signUpEmailLabel">Email</label>
+                <input id="signUpEmail" name="signUpEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signUpEmailPlaceholder" placeholder="Enter your email" />
+                <label for="signUpPassword" data-i18n="community.signUpPasswordLabel">Password</label>
+                <input id="signUpPassword" name="signUpPassword" type="password" autocomplete="new-password" required data-i18n-placeholder="community.signUpPasswordPlaceholder" placeholder="Create a password" />
+                <button type="submit" class="button button-full" data-i18n="community.signUpBtn">Create account</button>
+              </form>
+            </div>
+          </article>
+
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow" data-i18n="community.profileEyebrow">Profile</span>
+              <h2 data-i18n="community.profileTitle">Your public member card</h2>
+            </div>
+
+            <form id="profileForm" class="form-grid">
+              <div>
+                <label for="profileName" data-i18n="community.profileNameLabel">Display name</label>
+                <input id="profileName" name="profileName" type="text" data-i18n-placeholder="community.profileNamePlaceholder" placeholder="Your public name" />
+              </div>
+              <div>
+                <label for="profileOrganisation" data-i18n="community.profileOrgLabel">Organisation / role</label>
+                <input id="profileOrganisation" name="profileOrganisation" type="text" data-i18n-placeholder="community.profileOrgPlaceholder" placeholder="Organisation or role" />
+              </div>
+              <div class="span-2">
+                <label for="profileBio" data-i18n="community.profileBioLabel">Bio</label>
+                <textarea id="profileBio" name="profileBio" rows="4" data-i18n-placeholder="community.profileBioPlaceholder" placeholder="Short introduction"></textarea>
+              </div>
+              <div class="span-2">
+                <label for="profileSocial" data-i18n="community.profileSocialLabel">Social link</label>
+                <input id="profileSocial" name="profileSocial" type="url" data-i18n-placeholder="community.profileSocialPlaceholder" placeholder="https://..." />
+              </div>
+              <div class="span-2">
+                <button type="submit" class="button" data-i18n="community.profileSaveBtn">Save profile</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow" data-i18n="community.publishEyebrow">Publish</span>
+              <h2 data-i18n="community.publishTitle">Share a post or project update</h2>
+            </div>
+
+            <form id="postForm" class="form-grid">
+              <div>
+                <label for="postType" data-i18n="community.postTypeLabel">Post type</label>
+                <select id="postType" name="postType">
+                  <option value="project-update" data-i18n="community.postType1">Project update</option>
+                  <option value="discussion" data-i18n="community.postType2">Discussion</option>
+                  <option value="notice" data-i18n="community.postType3">Notice</option>
+                </select>
+              </div>
+              <div>
+                <label for="postTag" data-i18n="community.postTagLabel">Tag</label>
+                <input id="postTag" name="postTag" type="text" data-i18n-placeholder="community.postTagPlaceholder" placeholder="Short tag" />
+              </div>
+              <div class="span-2">
+                <label for="postMessage" data-i18n="community.postMessageLabel">Message</label>
+                <textarea id="postMessage" name="postMessage" rows="5" required data-i18n-placeholder="community.postMessagePlaceholder" placeholder="Write your update"></textarea>
+              </div>
+              <div class="span-2">
+                <button type="submit" class="button" data-i18n="community.publishBtn">Publish post</button>
+              </div>
+            </form>
+          </article>
         </div>
 
-        <div class="community-layout">
-          <aside class="community-sidebar">
-            <section class="community-panel" id="authPanel">
-              <div class="panel-heading">
-                <span class="section-kicker">Authentication</span>
-                <h2>Access the hub</h2>
+        <aside class="community-side">
+          <article class="community-card">
+            <div class="card-heading card-heading-inline">
+              <div>
+                <span class="eyebrow" data-i18n="community.feedEyebrow">Feed</span>
+                <h2 data-i18n="community.feedTitle">Latest community activity</h2>
               </div>
-
-              <div class="auth-tabs">
-                <button type="button" class="auth-tab active" data-auth-tab="signin">Sign in</button>
-                <button type="button" class="auth-tab" data-auth-tab="signup">Create account</button>
+              <button id="refreshFeedBtn" type="button" class="button button-secondary button-small" data-i18n="community.feedRefreshBtn">Refresh</button>
+            </div>
+            <div id="feedList" class="stack-list">
+              <div id="postsList" class="stack-list">
+                <div class="empty-state" data-i18n="community.feedEmpty">No posts yet.</div>
               </div>
+            </div>
+          </article>
 
-              <form id="signinForm" class="stack-form auth-form">
-                <label>
-                  <span>Email</span>
-                  <input type="email" id="signinEmail" placeholder="name@example.org" required />
-                </label>
-                <label>
-                  <span>Password</span>
-                  <input type="password" id="signinPassword" placeholder="••••••••" required />
-                </label>
-                <button class="btn btn-primary btn-block" type="submit">Sign in</button>
-              </form>
-
-              <form id="signupForm" class="stack-form auth-form hidden">
-                <label>
-                  <span>Display name</span>
-                  <input type="text" id="signupName" placeholder="Your name" required />
-                </label>
-                <label>
-                  <span>Email</span>
-                  <input type="email" id="signupEmail" placeholder="name@example.org" required />
-                </label>
-                <label>
-                  <span>Password</span>
-                  <input type="password" id="signupPassword" placeholder="At least 6 characters" required />
-                </label>
-                <button class="btn btn-primary btn-block" type="submit">Create account</button>
-              </form>
-
-              <p id="authStatus" class="status-text">Not signed in.</p>
-            </section>
-
-            <section class="community-panel hidden" id="profilePanel">
-              <div class="panel-heading">
-                <span class="section-kicker">Profile</span>
-                <h2>Your public member card</h2>
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow" data-i18n="community.membersEyebrow">Members</span>
+              <h2 data-i18n="community.membersTitle">People in the hub</h2>
+            </div>
+            <div id="membersList" class="stack-list">
+              <div id="membersGrid" class="stack-list">
+                <div class="empty-state" data-i18n="community.membersEmpty">No members yet.</div>
               </div>
+            </div>
+          </article>
 
-              <form id="profileForm" class="stack-form">
-                <label>
-                  <span>Display name</span>
-                  <input type="text" id="profileName" required />
-                </label>
-                <label>
-                  <span>Organisation / role</span>
-                  <input type="text" id="profileRole" placeholder="Partner, youth worker, volunteer…" />
-                </label>
-                <label>
-                  <span>Bio</span>
-                  <textarea id="profileBio" rows="4" placeholder="Short intro"></textarea>
-                </label>
-                <label>
-                  <span>Social link</span>
-                  <input type="url" id="profileSocial" placeholder="https://instagram.com/..." />
-                </label>
-                <button class="btn btn-secondary btn-block" type="submit">Save profile</button>
-              </form>
-            </section>
-          </aside>
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow" data-i18n="community.inboxEyebrow">Inbox</span>
+              <h2 data-i18n="community.inboxTitle">Direct messages</h2>
+            </div>
 
-          <div class="community-main">
-            <section class="community-panel hidden" id="composerPanel">
-              <div class="panel-heading">
-                <span class="section-kicker">Publish</span>
-                <h2>Share a post or project update</h2>
+            <form id="messageForm" class="form-grid compact-grid">
+              <div class="span-2">
+                <label for="recipientUid" data-i18n="community.inboxRecipientLabel">Send to</label>
+                <select id="recipientUid" name="recipientUid">
+                  <option value="" data-i18n="community.inboxRecipientPlaceholder">Select a member</option>
+                </select>
               </div>
-
-              <form id="postForm" class="stack-form">
-                <div class="form-row two-up">
-                  <label>
-                    <span>Post type</span>
-                    <select id="postType">
-                      <option value="update">Project update</option>
-                      <option value="discussion">Discussion</option>
-                      <option value="notice">Notice</option>
-                    </select>
-                  </label>
-                  <label>
-                    <span>Tag</span>
-                    <input type="text" id="postTag" placeholder="Mobility / Workshop / Dissemination" />
-                  </label>
-                </div>
-                <label>
-                  <span>Message</span>
-                  <textarea id="postContent" rows="5" placeholder="Write your update here…" required></textarea>
-                </label>
-                <button class="btn btn-primary" type="submit">Publish post</button>
-              </form>
-            </section>
-
-            <section class="community-panel">
-              <div class="panel-heading panel-heading-inline">
-                <div>
-                  <span class="section-kicker">Feed</span>
-                  <h2>Latest community activity</h2>
-                </div>
-                <button class="btn btn-secondary btn-small" type="button" id="refreshFeedBtn">Refresh</button>
+              <div class="span-2">
+                <label for="directMessageText" data-i18n="community.inboxMessageLabel">Message</label>
+                <textarea id="directMessageText" name="directMessageText" rows="4" data-i18n-placeholder="community.inboxMessagePlaceholder" placeholder="Write your message"></textarea>
               </div>
-              <div id="feedList" class="feed-list">
-                <p class="empty-state">No posts yet.</p>
+              <div class="span-2">
+                <button type="submit" class="button" data-i18n="community.inboxSendBtn">Send message</button>
               </div>
-            </section>
-          </div>
+            </form>
 
-          <aside class="community-sidebar community-sidebar-right hidden" id="memberPanels">
-            <section class="community-panel">
-              <div class="panel-heading">
-                <span class="section-kicker">Members</span>
-                <h2>People in the hub</h2>
+            <div id="messagesList" class="stack-list">
+              <div id="inboxList" class="stack-list">
+                <div class="empty-state" data-i18n="community.inboxEmpty">No messages yet.</div>
               </div>
-              <div id="memberList" class="member-list">
-                <p class="empty-state">No members yet.</p>
-              </div>
-            </section>
-
-            <section class="community-panel">
-              <div class="panel-heading">
-                <span class="section-kicker">Inbox</span>
-                <h2>Direct messages</h2>
-              </div>
-
-              <form id="messageForm" class="stack-form">
-                <label>
-                  <span>Send to</span>
-                  <select id="messageRecipient"></select>
-                </label>
-                <label>
-                  <span>Message</span>
-                  <textarea id="messageText" rows="4" placeholder="Write a direct message" required></textarea>
-                </label>
-                <button class="btn btn-primary btn-block" type="submit">Send message</button>
-              </form>
-
-              <div id="inboxList" class="inbox-list">
-                <p class="empty-state">No messages yet.</p>
-              </div>
-            </section>
-          </aside>
-        </div>
+            </div>
+          </article>
+        </aside>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-bottom footer-bottom-simple">
-      <p>© 2026 EYSAE</p>
-      <p><a href="index.html">Back to homepage</a></p>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark">EY</span>
+        <h3>EYSAE</h3>
+        <p data-i18n="footer.tagline">A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
+      </div>
+
+      <div>
+        <h4 data-i18n="footer.navTitle">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="projects.html" data-i18n="nav.project">Project</a></li>
+          <li><a href="index.html#partners" data-i18n="nav.partners">Partners</a></li>
+          <li><a href="index.html#news" data-i18n="nav.news">News</a></li>
+          <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="footer.noteTitle">Institutional Note</h4>
+        <p data-i18n="footer.noteBody">Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 EYSAE</p>
+      <p data-i18n="footer.disclaimer">The content of this website is the responsibility of the project partnership and is intended for information and dissemination purposes.</p>
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/community.js"></script>
 </body>
 </html>
