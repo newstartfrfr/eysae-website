@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -47,13 +48,12 @@
   </header>
 
   <main>
-    <section class="page-hero">
-      <div class="container page-hero-grid">
+    <section class="page-hero community-hero">
+      <div class="container page-hero-grid community-hero-grid">
         <div>
           <span class="eyebrow" data-i18n="community.kicker">Member space</span>
           <h1 data-i18n="community.title">Sign up, post updates and message other members</h1>
           <p class="hero-lead" data-i18n="community.body">This page adds the social layer you asked for: member registration, editable social profile, public posts and direct messages.</p>
-
           <div class="pill-list">
             <span class="pill" data-i18n="community.pill1">Auth — Email + password sign-in</span>
             <span class="pill" data-i18n="community.pill2">Feed — Posts, news and updates</span>
@@ -61,49 +61,72 @@
           </div>
         </div>
 
-        <div class="page-hero-panel">
-          <div class="notice-box">
+        <div class="page-hero-panel community-status-panel">
+          <div id="setupNotice" class="setup-notice">
             <strong data-i18n="community.setupTitle">Firebase setup</strong>
             <p data-i18n="community.setupNote">Confirm your Firebase keys, authorised domain and Firestore rules if sign-in does not complete correctly.</p>
           </div>
           <div id="authStatus" class="status-bar" data-i18n="community.authSignedOut">Not signed in.</div>
+          <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
+            <div class="profile-avatar">EY</div>
+            <div>
+              <strong>EYSAE</strong>
+              <p>Sign in to activate your public member card.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container community-shell">
+    <section class="section community-section">
+      <div class="container community-shell community-shell-wide">
         <div class="community-main">
-          <article class="community-card">
-            <div class="card-heading">
-              <span class="eyebrow" data-i18n="community.authEyebrow">Authentication</span>
-              <h2 data-i18n="community.authTitle">Access the hub</h2>
+          <article class="community-card" id="authPanel">
+            <div class="card-heading card-heading-inline">
+              <div>
+                <span class="eyebrow" data-i18n="community.authEyebrow">Authentication</span>
+                <h2 data-i18n="community.authTitle">Access the hub</h2>
+              </div>
+              <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-auth-tab="signin" data-i18n="community.signInTitle">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-tab="signup" data-i18n="community.signUpTitle">Create account</button>
+              </div>
             </div>
 
-            <div class="split-auth">
-              <form id="signInForm" class="form-card">
-                <h3 data-i18n="community.signInTitle">Sign in</h3>
-                <label for="signInEmail" data-i18n="community.signInEmailLabel">Email</label>
-                <input id="signInEmail" name="signInEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signInEmailPlaceholder" placeholder="Enter your email" />
-                <label for="signInPassword" data-i18n="community.signInPasswordLabel">Password</label>
-                <input id="signInPassword" name="signInPassword" type="password" autocomplete="current-password" required data-i18n-placeholder="community.signInPasswordPlaceholder" placeholder="Enter your password" />
+            <form id="signinForm" class="form-card auth-form-grid">
+              <div>
+                <label for="signinEmail" data-i18n="community.signInEmailLabel">Email</label>
+                <input id="signinEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signInEmailPlaceholder" placeholder="Enter your email" />
+              </div>
+              <div>
+                <label for="signinPassword" data-i18n="community.signInPasswordLabel">Password</label>
+                <input id="signinPassword" type="password" autocomplete="current-password" required data-i18n-placeholder="community.signInPasswordPlaceholder" placeholder="Enter your password" />
+              </div>
+              <div class="span-2">
                 <button type="submit" class="button button-full" data-i18n="community.signInBtn">Sign in</button>
-              </form>
+              </div>
+            </form>
 
-              <form id="signUpForm" class="form-card">
-                <h3 data-i18n="community.signUpTitle">Create account</h3>
-                <label for="signUpName" data-i18n="community.signUpNameLabel">Display name</label>
-                <input id="signUpName" name="displayName" type="text" required data-i18n-placeholder="community.signUpNamePlaceholder" placeholder="Your display name" />
-                <label for="signUpEmail" data-i18n="community.signUpEmailLabel">Email</label>
-                <input id="signUpEmail" name="signUpEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signUpEmailPlaceholder" placeholder="Enter your email" />
-                <label for="signUpPassword" data-i18n="community.signUpPasswordLabel">Password</label>
-                <input id="signUpPassword" name="signUpPassword" type="password" autocomplete="new-password" required data-i18n-placeholder="community.signUpPasswordPlaceholder" placeholder="Create a password" />
+            <form id="signupForm" class="form-card auth-form-grid hidden">
+              <div>
+                <label for="signupName" data-i18n="community.signUpNameLabel">Display name</label>
+                <input id="signupName" type="text" required data-i18n-placeholder="community.signUpNamePlaceholder" placeholder="Your display name" />
+              </div>
+              <div>
+                <label for="signupEmail" data-i18n="community.signUpEmailLabel">Email</label>
+                <input id="signupEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signUpEmailPlaceholder" placeholder="Enter your email" />
+              </div>
+              <div class="span-2">
+                <label for="signupPassword" data-i18n="community.signUpPasswordLabel">Password</label>
+                <input id="signupPassword" type="password" autocomplete="new-password" required data-i18n-placeholder="community.signUpPasswordPlaceholder" placeholder="Create a password" />
+              </div>
+              <div class="span-2">
                 <button type="submit" class="button button-full" data-i18n="community.signUpBtn">Create account</button>
-              </form>
-            </div>
+              </div>
+            </form>
           </article>
 
-          <article class="community-card">
+          <article class="community-card hidden" id="profilePanel">
             <div class="card-heading">
               <span class="eyebrow" data-i18n="community.profileEyebrow">Profile</span>
               <h2 data-i18n="community.profileTitle">Your public member card</h2>
@@ -112,19 +135,19 @@
             <form id="profileForm" class="form-grid">
               <div>
                 <label for="profileName" data-i18n="community.profileNameLabel">Display name</label>
-                <input id="profileName" name="profileName" type="text" data-i18n-placeholder="community.profileNamePlaceholder" placeholder="Your public name" />
+                <input id="profileName" type="text" data-i18n-placeholder="community.profileNamePlaceholder" placeholder="Your public name" />
               </div>
               <div>
-                <label for="profileOrganisation" data-i18n="community.profileOrgLabel">Organisation / role</label>
-                <input id="profileOrganisation" name="profileOrganisation" type="text" data-i18n-placeholder="community.profileOrgPlaceholder" placeholder="Organisation or role" />
+                <label for="profileRole" data-i18n="community.profileOrgLabel">Organisation / role</label>
+                <input id="profileRole" type="text" data-i18n-placeholder="community.profileOrgPlaceholder" placeholder="Organisation or role" />
               </div>
               <div class="span-2">
                 <label for="profileBio" data-i18n="community.profileBioLabel">Bio</label>
-                <textarea id="profileBio" name="profileBio" rows="4" data-i18n-placeholder="community.profileBioPlaceholder" placeholder="Short introduction"></textarea>
+                <textarea id="profileBio" rows="4" data-i18n-placeholder="community.profileBioPlaceholder" placeholder="Short introduction"></textarea>
               </div>
               <div class="span-2">
                 <label for="profileSocial" data-i18n="community.profileSocialLabel">Social link</label>
-                <input id="profileSocial" name="profileSocial" type="url" data-i18n-placeholder="community.profileSocialPlaceholder" placeholder="https://..." />
+                <input id="profileSocial" type="url" data-i18n-placeholder="community.profileSocialPlaceholder" placeholder="https://..." />
               </div>
               <div class="span-2">
                 <button type="submit" class="button" data-i18n="community.profileSaveBtn">Save profile</button>
@@ -132,7 +155,7 @@
             </form>
           </article>
 
-          <article class="community-card">
+          <article class="community-card hidden" id="composerPanel">
             <div class="card-heading">
               <span class="eyebrow" data-i18n="community.publishEyebrow">Publish</span>
               <h2 data-i18n="community.publishTitle">Share a post or project update</h2>
@@ -141,19 +164,19 @@
             <form id="postForm" class="form-grid">
               <div>
                 <label for="postType" data-i18n="community.postTypeLabel">Post type</label>
-                <select id="postType" name="postType">
-                  <option value="project-update" data-i18n="community.postType1">Project update</option>
+                <select id="postType">
+                  <option value="update" data-i18n="community.postType1">Project update</option>
                   <option value="discussion" data-i18n="community.postType2">Discussion</option>
                   <option value="notice" data-i18n="community.postType3">Notice</option>
                 </select>
               </div>
               <div>
                 <label for="postTag" data-i18n="community.postTagLabel">Tag</label>
-                <input id="postTag" name="postTag" type="text" data-i18n-placeholder="community.postTagPlaceholder" placeholder="Short tag" />
+                <input id="postTag" type="text" data-i18n-placeholder="community.postTagPlaceholder" placeholder="Short tag" />
               </div>
               <div class="span-2">
-                <label for="postMessage" data-i18n="community.postMessageLabel">Message</label>
-                <textarea id="postMessage" name="postMessage" rows="5" required data-i18n-placeholder="community.postMessagePlaceholder" placeholder="Write your update"></textarea>
+                <label for="postContent" data-i18n="community.postMessageLabel">Message</label>
+                <textarea id="postContent" rows="5" required data-i18n-placeholder="community.postMessagePlaceholder" placeholder="Write your update"></textarea>
               </div>
               <div class="span-2">
                 <button type="submit" class="button" data-i18n="community.publishBtn">Publish post</button>
@@ -162,7 +185,7 @@
           </article>
         </div>
 
-        <aside class="community-side">
+        <aside class="community-side" id="memberPanels">
           <article class="community-card">
             <div class="card-heading card-heading-inline">
               <div>
@@ -172,9 +195,7 @@
               <button id="refreshFeedBtn" type="button" class="button button-secondary button-small" data-i18n="community.feedRefreshBtn">Refresh</button>
             </div>
             <div id="feedList" class="stack-list">
-              <div id="postsList" class="stack-list">
-                <div class="empty-state" data-i18n="community.feedEmpty">No posts yet.</div>
-              </div>
+              <div class="empty-state" data-i18n="community.feedEmpty">No posts yet.</div>
             </div>
           </article>
 
@@ -183,10 +204,8 @@
               <span class="eyebrow" data-i18n="community.membersEyebrow">Members</span>
               <h2 data-i18n="community.membersTitle">People in the hub</h2>
             </div>
-            <div id="membersList" class="stack-list">
-              <div id="membersGrid" class="stack-list">
-                <div class="empty-state" data-i18n="community.membersEmpty">No members yet.</div>
-              </div>
+            <div id="memberList" class="stack-list">
+              <div class="empty-state" data-i18n="community.membersEmpty">No members yet.</div>
             </div>
           </article>
 
@@ -195,27 +214,23 @@
               <span class="eyebrow" data-i18n="community.inboxEyebrow">Inbox</span>
               <h2 data-i18n="community.inboxTitle">Direct messages</h2>
             </div>
-
-            <form id="messageForm" class="form-grid compact-grid">
+            <form id="messageForm" class="form-grid compact-grid hidden" data-message-form>
               <div class="span-2">
-                <label for="recipientUid" data-i18n="community.inboxRecipientLabel">Send to</label>
-                <select id="recipientUid" name="recipientUid">
+                <label for="messageRecipient" data-i18n="community.inboxRecipientLabel">Send to</label>
+                <select id="messageRecipient">
                   <option value="" data-i18n="community.inboxRecipientPlaceholder">Select a member</option>
                 </select>
               </div>
               <div class="span-2">
-                <label for="directMessageText" data-i18n="community.inboxMessageLabel">Message</label>
-                <textarea id="directMessageText" name="directMessageText" rows="4" data-i18n-placeholder="community.inboxMessagePlaceholder" placeholder="Write your message"></textarea>
+                <label for="messageText" data-i18n="community.inboxMessageLabel">Message</label>
+                <textarea id="messageText" rows="4" data-i18n-placeholder="community.inboxMessagePlaceholder" placeholder="Write your message"></textarea>
               </div>
               <div class="span-2">
                 <button type="submit" class="button" data-i18n="community.inboxSendBtn">Send message</button>
               </div>
             </form>
-
-            <div id="messagesList" class="stack-list">
-              <div id="inboxList" class="stack-list">
-                <div class="empty-state" data-i18n="community.inboxEmpty">No messages yet.</div>
-              </div>
+            <div id="inboxList" class="stack-list">
+              <div class="empty-state" data-i18n="community.inboxEmpty">No messages yet.</div>
             </div>
           </article>
         </aside>
@@ -230,7 +245,6 @@
         <h3>EYSAE</h3>
         <p data-i18n="footer.tagline">A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
       </div>
-
       <div>
         <h4 data-i18n="footer.navTitle">Navigation</h4>
         <ul class="footer-links">
@@ -241,7 +255,6 @@
           <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </div>
-
       <div>
         <h4 data-i18n="footer.noteTitle">Institutional Note</h4>
         <p data-i18n="footer.noteBody">Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.</p>
