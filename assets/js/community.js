@@ -1,4 +1,3 @@
-
 import { firebaseConfig, firebaseIsConfigured } from "./firebase-config.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import {
@@ -26,332 +25,297 @@ import {
   updateDoc
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-const ADMIN_EMAILS = ["krizo19@gmail.com"];
-const STORAGE_KEY = "eysae-language";
+const $ = (id) => document.getElementById(id);
 
-const runtimeI18n = {
-  en: {
-    signInToSeeMembers: "Sign in to see member profiles.",
-    signInToReadMessages: "Sign in to read messages.",
-    selectMember: "Select a member",
-    noMemberAvailable: "No member available",
-    feedEmpty: "No posts yet.",
-    membersEmpty: "No members yet.",
-    inboxEmpty: "No messages yet.",
-    signInToPost: "Sign in or create an account to start posting.",
-    addKeysFirst: "Add Firebase keys first.",
-    signedInSuccess: "Signed in successfully.",
-    accountCreated: "Account created successfully.",
-    profileUpdated: "Profile updated.",
-    postPublished: "Post published.",
-    messageSent: "Message sent.",
-    signedOut: "Signed out.",
-    notSignedIn: "Not signed in.",
-    signedInAs: "Signed in as",
-    justNow: "just now",
-    social: "Social",
-    message: "Message",
-    delete: "Delete",
-    admin: "Admin access",
-    member: "Member",
-    noBio: "No profile bio yet.",
-    profilePrompt: "Sign in to activate your public member card."
-  },
-  sl: {
-    signInToSeeMembers: "Za ogled profilov se prijavi.",
-    signInToReadMessages: "Za branje sporočil se prijavi.",
-    selectMember: "Izberi člana",
-    noMemberAvailable: "Ni razpoložljivega člana",
-    feedEmpty: "Objav še ni.",
-    membersEmpty: "Članov še ni.",
-    inboxEmpty: "Sporočil še ni.",
-    signInToPost: "Prijavi se ali ustvari račun za objavo.",
-    addKeysFirst: "Najprej dodaj Firebase ključe.",
-    signedInSuccess: "Prijava uspešna.",
-    accountCreated: "Račun je ustvarjen.",
-    profileUpdated: "Profil je posodobljen.",
-    postPublished: "Objava je objavljena.",
-    messageSent: "Sporočilo je poslano.",
-    signedOut: "Odjava uspešna.",
-    notSignedIn: "Nisi prijavljen.",
-    signedInAs: "Prijavljen kot",
-    justNow: "pravkar",
-    social: "Povezava",
-    message: "Sporočilo",
-    delete: "Izbriši",
-    admin: "Admin dostop",
-    member: "Član",
-    noBio: "Opis profila še ni dodan.",
-    profilePrompt: "Prijavi se in aktiviraj svojo javno kartico člana."
-  },
-  gr: {
-    signInToSeeMembers: "Συνδεθείτε για να δείτε τα προφίλ μελών.",
-    signInToReadMessages: "Συνδεθείτε για να δείτε τα μηνύματα.",
-    selectMember: "Επιλέξτε μέλος",
-    noMemberAvailable: "Δεν υπάρχει διαθέσιμο μέλος",
-    feedEmpty: "Δεν υπάρχουν ακόμη αναρτήσεις.",
-    membersEmpty: "Δεν υπάρχουν ακόμη μέλη.",
-    inboxEmpty: "Δεν υπάρχουν ακόμη μηνύματα.",
-    signInToPost: "Συνδεθείτε ή δημιουργήστε λογαριασμό για να δημοσιεύσετε.",
-    addKeysFirst: "Προσθέστε πρώτα τα κλειδιά Firebase.",
-    signedInSuccess: "Η σύνδεση ολοκληρώθηκε.",
-    accountCreated: "Ο λογαριασμός δημιουργήθηκε.",
-    profileUpdated: "Το προφίλ ενημερώθηκε.",
-    postPublished: "Η ανάρτηση δημοσιεύτηκε.",
-    messageSent: "Το μήνυμα στάλθηκε.",
-    signedOut: "Αποσυνδεθήκατε.",
-    notSignedIn: "Δεν έχετε συνδεθεί.",
-    signedInAs: "Συνδεδεμένος ως",
-    justNow: "μόλις τώρα",
-    social: "Σύνδεσμος",
-    message: "Μήνυμα",
-    delete: "Διαγραφή",
-    admin: "Πρόσβαση διαχειριστή",
-    member: "Μέλος",
-    noBio: "Δεν υπάρχει ακόμη βιογραφικό προφίλ.",
-    profilePrompt: "Συνδεθείτε για να ενεργοποιήσετε τη δημόσια κάρτα μέλους σας."
-  },
-  ar: {
-    signInToSeeMembers: "سجّل الدخول لرؤية ملفات الأعضاء.",
-    signInToReadMessages: "سجّل الدخول لقراءة الرسائل.",
-    selectMember: "اختر عضواً",
-    noMemberAvailable: "لا يوجد عضو متاح",
-    feedEmpty: "لا توجد منشورات بعد.",
-    membersEmpty: "لا يوجد أعضاء بعد.",
-    inboxEmpty: "لا توجد رسائل بعد.",
-    signInToPost: "سجّل الدخول أو أنشئ حساباً لبدء النشر.",
-    addKeysFirst: "أضف مفاتيح Firebase أولاً.",
-    signedInSuccess: "تم تسجيل الدخول بنجاح.",
-    accountCreated: "تم إنشاء الحساب بنجاح.",
-    profileUpdated: "تم تحديث الملف الشخصي.",
-    postPublished: "تم نشر المنشور.",
-    messageSent: "تم إرسال الرسالة.",
-    signedOut: "تم تسجيل الخروج.",
-    notSignedIn: "لست مسجلاً للدخول.",
-    signedInAs: "تم تسجيل الدخول باسم",
-    justNow: "الآن",
-    social: "رابط",
-    message: "رسالة",
-    delete: "حذف",
-    admin: "وصول المشرف",
-    member: "عضو",
-    noBio: "لا يوجد نبذة شخصية بعد.",
-    profilePrompt: "سجّل الدخول لتفعيل بطاقة العضوية العامة الخاصة بك."
-  }
-};
+const setupNotice = $("setupNotice");
+const logoutBtn = $("logoutBtn");
+const authStatus = $("authStatus");
 
-const setupNotice = document.getElementById("setupNotice");
-const logoutBtn = document.getElementById("logoutBtn");
-const authStatus = document.getElementById("authStatus");
-const profileSpotlight = document.getElementById("profileSpotlight");
+const signInForm = $("signInForm");
+const signUpForm = $("signUpForm");
+const profileForm = $("profileForm");
+const postForm = $("postForm");
+const messageForm = $("messageForm");
 
-const authPanel = document.getElementById("authPanel");
-const profilePanel = document.getElementById("profilePanel");
-const composerPanel = document.getElementById("composerPanel");
-const memberPanels = document.getElementById("memberPanels");
-const messageForm = document.getElementById("messageForm");
+const feedList = $("feedList") || $("postsList");
+const membersList = $("membersGrid") || $("membersList");
+const inboxList = $("inboxList") || $("messagesList");
+const recipientSelect = $("recipientUid");
+const refreshFeedBtn = $("refreshFeedBtn");
 
-const signinForm = pickElement("signinForm", "signInForm");
-const signupForm = pickElement("signupForm", "signUpForm");
-const profileForm = document.getElementById("profileForm");
-const postForm = document.getElementById("postForm");
+const profileNameInput = $("profileName");
+const profileOrganisationInput = $("profileOrganisation");
+const profileBioInput = $("profileBio");
+const profileSocialInput = $("profileSocial");
 
-const memberList = document.getElementById("memberList");
-const feedList = document.getElementById("feedList");
-const inboxList = document.getElementById("inboxList");
-const messageRecipient = pickElement("messageRecipient", "recipientUid");
-const refreshFeedBtn = document.getElementById("refreshFeedBtn");
+const postTypeInput = $("postType");
+const postTagInput = $("postTag");
+const postMessageInput = $("postMessage");
 
-const authTabs = document.querySelectorAll(".auth-tab");
+const signInEmailInput = $("signInEmail");
+const signInPasswordInput = $("signInPassword");
 
-let auth;
-let db;
+const signUpNameInput = $("signUpName");
+const signUpEmailInput = $("signUpEmail");
+const signUpPasswordInput = $("signUpPassword");
+
+const directMessageTextInput = $("directMessageText");
+
+let auth = null;
+let db = null;
 let currentUser = null;
+
 let unsubscribeFeed = null;
 let unsubscribeInbox = null;
 let unsubscribeMembers = null;
 
-if (!firebaseIsConfigured(firebaseConfig)) {
-  setupNotice?.classList.add("visible");
-  setStatus(t("addKeysFirst"), "error");
-} else {
-  const app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
-  setupNotice?.classList.remove("visible");
-  initCommunity();
+function setStatus(message) {
+  if (authStatus) authStatus.textContent = message;
 }
 
-document.addEventListener("eysae:languagechange", () => {
-  refreshStaticStates();
-  if (currentUser) {
-    renderCurrentSpotlight();
+function showSetupNotice(message) {
+  if (setupNotice) {
+    setupNotice.classList.add("visible");
+    setupNotice.textContent = message;
   }
-});
-
-function pickElement(...ids) {
-  return ids.map((id) => document.getElementById(id)).find(Boolean) || null;
+  setStatus(message);
 }
 
-function currentLang() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return runtimeI18n[saved] ? saved : "en";
+function hideSetupNotice() {
+  if (setupNotice) {
+    setupNotice.classList.remove("visible");
+  }
 }
 
-function t(key) {
-  const lang = currentLang();
-  return runtimeI18n[lang]?.[key] || runtimeI18n.en[key] || key;
-}
-
-function isAdminEmail(email = "") {
-  return ADMIN_EMAILS.includes(String(email).toLowerCase());
-}
-
-function initialsFrom(name = "Member") {
-  return String(name)
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part.charAt(0).toUpperCase())
-    .join("") || "EY";
+if (!firebaseIsConfigured(firebaseConfig)) {
+  showSetupNotice("Firebase configuration is missing or incomplete.");
+} else {
+  try {
+    const app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    hideSetupNotice();
+    initCommunity();
+  } catch (error) {
+    showSetupNotice(`Firebase init failed: ${humanizeError(error)}`);
+  }
 }
 
 function initCommunity() {
-  bindAuthTabs();
   bindForms();
   bindButtons();
-  startPublicFeedListener();
 
   onAuthStateChanged(auth, async (user) => {
     currentUser = user;
 
     if (!user) {
+      stopRealtimeListeners();
       showSignedOutState();
-      stopUserListeners();
       return;
     }
 
-    await ensureUserProfile(user);
-    await fillProfileForm(user.uid);
-    await renderCurrentSpotlight();
-    showSignedInState(user);
-    startUserListeners(user.uid);
-  });
-}
-
-function bindAuthTabs() {
-  authTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      authTabs.forEach((button) => button.classList.remove("active"));
-      tab.classList.add("active");
-      const target = tab.dataset.authTab;
-      signinForm?.classList.toggle("hidden", target !== "signin");
-      signupForm?.classList.toggle("hidden", target !== "signup");
-    });
+    try {
+      await ensureUserProfile(user);
+      await fillProfileForm(user.uid);
+      showSignedInState(user);
+      startRealtimeListeners(user.uid);
+    } catch (error) {
+      setStatus(humanizeError(error));
+    }
   });
 }
 
 function bindForms() {
-  signinForm?.addEventListener("submit", async (event) => {
+  signInForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const email = pickElement("signinEmail", "signInEmail")?.value.trim();
-    const password = pickElement("signinPassword", "signInPassword")?.value;
+
+    const email = signInEmailInput?.value.trim() || "";
+    const password = signInPasswordInput?.value || "";
+
+    if (!email || !password) {
+      setStatus("Enter your email and password.");
+      return;
+    }
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      signinForm.reset();
-      setStatus(t("signedInSuccess"), "success");
+      signInForm.reset();
+      setStatus("Signed in successfully.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 
-  signupForm?.addEventListener("submit", async (event) => {
+  signUpForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const displayName = pickElement("signupName", "signUpName")?.value.trim();
-    const email = pickElement("signupEmail", "signUpEmail")?.value.trim();
-    const password = pickElement("signupPassword", "signUpPassword")?.value;
+
+    const displayName = signUpNameInput?.value.trim() || "";
+    const email = signUpEmailInput?.value.trim() || "";
+    const password = signUpPasswordInput?.value || "";
+
+    if (displayName.length < 2) {
+      setStatus("Display name must be at least 2 characters.");
+      return;
+    }
+
+    if (!email || !password) {
+      setStatus("Enter email and password.");
+      return;
+    }
 
     try {
       const credential = await createUserWithEmailAndPassword(auth, email, password);
+
       await updateProfile(credential.user, { displayName });
-      await ensureUserProfile(credential.user, { displayName });
-      signupForm.reset();
-      setStatus(t("accountCreated"), "success");
+
+      await setDoc(doc(db, "users", credential.user.uid), {
+        displayName,
+        email: credential.user.email || email,
+        role: "Member",
+        bio: "",
+        socialLink: "",
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+
+      signUpForm.reset();
+      setStatus("Account created successfully.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 
   profileForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!currentUser) return;
 
-    const profileData = {
-      displayName: document.getElementById("profileName")?.value.trim() || currentUser.displayName || t("member"),
-      role: document.getElementById("profileRole")?.value.trim() || t("member"),
-      bio: document.getElementById("profileBio")?.value.trim() || "",
-      socialLink: document.getElementById("profileSocial")?.value.trim() || "",
-      updatedAt: serverTimestamp()
-    };
+    if (!currentUser) {
+      setStatus("You need to sign in first.");
+      return;
+    }
+
+    const displayName = profileNameInput?.value.trim() || "";
+    const role = profileOrganisationInput?.value.trim() || "";
+    const bio = profileBioInput?.value.trim() || "";
+    const socialLink = profileSocialInput?.value.trim() || "";
+
+    if (displayName.length < 2) {
+      setStatus("Display name must be at least 2 characters.");
+      return;
+    }
 
     try {
-      await updateProfile(currentUser, { displayName: profileData.displayName });
-      await updateDoc(doc(db, "users", currentUser.uid), profileData);
-      await renderCurrentSpotlight();
-      setStatus(t("profileUpdated"), "success");
+      await updateProfile(currentUser, { displayName });
+
+      const userRef = doc(db, "users", currentUser.uid);
+      const snap = await getDoc(userRef);
+
+      if (!snap.exists()) {
+        await setDoc(userRef, {
+          displayName,
+          email: currentUser.email || "",
+          role,
+          bio,
+          socialLink,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+      } else {
+        const existing = snap.data();
+
+        await updateDoc(userRef, {
+          displayName,
+          email: existing.email || currentUser.email || "",
+          role,
+          bio,
+          socialLink,
+          updatedAt: serverTimestamp()
+        });
+      }
+
+      setStatus("Profile updated.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 
   postForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!currentUser) return;
 
-    const profile = await getProfile(currentUser.uid);
-    const payload = {
-      authorId: currentUser.uid,
-      authorName: profile.displayName || currentUser.displayName || currentUser.email,
-      authorRole: profile.role || t("member"),
-      socialLink: profile.socialLink || "",
-      type: document.getElementById("postType")?.value || "update",
-      tag: document.getElementById("postTag")?.value.trim() || "",
-      content: document.getElementById("postContent")?.value.trim() || "",
-      createdAt: serverTimestamp()
-    };
+    if (!currentUser) {
+      setStatus("You need to sign in first.");
+      return;
+    }
+
+    const profileSnap = await getDoc(doc(db, "users", currentUser.uid));
+    const profile = profileSnap.exists() ? profileSnap.data() : {};
+
+    const typeRaw = postTypeInput?.value || "update";
+    const type = typeRaw === "project-update" ? "update" : typeRaw;
+
+    const tag = postTagInput?.value.trim() || "";
+    const content = postMessageInput?.value.trim() || "";
+
+    if (!content) {
+      setStatus("Write a post before publishing.");
+      return;
+    }
 
     try {
-      await addDoc(collection(db, "posts"), payload);
+      await addDoc(collection(db, "posts"), {
+        authorId: currentUser.uid,
+        authorName: profile.displayName || currentUser.displayName || currentUser.email || "Member",
+        authorRole: profile.role || "Member",
+        socialLink: profile.socialLink || "",
+        type,
+        tag,
+        content,
+        createdAt: serverTimestamp()
+      });
+
       postForm.reset();
-      setStatus(t("postPublished"), "success");
+      setStatus("Post published.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 
   messageForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!currentUser) return;
 
-    const toId = messageRecipient?.value;
-    const text = document.getElementById("messageText")?.value.trim();
-    if (!toId || !text) return;
+    if (!currentUser) {
+      setStatus("You need to sign in first.");
+      return;
+    }
 
-    const profile = await getProfile(currentUser.uid);
+    const toId = recipientSelect?.value || "";
+    const text = directMessageTextInput?.value.trim() || "";
+
+    if (!toId) {
+      setStatus("Select a member first.");
+      return;
+    }
+
+    if (!text) {
+      setStatus("Write a message first.");
+      return;
+    }
 
     try {
+      const profileSnap = await getDoc(doc(db, "users", currentUser.uid));
+      const profile = profileSnap.exists() ? profileSnap.data() : {};
+
       await addDoc(collection(db, "users", toId, "messages"), {
         fromId: currentUser.uid,
-        fromName: profile.displayName || currentUser.displayName || currentUser.email,
+        fromName: profile.displayName || currentUser.displayName || currentUser.email || "Member",
         text,
         toId,
         createdAt: serverTimestamp()
       });
+
       messageForm.reset();
-      setStatus(t("messageSent"), "success");
+      setStatus("Message sent.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 }
@@ -359,324 +323,294 @@ function bindForms() {
 function bindButtons() {
   logoutBtn?.addEventListener("click", async () => {
     if (!auth || !currentUser) return;
+
     try {
       await signOut(auth);
-      setStatus(t("signedOut"), "success");
+      setStatus("Signed out.");
     } catch (error) {
-      setStatus(humanizeError(error), "error");
+      setStatus(humanizeError(error));
     }
   });
 
   refreshFeedBtn?.addEventListener("click", async () => {
-    if (!db) return;
-    await renderFeed();
-    if (currentUser) {
+    try {
       await renderMembers();
-      await renderInbox();
-      await renderCurrentSpotlight();
+      await renderFeed();
+      setStatus("Community refreshed.");
+    } catch (error) {
+      setStatus(humanizeError(error));
     }
   });
 }
 
-async function ensureUserProfile(user, overrides = {}) {
+async function ensureUserProfile(user) {
   const userRef = doc(db, "users", user.uid);
   const snapshot = await getDoc(userRef);
-  const baseProfile = {
-    displayName: overrides.displayName || user.displayName || user.email?.split("@")[0] || t("member"),
-    email: user.email || "",
-    role: t("member"),
-    bio: "",
-    socialLink: "",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp()
-  };
 
   if (!snapshot.exists()) {
-    await setDoc(userRef, baseProfile);
+    await setDoc(userRef, {
+      displayName: user.displayName || user.email?.split("@")[0] || "Member",
+      email: user.email || "",
+      role: "Member",
+      bio: "",
+      socialLink: "",
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
     return;
   }
 
   const existing = snapshot.data();
-  const patch = {};
-  if (!existing.displayName && baseProfile.displayName) patch.displayName = baseProfile.displayName;
-  if (!existing.email && baseProfile.email) patch.email = baseProfile.email;
-  if (Object.keys(patch).length) {
-    patch.updatedAt = serverTimestamp();
-    await updateDoc(userRef, patch);
+
+  if (!existing.displayName && user.displayName) {
+    await updateDoc(userRef, {
+      displayName: user.displayName,
+      updatedAt: serverTimestamp()
+    });
   }
 }
 
-async function getProfile(uid) {
-  const snapshot = await getDoc(doc(db, "users", uid));
-  return snapshot.exists() ? snapshot.data() : {};
-}
-
 async function fillProfileForm(uid) {
-  const profile = await getProfile(uid);
-  const nameInput = document.getElementById("profileName");
-  const roleInput = document.getElementById("profileRole");
-  const bioInput = document.getElementById("profileBio");
-  const socialInput = document.getElementById("profileSocial");
+  const snapshot = await getDoc(doc(db, "users", uid));
+  if (!snapshot.exists()) return;
 
-  if (nameInput) nameInput.value = profile.displayName || "";
-  if (roleInput) roleInput.value = profile.role || "";
-  if (bioInput) bioInput.value = profile.bio || "";
-  if (socialInput) socialInput.value = profile.socialLink || "";
+  const profile = snapshot.data();
+
+  if (profileNameInput) profileNameInput.value = profile.displayName || "";
+  if (profileOrganisationInput) profileOrganisationInput.value = profile.role || "";
+  if (profileBioInput) profileBioInput.value = profile.bio || "";
+  if (profileSocialInput) profileSocialInput.value = profile.socialLink || "";
 }
 
-function startPublicFeedListener() {
-  unsubscribeFeed = onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(40)), (snapshot) => {
-    const posts = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
-    renderFeed(posts);
-  });
+function startRealtimeListeners(uid) {
+  stopRealtimeListeners();
+
+  unsubscribeFeed = onSnapshot(
+    query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(40)),
+    (snapshot) => {
+      const posts = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+      renderFeed(posts);
+    }
+  );
+
+  unsubscribeMembers = onSnapshot(
+    query(collection(db, "users"), orderBy("displayName"), limit(100)),
+    (snapshot) => {
+      const members = snapshot.docs
+        .map((item) => ({ id: item.id, ...item.data() }))
+        .filter((item) => item.id !== uid);
+
+      renderMembers(members);
+    }
+  );
+
+  unsubscribeInbox = onSnapshot(
+    query(collection(db, "users", uid, "messages"), orderBy("createdAt", "desc"), limit(50)),
+    (snapshot) => {
+      const messages = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+      renderInbox(messages);
+    }
+  );
 }
 
-function startUserListeners(uid) {
-  stopUserListeners();
-
-  unsubscribeMembers = onSnapshot(query(collection(db, "users"), orderBy("displayName"), limit(100)), (snapshot) => {
-    const members = snapshot.docs
-      .map((item) => ({ id: item.id, ...item.data() }))
-      .filter((item) => item.id !== uid);
-    renderMembers(members);
-  });
-
-  unsubscribeInbox = onSnapshot(query(collection(db, "users", uid, "messages"), orderBy("createdAt", "desc"), limit(50)), (snapshot) => {
-    const messages = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
-    renderInbox(messages);
-  });
-}
-
-function stopUserListeners() {
+function stopRealtimeListeners() {
+  if (unsubscribeFeed) unsubscribeFeed();
   if (unsubscribeMembers) unsubscribeMembers();
   if (unsubscribeInbox) unsubscribeInbox();
+
+  unsubscribeFeed = null;
   unsubscribeMembers = null;
   unsubscribeInbox = null;
 }
 
 async function renderFeed(posts = null) {
+  if (!feedList) return;
+
   if (!Array.isArray(posts)) {
-    const snapshot = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(40)));
+    const snapshot = await getDocs(
+      query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(40))
+    );
     posts = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
   }
 
   if (!posts.length) {
-    feedList.innerHTML = `<p class="empty-state">${t("feedEmpty")}</p>`;
+    feedList.innerHTML = `<div class="empty-state">No posts yet.</div>`;
     return;
   }
 
-  feedList.innerHTML = posts.map((post) => {
-    const canDelete = currentUser && (currentUser.uid === post.authorId || isAdminEmail(currentUser.email));
-    const social = post.socialLink ? `<a href="${escapeAttribute(post.socialLink)}" target="_blank" rel="noreferrer">${t("social")}</a>` : "";
-    const authorName = escapeHtml(post.authorName || t("member"));
-    const role = escapeHtml(post.authorRole || t("member"));
-    return `
-      <article class="feed-card">
-        <div class="feed-card-top">
-          <div class="feed-author-row">
-            <div class="feed-avatar">${escapeHtml(initialsFrom(post.authorName || "M"))}</div>
+  feedList.innerHTML = posts
+    .map((post) => {
+      const canDelete = currentUser && currentUser.uid === post.authorId;
+      const social = post.socialLink
+        ? `<a href="${escapeAttribute(post.socialLink)}" target="_blank" rel="noreferrer">social</a>`
+        : "";
+
+      return `
+        <article class="post-card">
+          <div class="feed-card-top">
             <div>
-              <span class="feed-chip">${escapeHtml(post.type || "update")}</span>
-              <strong class="feed-author">${authorName}</strong>
-              <p class="feed-meta">${role} · ${formatDate(post.createdAt)}${social ? ` · ${social}` : ""}</p>
+              <div class="feed-chip">${escapeHtml(post.type || "update")}</div>
+              <h3>${escapeHtml(post.authorName || "Member")}</h3>
+              <p class="feed-meta">${escapeHtml(post.authorRole || "Member")} · ${formatDate(post.createdAt)} ${social ? `· ${social}` : ""}</p>
             </div>
+            ${canDelete ? `<button type="button" class="button button-secondary button-small btn-delete-post" data-post-id="${post.id}">Delete</button>` : ""}
           </div>
-          ${canDelete ? `<button type="button" class="btn-delete-post" data-post-id="${post.id}">${t("delete")}</button>` : ""}
-        </div>
-        ${post.tag ? `<p class="feed-tag">#${escapeHtml(post.tag)}</p>` : ""}
-        <p class="feed-content">${escapeHtml(post.content || "")}</p>
-      </article>
-    `;
-  }).join("");
+          ${post.tag ? `<p class="feed-tag">#${escapeHtml(post.tag)}</p>` : ""}
+          <p class="feed-content">${escapeHtml(post.content || "")}</p>
+        </article>
+      `;
+    })
+    .join("");
 
   feedList.querySelectorAll(".btn-delete-post").forEach((button) => {
     button.addEventListener("click", async () => {
       const postId = button.dataset.postId;
       if (!postId) return;
+
       try {
         await deleteDoc(doc(db, "posts", postId));
+        setStatus("Post deleted.");
       } catch (error) {
-        setStatus(humanizeError(error), "error");
+        setStatus(humanizeError(error));
       }
     });
   });
 }
 
 async function renderMembers(members = null) {
-  if (!currentUser) {
-    memberList.innerHTML = `<p class="empty-state">${t("signInToSeeMembers")}</p>`;
-    if (messageRecipient) {
-      messageRecipient.innerHTML = `<option value="">${t("noMemberAvailable")}</option>`;
-    }
-    return;
-  }
+  if (!membersList || !recipientSelect) return;
 
   if (!Array.isArray(members)) {
-    const snapshot = await getDocs(query(collection(db, "users"), orderBy("displayName"), limit(100)));
+    const snapshot = await getDocs(
+      query(collection(db, "users"), orderBy("displayName"), limit(100))
+    );
     members = snapshot.docs
       .map((item) => ({ id: item.id, ...item.data() }))
-      .filter((item) => item.id !== currentUser.uid);
+      .filter((item) => !currentUser || item.id !== currentUser.uid);
   }
 
   if (!members.length) {
-    memberList.innerHTML = `<p class="empty-state">${t("membersEmpty")}</p>`;
-    if (messageRecipient) {
-      messageRecipient.innerHTML = `<option value="">${t("noMemberAvailable")}</option>`;
-    }
+    membersList.innerHTML = `<div class="empty-state">No members yet.</div>`;
+    recipientSelect.innerHTML = `<option value="">No member available</option>`;
     return;
   }
 
-  memberList.innerHTML = members.map((member) => {
-    const social = member.socialLink ? `<a href="${escapeAttribute(member.socialLink)}" target="_blank" rel="noreferrer">${t("social")}</a>` : "";
-    const adminBadge = isAdminEmail(member.email) ? `<span class="admin-badge">${t("admin")}</span>` : "";
-    return `
-      <article class="member-card">
-        <div class="member-card-top">
-          <div class="member-author-row">
-            <div class="member-avatar">${escapeHtml(initialsFrom(member.displayName || member.email || "M"))}</div>
-            <div>
-              <strong class="member-name">${escapeHtml(member.displayName || t("member"))}</strong>
-              <p class="member-subline">${escapeHtml(member.email || "")}</p>
-              <div class="member-role-row">
-                <span class="role-pill">${escapeHtml(member.role || t("member"))}</span>
-                ${adminBadge}
-              </div>
-            </div>
+  membersList.innerHTML = members
+    .map((member) => {
+      const social = member.socialLink
+        ? `<a href="${escapeAttribute(member.socialLink)}" target="_blank" rel="noreferrer">social</a>`
+        : "";
+
+      return `
+        <article class="member-card">
+          <h3>${escapeHtml(member.displayName || "Member")}</h3>
+          <p>${escapeHtml(member.role || "Member")}</p>
+          ${member.bio ? `<p class="member-bio">${escapeHtml(member.bio)}</p>` : ""}
+          <div class="member-actions">
+            ${social}
+            <button type="button" class="button button-secondary button-small member-message-btn" data-member-id="${member.id}">
+              Message
+            </button>
           </div>
-        </div>
-        <p class="member-bio">${escapeHtml(member.bio || t("noBio"))}</p>
-        <div class="member-actions">
-          ${social}
-          <button type="button" class="member-message-btn" data-member-id="${member.id}">${t("message")}</button>
-        </div>
-      </article>
-    `;
-  }).join("");
+        </article>
+      `;
+    })
+    .join("");
 
-  if (messageRecipient) {
-    messageRecipient.innerHTML = `<option value="">${t("selectMember")}</option>` + members.map((member) => {
-      return `<option value="${member.id}">${escapeHtml(member.displayName || member.email || t("member"))}</option>`;
-    }).join("");
-  }
+  recipientSelect.innerHTML =
+    `<option value="">Select a member</option>` +
+    members
+      .map((member) => {
+        return `<option value="${member.id}">${escapeHtml(member.displayName || member.email || "Member")}</option>`;
+      })
+      .join("");
 
-  memberList.querySelectorAll(".member-message-btn").forEach((button) => {
+  membersList.querySelectorAll(".member-message-btn").forEach((button) => {
     button.addEventListener("click", () => {
-      if (messageRecipient) messageRecipient.value = button.dataset.memberId || "";
-      document.getElementById("messageText")?.focus();
-      messageForm?.classList.remove("hidden");
+      recipientSelect.value = button.dataset.memberId || "";
+      directMessageTextInput?.focus();
     });
   });
 }
 
-async function renderInbox(messages = null) {
-  if (!currentUser) {
-    inboxList.innerHTML = `<p class="empty-state">${t("signInToReadMessages")}</p>`;
-    return;
-  }
-
-  if (!Array.isArray(messages)) {
-    const snapshot = await getDocs(query(collection(db, "users", currentUser.uid, "messages"), orderBy("createdAt", "desc"), limit(50)));
-    messages = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
-  }
+function renderInbox(messages = []) {
+  if (!inboxList) return;
 
   if (!messages.length) {
-    inboxList.innerHTML = `<p class="empty-state">${t("inboxEmpty")}</p>`;
+    inboxList.innerHTML = `<div class="empty-state">No messages yet.</div>`;
     return;
   }
 
-  inboxList.innerHTML = messages.map((message) => `
-    <article class="inbox-card">
-      <div class="inbox-card-top">
-        <strong class="feed-author">${escapeHtml(message.fromName || t("member"))}</strong>
-        <span class="inbox-date">${formatDate(message.createdAt)}</span>
-      </div>
-      <p>${escapeHtml(message.text || "")}</p>
-    </article>
-  `).join("");
-}
-
-async function renderCurrentSpotlight() {
-  if (!profileSpotlight) return;
-
-  if (!currentUser) {
-    profileSpotlight.className = "profile-spotlight profile-spotlight-empty";
-    profileSpotlight.innerHTML = `
-      <div class="profile-avatar">EY</div>
-      <div>
-        <strong>EYSAE</strong>
-        <p>${escapeHtml(t("profilePrompt"))}</p>
-      </div>
-    `;
-    return;
-  }
-
-  const profile = await getProfile(currentUser.uid);
-  const adminBadge = isAdminEmail(currentUser.email) ? `<span class="admin-badge">${t("admin")}</span>` : "";
-  const social = profile.socialLink ? `<a href="${escapeAttribute(profile.socialLink)}" target="_blank" rel="noreferrer">${t("social")}</a>` : "";
-
-  profileSpotlight.className = "profile-spotlight";
-  profileSpotlight.innerHTML = `
-    <div class="profile-avatar">${escapeHtml(initialsFrom(profile.displayName || currentUser.email || "M"))}</div>
-    <div>
-      <strong>${escapeHtml(profile.displayName || currentUser.displayName || t("member"))}</strong>
-      <p>${escapeHtml(profile.bio || t("noBio"))}</p>
-      <div class="profile-meta">
-        <span class="role-pill">${escapeHtml(profile.role || t("member"))}</span>
-        ${adminBadge}
-      </div>
-      ${social ? `<div class="profile-links">${social}</div>` : ""}
-    </div>
-  `;
-}
-
-function refreshStaticStates() {
-  if (!currentUser) {
-    if (memberList) memberList.innerHTML = `<p class="empty-state">${t("signInToSeeMembers")}</p>`;
-    if (inboxList) inboxList.innerHTML = `<p class="empty-state">${t("signInToReadMessages")}</p>`;
-    if (messageRecipient) messageRecipient.innerHTML = `<option value="">${t("noMemberAvailable")}</option>`;
-  }
-  if (!feedList?.children.length) {
-    feedList.innerHTML = `<p class="empty-state">${t("feedEmpty")}</p>`;
-  }
+  inboxList.innerHTML = messages
+    .map((message) => {
+      return `
+        <article class="message-card">
+          <div class="inbox-card-top">
+            <strong>${escapeHtml(message.fromName || "Member")}</strong>
+            <span>${formatDate(message.createdAt)}</span>
+          </div>
+          <p>${escapeHtml(message.text || "")}</p>
+        </article>
+      `;
+    })
+    .join("");
 }
 
 function showSignedOutState() {
-  profilePanel?.classList.add("hidden");
-  composerPanel?.classList.add("hidden");
-  messageForm?.classList.add("hidden");
-  logoutBtn.disabled = true;
-  renderCurrentSpotlight();
-  renderMembers([]);
-  renderInbox([]);
-  setStatus(t("notSignedIn"), "");
+  if (logoutBtn) logoutBtn.disabled = true;
+  setStatus("Not signed in.");
+
+  if (membersList) {
+    membersList.innerHTML = `<div class="empty-state">Sign in to see members.</div>`;
+  }
+
+  if (inboxList) {
+    inboxList.innerHTML = `<div class="empty-state">Sign in to read messages.</div>`;
+  }
+
+  if (feedList) {
+    feedList.innerHTML = `<div class="empty-state">Sign in or create an account to start posting.</div>`;
+  }
 }
 
 function showSignedInState(user) {
-  profilePanel?.classList.remove("hidden");
-  composerPanel?.classList.remove("hidden");
-  messageForm?.classList.remove("hidden");
-  memberPanels?.classList.remove("hidden");
-  logoutBtn.disabled = false;
-  setStatus(`${t("signedInAs")} ${user.email}.`, "success");
-}
-
-function setStatus(message, tone = "") {
-  if (!authStatus) return;
-  authStatus.textContent = message;
-  authStatus.classList.remove("success", "error");
-  if (tone) authStatus.classList.add(tone);
+  if (logoutBtn) logoutBtn.disabled = false;
+  setStatus(`Signed in as ${user.email}.`);
 }
 
 function formatDate(value) {
   const raw = value?.toDate ? value.toDate() : null;
-  if (!raw) return t("justNow");
-  const locale = currentLang() === "gr" ? "el-GR" : currentLang() === "sl" ? "sl-SI" : currentLang() === "ar" ? "ar" : "en-GB";
-  return new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(raw);
+  if (!raw) return "just now";
+
+  return new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  }).format(raw);
 }
 
 function humanizeError(error) {
-  if (!error?.message) return "Something went wrong.";
-  return error.message.replace("Firebase: ", "").replaceAll("auth/", "");
+  if (!error) return "Something went wrong.";
+
+  if (error.code) {
+    switch (error.code) {
+      case "auth/invalid-credential":
+        return "Wrong email or password.";
+      case "auth/email-already-in-use":
+        return "This email is already in use.";
+      case "auth/invalid-email":
+        return "Invalid email address.";
+      case "auth/weak-password":
+        return "Password is too weak.";
+      case "auth/operation-not-allowed":
+        return "Email/password sign-in is not enabled in Firebase.";
+      case "permission-denied":
+        return "Firestore rules are blocking this action.";
+      default:
+        return error.message || "Something went wrong.";
+    }
+  }
+
+  return error.message || "Something went wrong.";
 }
 
 function escapeHtml(value) {
