@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+      <rect width="900" height="480" rx="28" fill="#f7f8f5"/>
+      <rect x="22" y="22" width="856" height="436" rx="24" fill="#ffffff" stroke="#dfe6ef" stroke-width="4"/>
+      <rect x="48" y="48" width="286" height="384" rx="22" fill="#183b77"/>
+      
+        <path d="M126 212 L62 142 C28 106 47 58 97 58 C116 58 131 68 141 82 C151 68 166 58 185 58 C235 58 254 106 220 142 Z" fill="#efc84a"/>
+      <text x="372" y="108" font-size="20" font-weight="800" fill="#efc84a" font-family="Inter, Arial">TUNISIA</text>
+      <text x="372" y="172" font-size="54" font-weight="800" fill="#183b77" font-family="Inter, Arial">We Love Sousse</text>
+      <text x="372" y="228" font-size="20" fill="#64766f" font-family="Inter, Arial">website-ready partner logo card</text>
+      <text x="372" y="264" font-size="20" fill="#64766f" font-family="Inter, Arial">community pulse mark</text>
+    </svg>

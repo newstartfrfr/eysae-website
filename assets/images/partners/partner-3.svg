@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480">
+      <rect width="900" height="480" rx="28" fill="#f7f8f5"/>
+      <rect x="22" y="22" width="856" height="436" rx="24" fill="#ffffff" stroke="#dfe6ef" stroke-width="4"/>
+      <rect x="48" y="48" width="286" height="384" rx="22" fill="#183b77"/>
+      
+        <circle cx="126" cy="145" r="38" fill="#5d9af2"/>
+        <g stroke="#ffffff" stroke-width="5" stroke-linecap="round">
+          <path d="M126 72 L126 92"/><path d="M126 198 L126 218"/><path d="M53 145 L73 145"/><path d="M179 145 L199 145"/>
+          <path d="M76 95 L88 108"/><path d="M164 182 L177 195"/><path d="M176 95 L164 108"/><path d="M88 182 L76 195"/>
+        </g>
+      <text x="372" y="108" font-size="20" font-weight="800" fill="#efc84a" font-family="Inter, Arial">MOROCCO</text>
+      <text x="372" y="172" font-size="54" font-weight="800" fill="#183b77" font-family="Inter, Arial">Amuddu CSF</text>
+      <text x="372" y="228" font-size="20" fill="#64766f" font-family="Inter, Arial">website-ready partner logo card</text>
+      <text x="372" y="264" font-size="20" fill="#64766f" font-family="Inter, Arial">sun and outreach mark</text>
+    </svg>
