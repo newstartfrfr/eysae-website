@@ -1,66 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EYSAE Project Page</title>
-  <meta name="description" content="Dedicated EYSAE project page with overview, objectives, activities, outputs and implementation timeline." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title data-i18n="project.metaTitle">EYSAE Project Page</title>
+  <meta name="description" content="Dedicated EYSAE project page with overview, objectives, activities, timeline and community call-to-action." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
-<body>
-  <header class="site-header" id="top">
+<body data-page="project">
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html#hero" class="brand">
+      <a class="brand" href="index.html" aria-label="EYSAE home">
         <span class="brand-mark">EY</span>
-        <div class="brand-text">
+        <span class="brand-text">
           <strong>EYSAE</strong>
-          <span>Empowering Youth for Sustainable Agriculture and Entrepreneurship</span>
-        </div>
+          <small data-i18n="brand.subtitle">Empowering Youth for Sustainable Agriculture and Entrepreneurship</small>
+        </span>
       </a>
 
-      <nav class="nav" id="mainNav">
-        <ul class="nav-list">
-          <li><a href="index.html#hero">Home</a></li>
-          <li><a href="projects.html" class="nav-link-current">Project</a></li>
-          <li><a href="index.html#partners">Partners</a></li>
-          <li><a href="index.html#news">News</a></li>
-          <li><a href="community.html">Community</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" data-i18n-aria-label="common.openMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav">
+        <a class="nav-link" href="index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
+        <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
+        <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
+        <a class="nav-link" href="community.html" data-i18n="nav.community">Community</a>
+        <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a class="btn btn-community-header" href="community.html">Join Hub</a>
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <a class="button button-secondary button-small" href="community.html" data-i18n="cta.joinHub">Join Hub</a>
+        <div class="language-switcher" aria-label="Language switcher">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="sl">SL</button>
+          <button type="button" class="lang-btn" data-lang="gr">GR</button>
+          <button type="button" class="lang-btn" data-lang="ar">AR</button>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="page-hero page-hero-projects">
+    <section class="page-hero">
       <div class="container page-hero-grid">
         <div>
-          <span class="eyebrow">Dedicated project page</span>
-          <h1>Projects now open on a real page, not only on scroll-down</h1>
-          <p>
-            This page gives EYSAE its own project space with a clearer story, easier navigation and stronger room for future updates, documents and timelines.
-          </p>
+          <span class="eyebrow" data-i18n="project.kicker">Dedicated project page</span>
+          <h1 data-i18n="project.title">A clearer project story, structure and implementation path</h1>
+          <p class="hero-lead" data-i18n="project.body">This page gives EYSAE its own project space with a clearer story, easier navigation and stronger room for future updates, documents and timelines.</p>
+
           <div class="hero-actions">
-            <a href="community.html" class="btn btn-primary">Go to Community</a>
-            <a href="index.html#news" class="btn btn-secondary">Back to News</a>
+            <a class="button" href="community.html" data-i18n="project.primaryCta">Go to Community</a>
+            <a class="button button-secondary" href="index.html#news" data-i18n="project.secondaryCta">Back to News</a>
           </div>
         </div>
+
         <div class="page-hero-panel">
-          <div class="page-hero-stat"><strong>01</strong><span>Clear project overview</span></div>
-          <div class="page-hero-stat"><strong>02</strong><span>Separated from homepage scrolling</span></div>
-          <div class="page-hero-stat"><strong>03</strong><span>Ready for future milestones and downloads</span></div>
+          <div class="pill-list">
+            <span class="pill" data-i18n="project.pill1">01 Clear project overview</span>
+            <span class="pill" data-i18n="project.pill2">02 Separated from homepage scrolling</span>
+            <span class="pill" data-i18n="project.pill3">03 Ready for future milestones and downloads</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container two-column-copy">
+        <div class="section-heading compact">
+          <span class="eyebrow" data-i18n="project.overviewEyebrow">Overview</span>
+          <h2 data-i18n="project.overviewTitle">What this project page should do</h2>
+          <p data-i18n="project.overviewBody">It should explain the project quickly, make key information easy to find and send visitors to the next action: partners, updates, or the community hub.</p>
+        </div>
+
+        <div class="info-stack">
+          <article class="info-card"><h3 data-i18n="project.clarityTitle">Public-facing clarity</h3><p data-i18n="project.clarityBody">Visitors immediately understand the purpose, the target group and the value of the project.</p></article>
+          <article class="info-card"><h3 data-i18n="project.architectureTitle">Better information architecture</h3><p data-i18n="project.architectureBody">The project now has a dedicated destination page with space for richer content and clearer navigation.</p></article>
+          <article class="info-card"><h3 data-i18n="project.futureTitle">Future-ready structure</h3><p data-i18n="project.futureBody">You can later add downloadable outputs, event pages, galleries and partner subpages without cluttering the homepage.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="project.blocksEyebrow">Core blocks</span>
+          <h2 data-i18n="project.blocksTitle">Main project content</h2>
+          <p data-i18n="project.blocksBody">The four core content blocks stay, but they now live in a cleaner page hierarchy.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card"><h3 data-i18n="project.block1Title">About</h3><p data-i18n="project.block1Body">Explain why the project matters, what challenge it addresses and why the partnership is relevant.</p></article>
+          <article class="feature-card"><h3 data-i18n="project.block2Title">Objectives</h3><p data-i18n="project.block2Body">State the intended competency-building, entrepreneurial mindset and cooperation outcomes clearly.</p></article>
+          <article class="feature-card"><h3 data-i18n="project.block3Title">Activities</h3><p data-i18n="project.block3Body">Show what people actually do in the project, not only the abstract idea behind it.</p></article>
+          <article class="feature-card"><h3 data-i18n="project.block4Title">Results</h3><p data-i18n="project.block4Body">Show what remains after the activity cycle: materials, stronger cooperation and visible public outputs.</p></article>
         </div>
       </div>
     </section>
@@ -68,123 +106,66 @@
     <section class="section">
       <div class="container">
         <div class="section-heading">
-          <span class="section-kicker">Overview</span>
-          <h2>What this project page should do</h2>
-          <p>
-            It should explain the project quickly, make key information easy to find and send visitors to the next action: partners, updates, or the community hub.
-          </p>
+          <span class="eyebrow" data-i18n="project.timelineEyebrow">Implementation flow</span>
+          <h2 data-i18n="project.timelineTitle">Suggested timeline blocks</h2>
+          <p data-i18n="project.timelineBody">Use these placeholders to convert the page into a real project timeline once implementation milestones are finalised.</p>
         </div>
-        <div class="cards-grid three-col">
-          <article class="info-card">
-            <h3>Public-facing clarity</h3>
-            <p>Visitors immediately understand the purpose, the target group and the value of the project.</p>
-          </article>
-          <article class="info-card">
-            <h3>Better information architecture</h3>
-            <p>The old Project dropdown is now replaced by a dedicated destination page with space for richer content.</p>
-          </article>
-          <article class="info-card">
-            <h3>Future-ready structure</h3>
-            <p>You can later add downloadable outputs, event pages, galleries and partner subpages without cluttering the homepage.</p>
-          </article>
+
+        <div class="timeline-grid">
+          <article class="timeline-card"><span class="timeline-phase" data-i18n="project.phase1Label">Phase 1</span><h3 data-i18n="project.phase1Title">Launch and partner alignment</h3><p data-i18n="project.phase1Body">Kick-off, role alignment, visibility setup and operational planning.</p></article>
+          <article class="timeline-card"><span class="timeline-phase" data-i18n="project.phase2Label">Phase 2</span><h3 data-i18n="project.phase2Title">Workshops and local actions</h3><p data-i18n="project.phase2Body">Practical learning activities, local mobilisation and thematic engagement.</p></article>
+          <article class="timeline-card"><span class="timeline-phase" data-i18n="project.phase3Label">Phase 3</span><h3 data-i18n="project.phase3Title">Mobility and exchange moments</h3><p data-i18n="project.phase3Body">International cooperation, cross-border learning and exchange of methods.</p></article>
+          <article class="timeline-card"><span class="timeline-phase" data-i18n="project.phase4Label">Phase 4</span><h3 data-i18n="project.phase4Title">Dissemination and community follow-up</h3><p data-i18n="project.phase4Body">Publishing results, sharing updates and keeping engagement active through the community hub.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section section-soft">
-      <div class="container">
-        <div class="section-heading">
-          <span class="section-kicker">Core blocks</span>
-          <h2>Main project content</h2>
-          <p>The four original content blocks stay, but they now live in a cleaner page hierarchy.</p>
-        </div>
-        <div class="project-block-grid">
-          <article class="project-block-card">
-            <span>About</span>
-            <h3>Background and rationale</h3>
-            <p>Explain why the project matters, what challenge it addresses and why the partnership is relevant.</p>
-          </article>
-          <article class="project-block-card">
-            <span>Objectives</span>
-            <h3>Expected learning and impact</h3>
-            <p>State the intended competency-building, entrepreneurial mindset and cooperation outcomes clearly.</p>
-          </article>
-          <article class="project-block-card">
-            <span>Activities</span>
-            <h3>Workshops, mobility and local actions</h3>
-            <p>Show what people actually do in the project, not only the abstract idea behind it.</p>
-          </article>
-          <article class="project-block-card">
-            <span>Results</span>
-            <h3>Outputs, visibility and transferability</h3>
-            <p>Show what remains after the activity cycle: materials, stronger cooperation and visible public outputs.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <span class="section-kicker">Implementation flow</span>
-          <h2>Suggested timeline blocks</h2>
-          <p>Use these placeholders to convert the page into a real project timeline once implementation milestones are finalised.</p>
-        </div>
-        <div class="timeline-list">
-          <article class="timeline-item">
-            <span class="timeline-badge">Phase 1</span>
-            <div>
-              <h3>Launch and partner alignment</h3>
-              <p>Kick-off, role alignment, visibility setup and operational planning.</p>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <span class="timeline-badge">Phase 2</span>
-            <div>
-              <h3>Workshops and local actions</h3>
-              <p>Practical learning activities, local mobilisation and thematic engagement.</p>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <span class="timeline-badge">Phase 3</span>
-            <div>
-              <h3>Mobility and exchange moments</h3>
-              <p>International cooperation, cross-border learning and exchange of methods.</p>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <span class="timeline-badge">Phase 4</span>
-            <div>
-              <h3>Dissemination and community follow-up</h3>
-              <p>Publishing results, sharing updates and keeping engagement active through the community hub.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft">
+    <section class="section section-cta">
       <div class="container cta-band">
         <div>
-          <span class="section-kicker">Next step</span>
-          <h2>Connect the project page with the member hub</h2>
-          <p>That way, people do not just read about the project. They can join, post, contact each other and follow updates.</p>
+          <span class="eyebrow" data-i18n="project.ctaEyebrow">Next step</span>
+          <h2 data-i18n="project.ctaTitle">Connect the project page with the member hub</h2>
+          <p data-i18n="project.ctaBody">That way, people do not just read about the project. They can join, post, contact each other and follow updates.</p>
         </div>
-        <div class="cta-band-actions">
-          <a href="community.html" class="btn btn-primary">Open community</a>
-          <a href="index.html#contact" class="btn btn-secondary">Contact coordinator</a>
+        <div class="inline-actions">
+          <a class="button" href="community.html" data-i18n="project.ctaPrimary">Open community</a>
+          <a class="button button-secondary" href="index.html#contact" data-i18n="project.ctaSecondary">Contact coordinator</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-bottom footer-bottom-simple">
-      <p>© 2026 EYSAE</p>
-      <p><a href="index.html">Back to homepage</a></p>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark">EY</span>
+        <h3>EYSAE</h3>
+        <p data-i18n="footer.tagline">A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
+      </div>
+
+      <div>
+        <h4 data-i18n="footer.navTitle">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+          <li><a href="index.html#partners" data-i18n="nav.partners">Partners</a></li>
+          <li><a href="index.html#news" data-i18n="nav.news">News</a></li>
+          <li><a href="community.html" data-i18n="nav.community">Community</a></li>
+          <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 data-i18n="footer.noteTitle">Institutional Note</h4>
+        <p data-i18n="footer.noteBody">Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p data-i18n="footer.copyright">© 2026 EYSAE</p>
+      <p data-i18n="footer.disclaimer">The content of this website is the responsibility of the project partnership and is intended for information and dissemination purposes.</p>
     </div>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
