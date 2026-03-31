@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+      <defs>
+        <linearGradient id="bg" x1="0" x2="1">
+          <stop offset="0%" stop-color="#eef4fb"/>
+          <stop offset="100%" stop-color="#e5ecf5"/>
+        </linearGradient>
+      </defs>
+      <rect width="1600" height="900" rx="34" fill="#f4f6f2"/>
+      <rect x="0" y="0" width="1600" height="420" fill="url(#bg)"/>
+      <rect x="68" y="80" width="1464" height="316" rx="22" fill="#ffffff"/>
+      <rect x="102" y="98" width="198" height="280" rx="18" fill="#183b77"/>
+      
+        <circle cx="140" cy="118" r="58" fill="#efc84a"/>
+        <path d="M140 38 L170 92 L110 92 Z" fill="#ffffff"/>
+        <rect x="126" y="92" width="28" height="94" fill="#ffffff"/>
+        <path d="M96 186 L184 186 L140 270 Z" fill="#53a865"/>
+      <text x="388" y="126" font-size="24" font-weight="800" fill="#efc84a" font-family="Inter, Arial" letter-spacing="1">PROJECT LAUNCH</text>
+      <text x="388" y="126" font-size="52" font-weight="800" fill="#183b77" font-family="Inter, Arial">EYSAE project</text>
+<text x="388" y="180" font-size="52" font-weight="800" fill="#183b77" font-family="Inter, Arial">implementation</text>
+<text x="388" y="234" font-size="52" font-weight="800" fill="#183b77" font-family="Inter, Arial">officially begins</text>
+      <text x="388" y="273" font-size="20" fill="#66786f" font-family="Inter, Arial">Prepared as a clean website visual for EYSAE</text>
+<text x="388" y="297" font-size="20" fill="#66786f" font-family="Inter, Arial">updates and project communication.</text>
+    </svg>
