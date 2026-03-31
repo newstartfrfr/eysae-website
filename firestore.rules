@@ -10,6 +10,10 @@ service cloud.firestore {
       return signedIn() && request.auth.uid == uid;
     }
 
+    function isAdmin() {
+      return signedIn() && request.auth.token.email in ['krizo19@gmail.com'];
+    }
+
     function isShortText(value, max) {
       return value is string && value.size() <= max;
     }
@@ -113,14 +117,11 @@ service cloud.firestore {
 
     match /users/{uid} {
       allow read: if signedIn();
-
       allow create: if isSelf(uid) && validUserDoc();
-
-      allow update: if isSelf(uid) &&
+      allow update: if (isSelf(uid) || isAdmin()) &&
         validUserDoc() &&
         request.resource.data.email == resource.data.email &&
         request.resource.data.createdAt == resource.data.createdAt;
-
       allow delete: if false;
 
       match /messages/{messageId} {
@@ -132,16 +133,18 @@ service cloud.firestore {
 
     match /posts/{postId} {
       allow read: if true;
-
       allow create: if signedIn() && validPostDoc();
-
-      allow update: if signedIn() &&
-        resource.data.authorId == request.auth.uid &&
-        validPostDoc() &&
-        request.resource.data.authorId == resource.data.authorId &&
-        request.resource.data.createdAt == resource.data.createdAt;
-
-      allow delete: if signedIn() && resource.data.authorId == request.auth.uid;
+      allow update: if signedIn() && (
+        (resource.data.authorId == request.auth.uid &&
+          validPostDoc() &&
+          request.resource.data.authorId == resource.data.authorId &&
+          request.resource.data.createdAt == resource.data.createdAt) ||
+        (isAdmin() &&
+          validPostDoc() &&
+          request.resource.data.authorId == resource.data.authorId &&
+          request.resource.data.createdAt == resource.data.createdAt)
+      );
+      allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
     }
   }
 }
