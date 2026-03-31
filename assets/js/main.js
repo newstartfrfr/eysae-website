@@ -1,3 +1,4 @@
+
 const STORAGE_KEY = "eysae-language";
 const RTL_LANGS = new Set(["ar"]);
 
