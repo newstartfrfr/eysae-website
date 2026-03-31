@@ -1,0 +1,6 @@
+1. Firebase Console > Authentication > Sign-in method > enable Email/Password
+2. Firebase Console > Authentication > Settings > Authorized domains > add newstartfrfr.github.io
+3. Google Cloud Console > APIs & Services > Credentials > open the key used by this web app
+   - Application restrictions: None, or Websites with referrer allowing your GitHub Pages URL
+   - API restrictions: either unrestricted, or include Identity Toolkit API and Firebase-related APIs
+4. Redeploy / hard refresh browser
