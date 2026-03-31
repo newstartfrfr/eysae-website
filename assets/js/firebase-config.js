@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyAfC9V2L-p6t-pDxcQT76IngV47COS23hc",
+  apiKey: "AIzaSyAfCV2L-p6t-pDxcQT76IngV47COS23hc",
   authDomain: "eysae-community.firebaseapp.com",
   projectId: "eysae-community",
   storageBucket: "eysae-community.firebasestorage.app",
@@ -10,9 +10,9 @@ export const firebaseConfig = {
 export function firebaseIsConfigured(config) {
   return Boolean(
     config &&
-      config.apiKey && !config.apiKey.startsWith("REPLACE_") &&
-      config.authDomain && !config.authDomain.startsWith("REPLACE_") &&
-      config.projectId && !config.projectId.startsWith("REPLACE_") &&
-      config.appId && !config.appId.startsWith("REPLACE_")
+      config.apiKey &&
+      config.authDomain &&
+      config.projectId &&
+      config.appId
   );
 }
