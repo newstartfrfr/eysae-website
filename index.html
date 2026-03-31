@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -50,9 +51,9 @@
   </header>
 
   <main>
-    <section class="hero-section">
-      <div class="container hero-grid">
-        <div class="hero-copy">
+    <section class="hero-section hero-section-clean">
+      <div class="container hero-grid hero-grid-clean">
+        <div class="hero-copy hero-copy-clean">
           <span class="eyebrow" data-i18n="home.kicker">Erasmus+ Cooperation Project</span>
           <h1 data-i18n="home.heroTitle">Empowering Youth for Sustainable Agriculture and Entrepreneurship</h1>
           <p class="hero-lead" data-i18n="home.heroDesc">EYSAE supports young people through practical learning, entrepreneurial thinking, sustainable agriculture knowledge and international cooperation.</p>
@@ -62,24 +63,34 @@
             <a class="button button-secondary" href="community.html" data-i18n="home.heroSecondaryCta">Open Community Hub</a>
           </div>
 
-          <div class="hero-stats">
-            <article class="stat-card"><strong data-i18n="home.stat1Number">6+</strong><span data-i18n="home.stat1Label">Partner organisations</span></article>
-            <article class="stat-card"><strong data-i18n="home.stat2Number">4</strong><span data-i18n="home.stat2Label">Website languages</span></article>
-            <article class="stat-card"><strong data-i18n="home.stat3Number">EU</strong><span data-i18n="home.stat3Label">Youth, sustainability, mobility</span></article>
+          <div class="hero-inline-points hero-stats-clean">
+            <article class="stat-card compact-stat">
+              <strong data-i18n="home.stat1Number">6+</strong>
+              <span data-i18n="home.stat1Label">Partner organisations</span>
+            </article>
+            <article class="stat-card compact-stat">
+              <strong data-i18n="home.stat2Number">4</strong>
+              <span data-i18n="home.stat2Label">Website languages</span>
+            </article>
+            <article class="stat-card compact-stat">
+              <strong data-i18n="home.stat3Number">EU</strong>
+              <span data-i18n="home.stat3Label">Youth, sustainability, mobility</span>
+            </article>
           </div>
         </div>
 
-        <div class="hero-visual-card">
-          <div class="hero-floating-note hero-note hero-note-top note-top">
-            <span data-i18n="home.note1Label">Focus</span>
-            <strong data-i18n="home.note1Value">Green skills & youth entrepreneurship</strong>
+        <div class="hero-media hero-media-clean">
+          <div class="hero-image-panel">
+            <img src="assets/images/hero-eysae.jpg" alt="Young people in sustainable agriculture project activity" class="hero-image" />
+            <div class="hero-image-caption">
+              <span data-i18n="home.note2Label">Approach</span>
+              <strong data-i18n="home.note2Value">International learning and local impact</strong>
+            </div>
           </div>
-
-          <img src="assets/images/hero-eysae.jpg" alt="Young people in sustainable agriculture project activity" class="hero-image" />
-
-          <div class="hero-floating-note hero-note hero-note-bottom note-bottom">
-            <span data-i18n="home.note2Label">Approach</span>
-            <strong data-i18n="home.note2Value">International learning and local impact</strong>
+          <div class="hero-side-card">
+            <span class="eyebrow" data-i18n="home.note1Label">Focus</span>
+            <h3 data-i18n="home.note1Value">Green skills & youth entrepreneurship</h3>
+            <p data-i18n="framework.body">This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.</p>
           </div>
         </div>
       </div>
@@ -87,7 +98,7 @@
 
     <section class="section section-framework">
       <div class="container">
-        <div class="eu-banner-card eu-banner">
+        <div class="eu-banner-card eu-banner clean-banner">
           <div class="eu-banner-logo eu-banner-visual">
             <img src="assets/images/eu-banner.png" alt="European Union and Erasmus+ visual identity" />
           </div>
@@ -96,27 +107,6 @@
             <h2 data-i18n="framework.title">Implemented within the Erasmus+ cooperation framework</h2>
             <p data-i18n="framework.body">This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow" data-i18n="hub.eyebrow">Community Hub</span>
-          <h2 data-i18n="hub.title">Give the project a real social layer</h2>
-          <p data-i18n="hub.body">Members can create accounts, publish updates, share social links and exchange direct messages inside a dedicated community page connected to Firebase.</p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card"><span class="feature-index">01</span><h3 data-i18n="hub.card1Title">Member sign-up</h3><p data-i18n="hub.card1Body">Email/password access with editable profile, organisation, role, short bio and one social link.</p></article>
-          <article class="feature-card"><span class="feature-index">02</span><h3 data-i18n="hub.card2Title">Posts and updates</h3><p data-i18n="hub.card2Body">Users can publish discussion posts, project updates or community notices in a shared live feed.</p></article>
-          <article class="feature-card"><span class="feature-index">03</span><h3 data-i18n="hub.card3Title">Direct messages</h3><p data-i18n="hub.card3Body">Signed-in members can contact each other privately through a lightweight inbox built on Firestore.</p></article>
-        </div>
-
-        <div class="inline-actions">
-          <a class="button" href="community.html" data-i18n="hub.primaryCta">Open community page</a>
-          <a class="button button-secondary" href="projects.html" data-i18n="hub.secondaryCta">Open project page</a>
         </div>
       </div>
     </section>
@@ -130,8 +120,14 @@
         </div>
 
         <div class="info-stack">
-          <article class="info-card"><h3 data-i18n="about.reasonTitle">Why this project matters</h3><p data-i18n="about.reasonBody">Young people need practical pathways to build green skills, entrepreneurial confidence and stronger links to sustainable local economies.</p></article>
-          <article class="info-card"><h3 data-i18n="about.deliverTitle">What EYSAE delivers</h3><p data-i18n="about.deliverBody">The project creates learning opportunities, cooperation activities, visibility actions and transferable results for youth workers, young participants and partner organisations.</p></article>
+          <article class="info-card">
+            <h3 data-i18n="about.reasonTitle">Why this project matters</h3>
+            <p data-i18n="about.reasonBody">Young people need practical pathways to build green skills, entrepreneurial confidence and stronger links to sustainable local economies.</p>
+          </article>
+          <article class="info-card">
+            <h3 data-i18n="about.deliverTitle">What EYSAE delivers</h3>
+            <p data-i18n="about.deliverBody">The project creates learning opportunities, cooperation activities, visibility actions and transferable results for youth workers, young participants and partner organisations.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -144,10 +140,59 @@
         </div>
 
         <div class="objectives-grid objective-grid">
-          <article class="objective-card"><span class="feature-index">01</span><h3 data-i18n="objectives.obj1Title">Strengthen green competencies</h3><p data-i18n="objectives.obj1Body">Support young people in understanding sustainable agriculture, environmental responsibility and local resilience.</p></article>
-          <article class="objective-card"><span class="feature-index">02</span><h3 data-i18n="objectives.obj2Title">Promote entrepreneurship</h3><p data-i18n="objectives.obj2Body">Encourage initiative, innovation and entrepreneurial thinking linked to rural and sustainable development opportunities.</p></article>
-          <article class="objective-card"><span class="feature-index">03</span><h3 data-i18n="objectives.obj3Title">Build international cooperation</h3><p data-i18n="objectives.obj3Body">Create stronger collaboration between partners, communities and youth stakeholders across participating countries.</p></article>
-          <article class="objective-card"><span class="feature-index">04</span><h3 data-i18n="objectives.obj4Title">Increase visibility and transferability</h3><p data-i18n="objectives.obj4Body">Share methods, activities and project results in a way that supports broader use and long-term sustainability.</p></article>
+          <article class="objective-card">
+            <span class="feature-index">01</span>
+            <h3 data-i18n="objectives.obj1Title">Strengthen green competencies</h3>
+            <p data-i18n="objectives.obj1Body">Support young people in understanding sustainable agriculture, environmental responsibility and local resilience.</p>
+          </article>
+          <article class="objective-card">
+            <span class="feature-index">02</span>
+            <h3 data-i18n="objectives.obj2Title">Promote entrepreneurship</h3>
+            <p data-i18n="objectives.obj2Body">Encourage initiative, innovation and entrepreneurial thinking linked to rural and sustainable development opportunities.</p>
+          </article>
+          <article class="objective-card">
+            <span class="feature-index">03</span>
+            <h3 data-i18n="objectives.obj3Title">Build international cooperation</h3>
+            <p data-i18n="objectives.obj3Body">Create stronger collaboration between partners, communities and youth stakeholders across participating countries.</p>
+          </article>
+          <article class="objective-card">
+            <span class="feature-index">04</span>
+            <h3 data-i18n="objectives.obj4Title">Increase visibility and transferability</h3>
+            <p data-i18n="objectives.obj4Body">Share methods, activities and project results in a way that supports broader use and long-term sustainability.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="community-preview">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="hub.eyebrow">Community Hub</span>
+          <h2 data-i18n="hub.title">Give the project a real social layer</h2>
+          <p data-i18n="hub.body">Members can create accounts, publish updates, share social links and exchange direct messages inside a dedicated community page connected to Firebase.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-index">01</span>
+            <h3 data-i18n="hub.card1Title">Member sign-up</h3>
+            <p data-i18n="hub.card1Body">Email/password access with editable profile, organisation, role, short bio and one social link.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-index">02</span>
+            <h3 data-i18n="hub.card2Title">Posts and updates</h3>
+            <p data-i18n="hub.card2Body">Users can publish discussion posts, project updates or community notices in a shared live feed.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-index">03</span>
+            <h3 data-i18n="hub.card3Title">Direct messages</h3>
+            <p data-i18n="hub.card3Body">Signed-in members can contact each other privately through a lightweight inbox built on Firestore.</p>
+          </article>
+        </div>
+
+        <div class="inline-actions centered-actions">
+          <a class="button" href="community.html" data-i18n="hub.primaryCta">Open community page</a>
+          <a class="button button-secondary" href="projects.html" data-i18n="hub.secondaryCta">Open project page</a>
         </div>
       </div>
     </section>
@@ -161,12 +206,42 @@
         </div>
 
         <div class="partners-grid partner-grid">
-          <article class="partner-card"><img src="assets/images/partners/partner-1.png" alt="POVOD, so.p. logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p1Country">Slovenia</span><h3>POVOD, so.p.</h3><p data-i18n="partners.p1Body">Project coordination, management and dissemination support.</p></article>
-          <article class="partner-card"><img src="assets/images/partners/partner-2.png" alt="IASIS logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p2Country">Greece</span><h3>IASIS</h3><p data-i18n="partners.p2Body">Youth engagement, educational activities and local implementation.</p></article>
-          <article class="partner-card"><img src="assets/images/partners/partner-3.png" alt="Amuddu CSF logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p3Country">Morocco</span><h3>Amuddu CSF</h3><p data-i18n="partners.p3Body">Training support, cross-border cooperation and participant outreach.</p></article>
-          <article class="partner-card"><img src="assets/images/partners/partner-4.png" alt="We Love Sousse logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p4Country">Tunisia</span><h3>We Love Sousse</h3><p data-i18n="partners.p4Body">Community engagement, sustainability methods and youth participation.</p></article>
-          <article class="partner-card"><img src="assets/images/partners/partner-5.png" alt="Shoura Organization logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p5Country">Jordan</span><h3>Shoura Organization</h3><p data-i18n="partners.p5Body">Communication support, visibility actions and dissemination outputs.</p></article>
-          <article class="partner-card"><img src="assets/images/partners/partner-6.png" alt="Sanad Youth for Development Foundation logo" class="partner-logo" /><span class="partner-country" data-i18n="partners.p6Country">Syria</span><h3>Sanad Youth for Development Foundation</h3><p data-i18n="partners.p6Body">Local coordination, stakeholder cooperation and pilot support.</p></article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-1.png" alt="POVOD, so.p. logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p1Country">Slovenia</span>
+            <h3>POVOD, so.p.</h3>
+            <p data-i18n="partners.p1Body">Project coordination, management and dissemination support.</p>
+          </article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-2.png" alt="IASIS logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p2Country">Greece</span>
+            <h3>IASIS</h3>
+            <p data-i18n="partners.p2Body">Youth engagement, educational activities and local implementation.</p>
+          </article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-3.png" alt="Amuddu CSF logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p3Country">Morocco</span>
+            <h3>Amuddu CSF</h3>
+            <p data-i18n="partners.p3Body">Training support, cross-border cooperation and participant outreach.</p>
+          </article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-4.png" alt="We Love Sousse logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p4Country">Tunisia</span>
+            <h3>We Love Sousse</h3>
+            <p data-i18n="partners.p4Body">Community engagement, sustainability methods and youth participation.</p>
+          </article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-5.png" alt="Shoura Organization logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p5Country">Jordan</span>
+            <h3>Shoura Organization</h3>
+            <p data-i18n="partners.p5Body">Communication support, visibility actions and dissemination outputs.</p>
+          </article>
+          <article class="partner-card">
+            <img src="assets/images/partners/partner-6.png" alt="Sanad Youth for Development Foundation logo" class="partner-logo" />
+            <span class="partner-country" data-i18n="partners.p6Country">Syria</span>
+            <h3>Sanad Youth for Development Foundation</h3>
+            <p data-i18n="partners.p6Body">Local coordination, stakeholder cooperation and pilot support.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -182,15 +257,30 @@
         <div class="news-grid">
           <article class="news-card">
             <img src="assets/images/news/news-1.jpg" alt="Project launch meeting" class="news-image" />
-            <div class="news-content"><span class="news-meta" data-i18n="news.n1Meta">March 2026 Project Launch</span><h3 data-i18n="news.n1Title">EYSAE project implementation officially begins</h3><p data-i18n="news.n1Body">Partners have aligned the initial coordination steps, visibility direction and implementation priorities for the first phase of the project.</p><a href="projects.html" class="text-link" data-i18n="news.readMore">Read more</a></div>
+            <div class="news-content">
+              <span class="news-meta" data-i18n="news.n1Meta">March 2026 Project Launch</span>
+              <h3 data-i18n="news.n1Title">EYSAE project implementation officially begins</h3>
+              <p data-i18n="news.n1Body">Partners have aligned the initial coordination steps, visibility direction and implementation priorities for the first phase of the project.</p>
+              <a href="projects.html" class="text-link" data-i18n="news.readMore">Read more</a>
+            </div>
           </article>
           <article class="news-card">
             <img src="assets/images/news/news-2.jpg" alt="Preparations for project mobility" class="news-image" />
-            <div class="news-content"><span class="news-meta" data-i18n="news.n2Meta">March 2026 Mobility Preparation</span><h3 data-i18n="news.n2Title">Preparations for international project activities are underway</h3><p data-i18n="news.n2Body">The partnership is developing organisational steps, communication materials and participant-oriented preparation for upcoming cooperation activities.</p><a href="projects.html" class="text-link" data-i18n="news.readMore">Read more</a></div>
+            <div class="news-content">
+              <span class="news-meta" data-i18n="news.n2Meta">March 2026 Mobility Preparation</span>
+              <h3 data-i18n="news.n2Title">Preparations for international project activities are underway</h3>
+              <p data-i18n="news.n2Body">The partnership is developing organisational steps, communication materials and participant-oriented preparation for upcoming cooperation activities.</p>
+              <a href="projects.html" class="text-link" data-i18n="news.readMore">Read more</a>
+            </div>
           </article>
           <article class="news-card">
             <img src="assets/images/news/news-3.jpg" alt="Project outreach and dissemination" class="news-image" />
-            <div class="news-content"><span class="news-meta" data-i18n="news.n3Meta">March 2026 Visibility</span><h3 data-i18n="news.n3Title">Visibility and outreach framework introduced on the website</h3><p data-i18n="news.n3Body">The project website now provides a stronger public-facing structure for presenting partnership information, activities and future updates.</p><a href="community.html" class="text-link" data-i18n="news.communityCta">Open community feed</a></div>
+            <div class="news-content">
+              <span class="news-meta" data-i18n="news.n3Meta">March 2026 Visibility</span>
+              <h3 data-i18n="news.n3Title">Visibility and outreach framework introduced on the website</h3>
+              <p data-i18n="news.n3Body">The project website now provides a stronger public-facing structure for presenting partnership information, activities and future updates.</p>
+              <a href="community.html" class="text-link" data-i18n="news.communityCta">Open community feed</a>
+            </div>
           </article>
         </div>
       </div>
@@ -206,10 +296,22 @@
         </div>
 
         <div class="contact-panel">
-          <div class="contact-item"><span class="contact-label" data-i18n="contact.coordinatorLabel">Coordinator</span><strong>Povod so.p.</strong></div>
-          <div class="contact-item"><span class="contact-label" data-i18n="contact.emailLabel">Email</span><a href="mailto:krizo19@gmail.com">krizo19@gmail.com</a></div>
-          <div class="contact-item"><span class="contact-label" data-i18n="contact.locationLabel">Location</span><strong data-i18n="contact.locationValue">Slovenia</strong></div>
-          <div class="contact-side-note"><h3 data-i18n="contact.sideTitle">Project visibility and cooperation</h3><p data-i18n="contact.sideBody">The website will continue to be updated with project news, cooperation milestones, activities and public-facing results as implementation progresses.</p></div>
+          <div class="contact-item">
+            <span class="contact-label" data-i18n="contact.coordinatorLabel">Coordinator</span>
+            <strong>Povod so.p.</strong>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label" data-i18n="contact.emailLabel">Email</span>
+            <a href="mailto:krizo19@gmail.com">krizo19@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label" data-i18n="contact.locationLabel">Location</span>
+            <strong data-i18n="contact.locationValue">Slovenia</strong>
+          </div>
+          <div class="contact-side-note">
+            <h3 data-i18n="contact.sideTitle">Project visibility and cooperation</h3>
+            <p data-i18n="contact.sideBody">The website will continue to be updated with project news, cooperation milestones, activities and public-facing results as implementation progresses.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -222,7 +324,6 @@
         <h3>EYSAE</h3>
         <p data-i18n="footer.tagline">A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
       </div>
-
       <div>
         <h4 data-i18n="footer.navTitle">Navigation</h4>
         <ul class="footer-links">
@@ -233,7 +334,6 @@
           <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </div>
-
       <div>
         <h4 data-i18n="footer.noteTitle">Institutional Note</h4>
         <p data-i18n="footer.noteBody">Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.</p>
