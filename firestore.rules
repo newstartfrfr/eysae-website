@@ -93,24 +93,45 @@ service cloud.firestore {
       request.resource.data.createdAt is timestamp;
     }
 
-    function validMessageDoc(recipientUid) {
+    function validConversationDoc() {
       return request.resource.data.keys().hasOnly([
-        'fromId',
-        'fromName',
+        'participants',
+        'participantNames',
+        'updatedAt',
+        'lastMessage',
+        'lastSenderId'
+      ]) &&
+      request.resource.data.keys().hasAll([
+        'participants',
+        'participantNames',
+        'updatedAt',
+        'lastMessage',
+        'lastSenderId'
+      ]) &&
+      request.resource.data.participants is list &&
+      request.resource.data.participants.size() == 2 &&
+      request.auth.uid in request.resource.data.participants &&
+      request.resource.data.participantNames is map &&
+      isRequiredText(request.resource.data.lastMessage, 1, 1000) &&
+      request.resource.data.lastSenderId == request.auth.uid &&
+      request.resource.data.updatedAt is timestamp;
+    }
+
+    function validConversationMessageDoc() {
+      return request.resource.data.keys().hasOnly([
+        'senderId',
+        'senderName',
         'text',
-        'toId',
         'createdAt'
       ]) &&
       request.resource.data.keys().hasAll([
-        'fromId',
-        'fromName',
+        'senderId',
+        'senderName',
         'text',
-        'toId',
         'createdAt'
       ]) &&
-      request.resource.data.fromId == request.auth.uid &&
-      request.resource.data.toId == recipientUid &&
-      isRequiredText(request.resource.data.fromName, 2, 80) &&
+      request.resource.data.senderId == request.auth.uid &&
+      isRequiredText(request.resource.data.senderName, 2, 80) &&
       isRequiredText(request.resource.data.text, 1, 1000) &&
       request.resource.data.createdAt is timestamp;
     }
@@ -123,12 +144,6 @@ service cloud.firestore {
         request.resource.data.email == resource.data.email &&
         request.resource.data.createdAt == resource.data.createdAt;
       allow delete: if false;
-
-      match /messages/{messageId} {
-        allow read: if isSelf(uid);
-        allow create: if signedIn() && validMessageDoc(uid);
-        allow update, delete: if false;
-      }
     }
 
     match /posts/{postId} {
@@ -145,6 +160,24 @@ service cloud.firestore {
           request.resource.data.createdAt == resource.data.createdAt)
       );
       allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+
+    match /conversations/{conversationId} {
+      allow read: if signedIn() && request.auth.uid in resource.data.participants;
+      allow create: if signedIn() && validConversationDoc();
+      allow update: if signedIn() &&
+        request.auth.uid in resource.data.participants &&
+        validConversationDoc() &&
+        request.resource.data.participants == resource.data.participants;
+      allow delete: if false;
+
+      match /messages/{messageId} {
+        allow read: if signedIn() && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+        allow create: if signedIn() &&
+          request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants &&
+          validConversationMessageDoc();
+        allow update, delete: if false;
+      }
     }
   }
 }
