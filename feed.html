@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EYSAE Member Feed</title>
-  <meta name="description" content="Public feed of member updates and project posts on EYSAE." />
+  <title>EYSAE Feed</title>
+  <meta name="description" content="Public member feed for EYSAE project updates and community posts." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -17,25 +17,22 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small>Member feed</small>
+          <small>Project feed</small>
         </span>
       </a>
-
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
-
       <nav class="site-nav" id="siteNav">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="projects.html">Project</a>
-        <a class="nav-link" href="feed.html">Feed</a>
+        <a class="nav-link active" href="feed.html">Feed</a>
         <a class="nav-link" href="community.html">Members</a>
-        <a class="nav-link" href="index.html#partners">Partners</a>
-        <a class="nav-link" href="index.html#contact">Contact</a>
+        <a class="nav-link" href="index.html#news">News</a>
       </nav>
-
       <div class="header-actions">
-        <a class="button button-secondary button-small" href="community.html">Member Area</a>
+        <a class="button button-secondary button-small" href="community.html">Member area</a>
+        <button class="button button-secondary button-small hidden" id="logoutBtn" type="button">Log out</button>
       </div>
     </div>
   </header>
@@ -44,17 +41,17 @@
     <section class="page-hero community-hero">
       <div class="container page-hero-grid community-hero-grid">
         <div>
-          <span class="eyebrow">Member updates</span>
-          <h1>Project feed and member posts</h1>
-          <p class="hero-lead">This page shows public updates shared by members and project contributors. Signed-in members can also post directly from here.</p>
+          <span class="eyebrow">EYSAE FEED</span>
+          <h1>Public updates from the project and its members</h1>
+          <p class="hero-lead">This page gathers the latest published updates in one place. Signed-in members can publish from the member area and continue conversations through the private message panel.</p>
         </div>
         <div class="page-hero-panel community-status-panel">
-          <div id="authStatus" class="status-bar">Loading feed...</div>
+          <div id="authStatus" class="status-bar">Public view.</div>
           <div class="profile-spotlight profile-spotlight-empty" id="profileSpotlight">
             <div class="profile-avatar">EY</div>
             <div>
-              <strong>Public feed</strong>
-              <p>Sign in from the member area to publish updates.</p>
+              <strong>Project feed</strong>
+              <p>Use the member area to publish updates and message other participants.</p>
             </div>
           </div>
         </div>
@@ -62,60 +59,85 @@
     </section>
 
     <section class="section community-section">
-      <div class="container community-shell community-shell-wide">
+      <div class="container community-shell community-shell-wide community-shell-feed">
         <div class="community-main">
-          <article class="community-card hidden" id="composerPanel">
-            <div class="card-heading">
-              <span class="eyebrow">Publish</span>
-              <h2>Share an update</h2>
-            </div>
-            <form id="postForm" class="form-grid">
-              <div>
-                <label for="postType">Post type</label>
-                <select id="postType">
-                  <option value="update">Project update</option>
-                  <option value="discussion">Discussion</option>
-                  <option value="notice">Notice</option>
-                </select>
-              </div>
-              <div>
-                <label for="postTag">Tag</label>
-                <input id="postTag" type="text" placeholder="Short tag" />
-              </div>
-              <div class="span-2">
-                <label for="postMessage">Message</label>
-                <textarea id="postMessage" rows="6" placeholder="Write your update"></textarea>
-              </div>
-              <div class="span-2">
-                <button type="submit" class="button">Publish post</button>
-              </div>
-            </form>
-          </article>
-
           <article class="community-card">
             <div class="card-heading card-heading-inline">
               <div>
-                <span class="eyebrow">Feed</span>
-                <h2>Latest member posts</h2>
+                <span class="eyebrow">LIVE FEED</span>
+                <h2>Latest posts</h2>
               </div>
-              <a class="button button-secondary button-small" href="community.html">Open full member area</a>
+              <button id="refreshFeedBtn" type="button" class="button button-secondary button-small">Refresh</button>
             </div>
-            <div id="feedList" class="feed-list"></div>
+            <div id="feedList" class="stack-list">
+              <div class="empty-state">No posts yet.</div>
+            </div>
           </article>
         </div>
+        <aside class="community-side">
+          <article class="community-card">
+            <div class="card-heading">
+              <span class="eyebrow">MEMBERS</span>
+              <h2>Who is active</h2>
+            </div>
+            <div id="membersGrid" class="stack-list">
+              <div class="empty-state">No members yet.</div>
+            </div>
+          </article>
+        </aside>
       </div>
     </section>
   </main>
 
+  <div class="chat-widget hidden" id="chatWidget">
+    <button class="chat-widget-toggle" id="chatWidgetToggle" type="button" aria-expanded="false" aria-controls="chatWidgetPanel">
+      <span class="chat-widget-badge hidden" id="chatUnreadBadge">0</span>
+      <span class="chat-widget-icon">✉</span>
+      <span>Messages</span>
+    </button>
+    <div class="chat-widget-panel hidden" id="chatWidgetPanel">
+      <div class="chat-widget-header">
+        <div>
+          <strong>Messages</strong>
+          <p id="chatWidgetSubtitle">Recent conversations and private replies</p>
+        </div>
+        <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
+      </div>
+      <div class="chat-widget-body">
+        <div class="chat-widget-sidebar">
+          <div id="widgetConversationList" class="conversation-list compact-scroll">
+            <div class="empty-state">No conversations yet.</div>
+          </div>
+        </div>
+        <div class="chat-widget-thread">
+          <div id="activeConversationHeader" class="active-conversation-header">
+            <strong>Select a conversation</strong>
+            <p>Your latest private messages appear here.</p>
+          </div>
+          <div id="messageThread" class="message-thread compact-scroll">
+            <div class="empty-state">Choose a member to open a conversation.</div>
+          </div>
+          <form id="messageForm" class="chat-compose hidden">
+            <input id="recipientUid" type="hidden" />
+            <textarea id="directMessageText" rows="3" placeholder="Write your message"></textarea>
+            <button type="submit" class="button">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
-    <div class="container footer-bottom">
-      <p>© 2026 EYSAE</p>
-      <p>Public member updates and project visibility page.</p>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark">EY</span>
+        <h3>EYSAE</h3>
+        <p>A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
+      </div>
     </div>
   </footer>
 
-  <script type="module" src="assets/js/feed.js"></script>
-  <script type="module" src="assets/js/chat-widget.js"></script>
   <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/community.js"></script>
 </body>
 </html>
