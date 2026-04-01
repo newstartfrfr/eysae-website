@@ -14,168 +14,92 @@ service cloud.firestore {
       return signedIn() && request.auth.token.email in ['krizo19@gmail.com'];
     }
 
-    function isShortText(value, max) {
-      return value is string && value.size() <= max;
+    function validUrlOrEmpty(value) {
+      return value == null || (value is string && (value.size() == 0 || value.matches('^https?://.+')));
     }
 
-    function isRequiredText(value, min, max) {
-      return value is string && value.size() >= min && value.size() <= max;
+    function validUserData() {
+      return request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 2
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.email is string
+        && request.resource.data.email == request.auth.token.email
+        && (request.resource.data.role == null || (request.resource.data.role is string && request.resource.data.role.size() <= 120))
+        && (request.resource.data.bio == null || (request.resource.data.bio is string && request.resource.data.bio.size() <= 600))
+        && validUrlOrEmpty(request.resource.data.socialLink)
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
     }
 
-    function isValidUrlOrEmpty(value) {
-      return value is string && (
-        value.size() == 0 ||
-        value.matches('^https?://.+')
-      );
+    function validPostData() {
+      return request.resource.data.authorId == request.auth.uid
+        && request.resource.data.authorName is string
+        && request.resource.data.authorName.size() >= 2
+        && request.resource.data.authorName.size() <= 80
+        && (request.resource.data.authorRole == null || (request.resource.data.authorRole is string && request.resource.data.authorRole.size() <= 120))
+        && validUrlOrEmpty(request.resource.data.socialLink)
+        && request.resource.data.type in ['update', 'discussion', 'notice']
+        && (request.resource.data.tag == null || (request.resource.data.tag is string && request.resource.data.tag.size() <= 60))
+        && request.resource.data.content is string
+        && request.resource.data.content.size() >= 1
+        && request.resource.data.content.size() <= 2000
+        && request.resource.data.createdAt is timestamp;
     }
 
-    function validUserDoc() {
-      return request.resource.data.keys().hasOnly([
-        'displayName',
-        'email',
-        'role',
-        'bio',
-        'socialLink',
-        'createdAt',
-        'updatedAt'
-      ]) &&
-      request.resource.data.keys().hasAll([
-        'displayName',
-        'email',
-        'role',
-        'bio',
-        'socialLink',
-        'createdAt',
-        'updatedAt'
-      ]) &&
-      request.resource.data.displayName is string &&
-      request.resource.data.displayName.size() >= 2 &&
-      request.resource.data.displayName.size() <= 80 &&
-      request.resource.data.email is string &&
-      request.resource.data.email == request.auth.token.email &&
-      request.resource.data.role is string &&
-      request.resource.data.role.size() <= 80 &&
-      request.resource.data.bio is string &&
-      request.resource.data.bio.size() <= 500 &&
-      isValidUrlOrEmpty(request.resource.data.socialLink) &&
-      request.resource.data.createdAt is timestamp &&
-      request.resource.data.updatedAt is timestamp;
+    function isParticipant(data) {
+      return signedIn() && request.auth.uid in data.participantIds;
     }
 
-    function validPostDoc() {
-      return request.resource.data.keys().hasOnly([
-        'authorId',
-        'authorName',
-        'authorRole',
-        'socialLink',
-        'type',
-        'tag',
-        'content',
-        'createdAt'
-      ]) &&
-      request.resource.data.keys().hasAll([
-        'authorId',
-        'authorName',
-        'authorRole',
-        'socialLink',
-        'type',
-        'tag',
-        'content',
-        'createdAt'
-      ]) &&
-      request.resource.data.authorId == request.auth.uid &&
-      isRequiredText(request.resource.data.authorName, 2, 80) &&
-      isShortText(request.resource.data.authorRole, 80) &&
-      isValidUrlOrEmpty(request.resource.data.socialLink) &&
-      request.resource.data.type in ['update', 'discussion', 'notice'] &&
-      isShortText(request.resource.data.tag, 60) &&
-      isRequiredText(request.resource.data.content, 1, 2000) &&
-      request.resource.data.createdAt is timestamp;
+    function validConversationData() {
+      return request.resource.data.participantIds is list
+        && request.resource.data.participantIds.size() == 2
+        && request.auth.uid in request.resource.data.participantIds
+        && request.resource.data.participantNames is map
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
     }
 
-    function validConversationDoc() {
-      return request.resource.data.keys().hasOnly([
-        'participants',
-        'participantNames',
-        'updatedAt',
-        'lastMessage',
-        'lastSenderId'
-      ]) &&
-      request.resource.data.keys().hasAll([
-        'participants',
-        'participantNames',
-        'updatedAt',
-        'lastMessage',
-        'lastSenderId'
-      ]) &&
-      request.resource.data.participants is list &&
-      request.resource.data.participants.size() == 2 &&
-      request.auth.uid in request.resource.data.participants &&
-      request.resource.data.participantNames is map &&
-      isRequiredText(request.resource.data.lastMessage, 1, 1000) &&
-      request.resource.data.lastSenderId == request.auth.uid &&
-      request.resource.data.updatedAt is timestamp;
-    }
-
-    function validConversationMessageDoc() {
-      return request.resource.data.keys().hasOnly([
-        'senderId',
-        'senderName',
-        'text',
-        'createdAt'
-      ]) &&
-      request.resource.data.keys().hasAll([
-        'senderId',
-        'senderName',
-        'text',
-        'createdAt'
-      ]) &&
-      request.resource.data.senderId == request.auth.uid &&
-      isRequiredText(request.resource.data.senderName, 2, 80) &&
-      isRequiredText(request.resource.data.text, 1, 1000) &&
-      request.resource.data.createdAt is timestamp;
+    function validMessageData() {
+      return request.resource.data.fromId == request.auth.uid
+        && request.resource.data.toId is string
+        && request.resource.data.fromName is string
+        && request.resource.data.fromName.size() >= 2
+        && request.resource.data.fromName.size() <= 80
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 1
+        && request.resource.data.text.size() <= 1500
+        && request.resource.data.createdAt is timestamp;
     }
 
     match /users/{uid} {
       allow read: if signedIn();
-      allow create: if isSelf(uid) && validUserDoc();
-      allow update: if (isSelf(uid) || isAdmin()) &&
-        validUserDoc() &&
-        request.resource.data.email == resource.data.email &&
-        request.resource.data.createdAt == resource.data.createdAt;
+      allow create: if isSelf(uid) && validUserData();
+      allow update: if (isSelf(uid) || isAdmin())
+        && validUserData()
+        && request.resource.data.email == resource.data.email
+        && request.resource.data.createdAt == resource.data.createdAt;
       allow delete: if false;
     }
 
     match /posts/{postId} {
       allow read: if true;
-      allow create: if signedIn() && validPostDoc();
-      allow update: if signedIn() && (
-        (resource.data.authorId == request.auth.uid &&
-          validPostDoc() &&
-          request.resource.data.authorId == resource.data.authorId &&
-          request.resource.data.createdAt == resource.data.createdAt) ||
-        (isAdmin() &&
-          validPostDoc() &&
-          request.resource.data.authorId == resource.data.authorId &&
-          request.resource.data.createdAt == resource.data.createdAt)
-      );
+      allow create: if signedIn() && validPostData();
+      allow update: if signedIn() && validPostData() && (resource.data.authorId == request.auth.uid || isAdmin()) && request.resource.data.authorId == resource.data.authorId;
       allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
     }
 
     match /conversations/{conversationId} {
-      allow read: if signedIn() && request.auth.uid in resource.data.participants;
-      allow create: if signedIn() && validConversationDoc();
-      allow update: if signedIn() &&
-        request.auth.uid in resource.data.participants &&
-        validConversationDoc() &&
-        request.resource.data.participants == resource.data.participants;
+      allow read: if isParticipant(resource.data);
+      allow create: if signedIn() && validConversationData();
+      allow update: if isParticipant(resource.data) && isParticipant(request.resource.data);
       allow delete: if false;
 
       match /messages/{messageId} {
-        allow read: if signedIn() && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
-        allow create: if signedIn() &&
-          request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants &&
-          validConversationMessageDoc();
+        allow read: if isParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data);
+        allow create: if signedIn()
+          && isParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data)
+          && validMessageData()
+          && request.resource.data.toId in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantIds;
         allow update, delete: if false;
       }
     }
