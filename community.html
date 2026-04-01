@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="community.metaTitle">EYSAE Community Hub</title>
-  <meta name="description" content="EYSAE member hub with Firebase authentication, profile editing, posts, members and direct messages." />
+  <title>EYSAE Members</title>
+  <meta name="description" content="Members area for EYSAE: account access, profiles, updates and direct messages." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -18,32 +17,27 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small data-i18n="community.brandTitle">Community hub</small>
+          <small>Member area</small>
         </span>
       </a>
 
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" data-i18n-aria-label="common.openMenu">
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
 
       <nav class="site-nav" id="siteNav">
-        <a class="nav-link" href="index.html" data-i18n="nav.home">Home</a>
-        <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
-        <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
-        <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="projects.html">Project</a>
         <a class="nav-link" href="feed.html">Feed</a>
-        <a class="nav-link" href="community.html" data-i18n="nav.community">Members</a>
-        <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
+        <a class="nav-link active" href="community.html">Members</a>
+        <a class="nav-link" href="index.html#partners">Partners</a>
+        <a class="nav-link" href="index.html#news">News</a>
+        <a class="nav-link" href="index.html#contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <button class="button button-secondary button-small" id="logoutBtn" type="button" data-i18n="community.logoutBtn">Log out</button>
-        <div class="language-switcher" aria-label="Language switcher">
-          <button type="button" class="lang-btn" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="sl">SL</button>
-          <button type="button" class="lang-btn" data-lang="gr">GR</button>
-          <button type="button" class="lang-btn" data-lang="ar">AR</button>
-        </div>
+        <a class="button button-secondary button-small" href="feed.html">Open feed</a>
+        <button class="button button-secondary button-small hidden" id="logoutBtn" type="button">Log out</button>
       </div>
     </div>
   </header>
@@ -52,27 +46,27 @@
     <section class="page-hero community-hero">
       <div class="container page-hero-grid community-hero-grid">
         <div>
-          <span class="eyebrow" data-i18n="community.kicker">Member space</span>
-          <h1 data-i18n="community.title">Member area, profiles and direct messages</h1>
-          <p class="hero-lead" data-i18n="community.body">Use this page for member access, profile editing, posting updates and private conversations.</p>
+          <span class="eyebrow">EYSAE MEMBERS</span>
+          <h1>Member access, profiles and direct contact in one place</h1>
+          <p class="hero-lead">This area is for registered members who want to present their work, follow project updates and stay in contact with other participants.</p>
           <div class="pill-list">
-            <span class="pill" data-i18n="community.pill1">Auth — Email + password sign-in</span>
-            <span class="pill" data-i18n="community.pill2">Feed — Posts, news and updates</span>
-            <span class="pill" data-i18n="community.pill3">Inbox — Private member messages</span>
+            <span class="pill">Account access</span>
+            <span class="pill">Member profiles</span>
+            <span class="pill">Private messages</span>
           </div>
         </div>
 
         <div class="page-hero-panel community-status-panel">
-          <div id="setupNotice" class="setup-notice">
-            <strong data-i18n="community.setupTitle">Firebase setup</strong>
-            <p data-i18n="community.setupNote">Confirm your Firebase keys, authorised domain and Firestore rules if sign-in does not complete correctly.</p>
+          <div id="setupNotice" class="setup-notice hidden">
+            <strong>Firebase setup</strong>
+            <p>Check your Firebase Authentication, authorised domain and Firestore rules.</p>
           </div>
-          <div id="authStatus" class="status-bar" data-i18n="community.authSignedOut">Not signed in.</div>
+          <div id="authStatus" class="status-bar">Not signed in.</div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
             <div>
-              <strong>EYSAE</strong>
-              <p>Sign in to activate your public member card.</p>
+              <strong>Member card</strong>
+              <p>Sign in to activate your public profile.</p>
             </div>
           </div>
         </div>
@@ -80,160 +74,143 @@
     </section>
 
     <section class="section community-section">
-      <div class="container community-shell community-shell-wide">
+      <div class="container community-shell community-shell-wide community-shell-3col">
         <div class="community-main">
           <article class="community-card" id="authPanel">
             <div class="card-heading card-heading-inline">
               <div>
-                <span class="eyebrow" data-i18n="community.authEyebrow">Authentication</span>
-                <h2 data-i18n="community.authTitle">Access the hub</h2>
+                <span class="eyebrow">ACCESS</span>
+                <h2>Sign in or create your account</h2>
               </div>
               <div class="auth-tabs">
-                <button type="button" class="auth-tab active" data-auth-tab="signin" data-auth-mode="signin" data-i18n="community.signInTitle">Sign in</button>
-                <button type="button" class="auth-tab" data-auth-tab="signup" data-auth-mode="signup" data-i18n="community.signUpTitle">Create account</button>
+                <button type="button" class="auth-tab active" data-auth-mode="signin">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-mode="signup">Create account</button>
               </div>
             </div>
 
             <form id="signInForm" class="form-card auth-form-grid">
               <div>
-                <label for="signInEmail" data-i18n="community.signInEmailLabel">Email</label>
-                <input id="signInEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signInEmailPlaceholder" placeholder="Enter your email" />
+                <label for="signInEmail">Email</label>
+                <input id="signInEmail" type="email" autocomplete="email" required placeholder="Enter your email" />
               </div>
               <div>
-                <label for="signInPassword" data-i18n="community.signInPasswordLabel">Password</label>
-                <input id="signInPassword" type="password" autocomplete="current-password" required data-i18n-placeholder="community.signInPasswordPlaceholder" placeholder="Enter your password" />
+                <label for="signInPassword">Password</label>
+                <input id="signInPassword" type="password" autocomplete="current-password" required placeholder="Enter your password" />
               </div>
               <div class="span-2">
-                <button type="submit" class="button button-full" data-i18n="community.signInBtn">Sign in</button>
+                <button type="submit" class="button button-full">Sign in</button>
               </div>
             </form>
 
             <form id="signUpForm" class="form-card auth-form-grid hidden">
               <div>
-                <label for="signUpName" data-i18n="community.signUpNameLabel">Display name</label>
-                <input id="signUpName" type="text" required data-i18n-placeholder="community.signUpNamePlaceholder" placeholder="Your display name" />
+                <label for="signUpName">Display name</label>
+                <input id="signUpName" type="text" required placeholder="Your display name" />
               </div>
               <div>
-                <label for="signUpEmail" data-i18n="community.signUpEmailLabel">Email</label>
-                <input id="signUpEmail" type="email" autocomplete="email" required data-i18n-placeholder="community.signUpEmailPlaceholder" placeholder="Enter your email" />
+                <label for="signUpEmail">Email</label>
+                <input id="signUpEmail" type="email" autocomplete="email" required placeholder="Enter your email" />
+              </div>
+              <div>
+                <label for="signUpRole">Organisation / role</label>
+                <input id="signUpRole" type="text" placeholder="Organisation or role" />
               </div>
               <div class="span-2">
-                <label for="signUpPassword" data-i18n="community.signUpPasswordLabel">Password</label>
-                <input id="signUpPassword" type="password" autocomplete="new-password" required data-i18n-placeholder="community.signUpPasswordPlaceholder" placeholder="Create a password" />
+                <label for="signUpPassword">Password</label>
+                <input id="signUpPassword" type="password" autocomplete="new-password" required placeholder="Create a password" />
               </div>
               <div class="span-2">
-                <button type="submit" class="button button-full" data-i18n="community.signUpBtn">Create account</button>
+                <button type="submit" class="button button-full">Create account</button>
               </div>
             </form>
           </article>
 
           <article class="community-card hidden" id="profilePanel">
             <div class="card-heading">
-              <span class="eyebrow" data-i18n="community.profileEyebrow">Profile</span>
-              <h2 data-i18n="community.profileTitle">Your public member card</h2>
+              <span class="eyebrow">PROFILE</span>
+              <h2>Your public member card</h2>
             </div>
 
             <form id="profileForm" class="form-grid">
               <div>
-                <label for="profileName" data-i18n="community.profileNameLabel">Display name</label>
-                <input id="profileName" type="text" data-i18n-placeholder="community.profileNamePlaceholder" placeholder="Your public name" />
+                <label for="profileName">Display name</label>
+                <input id="profileName" type="text" placeholder="Your public name" />
               </div>
               <div>
-                <label for="profileOrganisation" data-i18n="community.profileOrgLabel">Organisation / role</label>
-                <input id="profileOrganisation" type="text" data-i18n-placeholder="community.profileOrgPlaceholder" placeholder="Organisation or role" />
+                <label for="profileOrganisation">Organisation / role</label>
+                <input id="profileOrganisation" type="text" placeholder="Organisation or role" />
               </div>
               <div class="span-2">
-                <label for="profileBio" data-i18n="community.profileBioLabel">Bio</label>
-                <textarea id="profileBio" rows="4" data-i18n-placeholder="community.profileBioPlaceholder" placeholder="Short introduction"></textarea>
+                <label for="profileBio">Short bio</label>
+                <textarea id="profileBio" rows="4" placeholder="Short introduction"></textarea>
               </div>
               <div class="span-2">
-                <label for="profileSocial" data-i18n="community.profileSocialLabel">Social link</label>
-                <input id="profileSocial" type="url" data-i18n-placeholder="community.profileSocialPlaceholder" placeholder="https://..." />
+                <label for="profileSocial">Website or social link</label>
+                <input id="profileSocial" type="url" placeholder="https://..." />
               </div>
               <div class="span-2">
-                <button type="submit" class="button" data-i18n="community.profileSaveBtn">Save profile</button>
+                <button type="submit" class="button">Save profile</button>
               </div>
             </form>
           </article>
 
           <article class="community-card hidden" id="composerPanel">
             <div class="card-heading">
-              <span class="eyebrow" data-i18n="community.publishEyebrow">Publish</span>
-              <h2 data-i18n="community.publishTitle">Share a post or project update</h2>
+              <span class="eyebrow">UPDATE</span>
+              <h2>Publish a member update</h2>
             </div>
 
             <form id="postForm" class="form-grid">
               <div>
-                <label for="postType" data-i18n="community.postTypeLabel">Post type</label>
+                <label for="postType">Post type</label>
                 <select id="postType">
-                  <option value="update" data-i18n="community.postType1">Project update</option>
+                  <option value="update">Project update</option>
                   <option value="discussion">Discussion</option>
                   <option value="notice">Notice</option>
                 </select>
               </div>
               <div>
-                <label for="postTag" data-i18n="community.postTagLabel">Tag</label>
-                <input id="postTag" type="text" data-i18n-placeholder="community.postTagPlaceholder" placeholder="Short tag" />
+                <label for="postTag">Tag</label>
+                <input id="postTag" type="text" placeholder="Short tag" />
               </div>
               <div class="span-2">
-                <label for="postMessage" data-i18n="community.postMessageLabel">Message</label>
-                <textarea id="postMessage" rows="5" required data-i18n-placeholder="community.postMessagePlaceholder" placeholder="Write your update"></textarea>
+                <label for="postMessage">Message</label>
+                <textarea id="postMessage" rows="5" required placeholder="Write your update"></textarea>
               </div>
-              <div class="span-2">
-                <button type="submit" class="button" data-i18n="community.publishBtn">Publish post</button>
+              <div class="span-2 form-actions-inline">
+                <button type="submit" class="button">Publish post</button>
+                <a class="button button-secondary" href="feed.html">Open full feed</a>
               </div>
             </form>
           </article>
         </div>
 
-        <aside class="community-side" id="memberPanels">
+        <aside class="community-side">
           <article class="community-card">
             <div class="card-heading card-heading-inline">
               <div>
-                <span class="eyebrow" data-i18n="community.feedEyebrow">Feed</span>
-                <h2 data-i18n="community.feedTitle">Latest community activity</h2>
+                <span class="eyebrow">MEMBERS</span>
+                <h2>People in the project space</h2>
               </div>
-              <button id="refreshFeedBtn" type="button" class="button button-secondary button-small" data-i18n="community.feedRefreshBtn">Refresh</button>
-            </div>
-            <div id="feedList" class="stack-list">
-              <div class="empty-state" data-i18n="community.feedEmpty">No posts yet.</div>
-            </div>
-          </article>
-
-          <article class="community-card">
-            <div class="card-heading">
-              <span class="eyebrow" data-i18n="community.membersEyebrow">Members</span>
-              <h2 data-i18n="community.membersTitle">People in the hub</h2>
+              <span class="section-mini-note">Live list</span>
             </div>
             <div id="membersGrid" class="stack-list">
-              <div class="empty-state" data-i18n="community.membersEmpty">No members yet.</div>
+              <div class="empty-state">No members yet.</div>
             </div>
           </article>
+        </aside>
 
+        <aside class="community-side">
           <article class="community-card">
-            <div class="card-heading">
-              <span class="eyebrow" data-i18n="community.inboxEyebrow">Inbox</span>
-              <h2 data-i18n="community.inboxTitle">Direct messages</h2>
+            <div class="card-heading card-heading-inline">
+              <div>
+                <span class="eyebrow">MESSAGES</span>
+                <h2>Recent conversations</h2>
+              </div>
+              <button type="button" id="chatOpenFromPanel" class="button button-secondary button-small">Open chat</button>
             </div>
-            <form id="messageForm" class="form-grid compact-grid hidden" data-message-form>
-              <div class="span-2">
-                <label for="recipientUid" data-i18n="community.inboxRecipientLabel">Send to</label>
-                <select id="recipientUid">
-                  <option value="update" data-i18n="community.postType1">Project update</option>
-                  <option value="discussion">Discussion</option>
-                  <option value="notice">Notice</option>
-                </select>
-              </div>
-              <div class="span-2">
-                <label for="directMessageText" data-i18n="community.inboxMessageLabel">Message</label>
-                <textarea id="directMessageText" rows="4" data-i18n-placeholder="community.inboxMessagePlaceholder" placeholder="Write your message"></textarea>
-              </div>
-              <div class="span-2">
-                <button type="submit" class="button" data-i18n="community.inboxSendBtn">Send message</button>
-              </div>
-            </form>
-            <div id="inboxList" class="stack-list">
-              <div class="empty-state" data-i18n="community.inboxEmpty">No messages yet.</div>
+            <div id="conversationList" class="stack-list conversation-list">
+              <div class="empty-state">Sign in to open messages.</div>
             </div>
           </article>
         </aside>
@@ -241,37 +218,70 @@
     </section>
   </main>
 
+  <div class="chat-widget hidden" id="chatWidget">
+    <button class="chat-widget-toggle" id="chatWidgetToggle" type="button" aria-expanded="false" aria-controls="chatWidgetPanel">
+      <span class="chat-widget-badge hidden" id="chatUnreadBadge">0</span>
+      <span class="chat-widget-icon">✉</span>
+      <span>Messages</span>
+    </button>
+    <div class="chat-widget-panel hidden" id="chatWidgetPanel">
+      <div class="chat-widget-header">
+        <div>
+          <strong>Messages</strong>
+          <p id="chatWidgetSubtitle">Recent conversations and private replies</p>
+        </div>
+        <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
+      </div>
+      <div class="chat-widget-body">
+        <div class="chat-widget-sidebar">
+          <div id="widgetConversationList" class="conversation-list compact-scroll">
+            <div class="empty-state">No conversations yet.</div>
+          </div>
+        </div>
+        <div class="chat-widget-thread">
+          <div id="activeConversationHeader" class="active-conversation-header">
+            <strong>Select a conversation</strong>
+            <p>Your latest private messages appear here.</p>
+          </div>
+          <div id="messageThread" class="message-thread compact-scroll">
+            <div class="empty-state">Choose a member to open a conversation.</div>
+          </div>
+          <form id="messageForm" class="chat-compose hidden">
+            <input id="recipientUid" type="hidden" />
+            <textarea id="directMessageText" rows="3" placeholder="Write your message"></textarea>
+            <button type="submit" class="button">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
         <span class="brand-mark">EY</span>
         <h3>EYSAE</h3>
-        <p data-i18n="footer.tagline">A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
+        <p>A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
       </div>
       <div>
-        <h4 data-i18n="footer.navTitle">Navigation</h4>
+        <h4>Navigation</h4>
         <ul class="footer-links">
-          <li><a href="index.html" data-i18n="nav.home">Home</a></li>
-          <li><a href="projects.html" data-i18n="nav.project">Project</a></li>
-          <li><a href="index.html#partners" data-i18n="nav.partners">Partners</a></li>
-          <li><a href="index.html#news" data-i18n="nav.news">News</a></li>
-          <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Project</a></li>
+          <li><a href="feed.html">Feed</a></li>
+          <li><a href="community.html">Members</a></li>
         </ul>
       </div>
       <div>
-        <h4 data-i18n="footer.noteTitle">Institutional Note</h4>
-        <p data-i18n="footer.noteBody">Co-funded cooperation projects and related communication materials should reflect visibility and acknowledgement requirements in line with Erasmus+ framework expectations.</p>
+        <h4>Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:POVOD-EU.SLO@proton.me">POVOD-EU.SLO@proton.me</a></li>
+          <li><a href="https://povod.si" target="_blank" rel="noreferrer">povod.si</a></li>
+        </ul>
       </div>
-    </div>
-
-    <div class="container footer-bottom">
-      <p data-i18n="footer.copyright">© 2026 EYSAE</p>
-      <p data-i18n="footer.disclaimer">The content of this website is the responsibility of the project partnership and is intended for information and dissemination purposes.</p>
     </div>
   </footer>
 
-
-  <script type="module" src="assets/js/chat-widget.js"></script>
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/community.js"></script>
 </body>
