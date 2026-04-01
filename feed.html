@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EYSAE Feed</title>
-  <meta name="description" content="Public member feed for EYSAE project updates and community posts." />
+  <meta name="description" content="Public feed of approved EYSAE project and member updates." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small>Project feed</small>
+          <small>Public feed</small>
         </span>
       </a>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
@@ -32,7 +32,6 @@
       </nav>
       <div class="header-actions">
         <a class="button button-secondary button-small" href="community.html">Member area</a>
-        <button class="button button-secondary button-small hidden" id="logoutBtn" type="button">Log out</button>
       </div>
     </div>
   </header>
@@ -42,16 +41,16 @@
       <div class="container page-hero-grid community-hero-grid">
         <div>
           <span class="eyebrow">EYSAE FEED</span>
-          <h1>Public updates from the project and its members</h1>
-          <p class="hero-lead">This page gathers the latest published updates in one place. Signed-in members can publish from the member area and continue conversations through the private message panel.</p>
+          <h1>Approved updates from the project network</h1>
+          <p class="hero-lead">This page gathers approved member and project posts in one place. Members submit updates from the workspace, while administrators review them before publication.</p>
         </div>
         <div class="page-hero-panel community-status-panel">
           <div id="authStatus" class="status-bar">Public view.</div>
           <div class="profile-spotlight profile-spotlight-empty" id="profileSpotlight">
             <div class="profile-avatar">EY</div>
             <div>
-              <strong>Project feed</strong>
-              <p>Use the member area to publish updates and message other participants.</p>
+              <strong>Public feed</strong>
+              <p>Sign in from the member area to submit updates and use private messages.</p>
             </div>
           </div>
         </div>
@@ -64,68 +63,32 @@
           <article class="community-card">
             <div class="card-heading card-heading-inline">
               <div>
-                <span class="eyebrow">LIVE FEED</span>
-                <h2>Latest posts</h2>
+                <span class="eyebrow">LATEST POSTS</span>
+                <h2>Approved feed</h2>
               </div>
-              <button id="refreshFeedBtn" type="button" class="button button-secondary button-small">Refresh</button>
+              <a class="button button-secondary button-small" href="community.html">Submit an update</a>
             </div>
             <div id="feedList" class="stack-list">
-              <div class="empty-state">No posts yet.</div>
+              <div class="empty-state">No approved posts yet.</div>
             </div>
           </article>
         </div>
         <aside class="community-side">
           <article class="community-card">
             <div class="card-heading">
-              <span class="eyebrow">MEMBERS</span>
-              <h2>Who is active</h2>
+              <span class="eyebrow">HOW IT WORKS</span>
+              <h2>Publishing flow</h2>
             </div>
-            <div id="membersGrid" class="stack-list">
-              <div class="empty-state">No members yet.</div>
+            <div class="stack-list">
+              <div class="mini-info-card"><strong>1. Member submits</strong><p>Registered members prepare a text update and may attach one image.</p></div>
+              <div class="mini-info-card"><strong>2. Admin reviews</strong><p>The review panel checks relevance, tone and visibility before publication.</p></div>
+              <div class="mini-info-card"><strong>3. Feed goes public</strong><p>Approved posts appear here as the public project stream.</p></div>
             </div>
           </article>
         </aside>
       </div>
     </section>
   </main>
-
-  <div class="chat-widget hidden" id="chatWidget">
-    <button class="chat-widget-toggle" id="chatWidgetToggle" type="button" aria-expanded="false" aria-controls="chatWidgetPanel">
-      <span class="chat-widget-badge hidden" id="chatUnreadBadge">0</span>
-      <span class="chat-widget-icon">✉</span>
-      <span>Messages</span>
-    </button>
-    <div class="chat-widget-panel hidden" id="chatWidgetPanel">
-      <div class="chat-widget-header">
-        <div>
-          <strong>Messages</strong>
-          <p id="chatWidgetSubtitle">Recent conversations and private replies</p>
-        </div>
-        <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
-      </div>
-      <div class="chat-widget-body">
-        <div class="chat-widget-sidebar">
-          <div id="widgetConversationList" class="conversation-list compact-scroll">
-            <div class="empty-state">No conversations yet.</div>
-          </div>
-        </div>
-        <div class="chat-widget-thread">
-          <div id="activeConversationHeader" class="active-conversation-header">
-            <strong>Select a conversation</strong>
-            <p>Your latest private messages appear here.</p>
-          </div>
-          <div id="messageThread" class="message-thread compact-scroll">
-            <div class="empty-state">Choose a member to open a conversation.</div>
-          </div>
-          <form id="messageForm" class="chat-compose hidden">
-            <input id="recipientUid" type="hidden" />
-            <textarea id="directMessageText" rows="3" placeholder="Write your message"></textarea>
-            <button type="submit" class="button">Send</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <footer class="site-footer">
     <div class="container footer-grid">
@@ -138,6 +101,7 @@
   </footer>
 
   <script type="module" src="assets/js/main.js"></script>
-  <script type="module" src="assets/js/community.js"></script>
+  <script type="module" src="assets/js/feed.js"></script>
+  <script type="module" src="assets/js/chat-widget.js"></script>
 </body>
 </html>
