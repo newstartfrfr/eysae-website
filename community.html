@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EYSAE Members</title>
-  <meta name="description" content="Members area for EYSAE: account access, profiles, updates and direct messages." />
+  <meta name="description" content="Member workspace for EYSAE: registration, profile editing, moderated posts and private conversations." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small>Member area</small>
+          <small>Member workspace</small>
         </span>
       </a>
 
@@ -47,26 +47,27 @@
       <div class="container page-hero-grid community-hero-grid">
         <div>
           <span class="eyebrow">EYSAE MEMBERS</span>
-          <h1>Member access, project updates and private messages</h1>
-          <p class="hero-lead">The members area is used for account access, profile editing, project-related posts and private conversations between registered participants.</p>
+          <h1>Member access, moderated updates and private conversations</h1>
+          <p class="hero-lead">This space is for registered members of the project. Each member can keep a public profile, submit updates for review and communicate directly with other participants.</p>
           <div class="pill-list">
-            <span class="pill">Account access</span>
-            <span class="pill">Project feed</span>
-            <span class="pill">Private messages</span>
+            <span class="pill">Registration</span>
+            <span class="pill">Moderated publishing</span>
+            <span class="pill">Photo posts</span>
+            <span class="pill">Private chat</span>
           </div>
         </div>
 
         <div class="page-hero-panel community-status-panel">
           <div id="setupNotice" class="setup-notice hidden">
             <strong>Firebase setup</strong>
-            <p>Check your Firebase Authentication, authorised domain and Firestore rules.</p>
+            <p>Check Authentication, Firestore Rules and Storage Rules.</p>
           </div>
           <div id="authStatus" class="status-bar">Not signed in.</div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
             <div>
               <strong>Member card</strong>
-              <p>Sign in to activate your public profile.</p>
+              <p>Sign in to activate your member profile.</p>
             </div>
           </div>
         </div>
@@ -80,7 +81,7 @@
             <div class="card-heading card-heading-inline">
               <div>
                 <span class="eyebrow">ACCESS</span>
-                <h2>Sign in or create your account</h2>
+                <h2>Sign in or create an account</h2>
               </div>
               <div class="auth-tabs">
                 <button type="button" class="auth-tab active" data-auth-mode="signin">Sign in</button>
@@ -119,6 +120,9 @@
                 <label for="signUpPassword">Password</label>
                 <input id="signUpPassword" type="password" autocomplete="new-password" required placeholder="Create a password" />
               </div>
+              <div class="span-2 form-note">
+                New member posts go through review before they appear in the public feed.
+              </div>
               <div class="span-2">
                 <button type="submit" class="button button-full">Create account</button>
               </div>
@@ -156,11 +160,11 @@
 
           <article class="community-card hidden" id="composerPanel">
             <div class="card-heading">
-              <span class="eyebrow">UPDATE</span>
-              <h2>Publish a member update</h2>
+              <span class="eyebrow">SUBMIT UPDATE</span>
+              <h2>Create a post for review</h2>
             </div>
 
-            <form id="postForm" class="form-grid">
+            <form id="postForm" class="form-grid" enctype="multipart/form-data">
               <div>
                 <label for="postType">Post type</label>
                 <select id="postType">
@@ -174,14 +178,42 @@
                 <input id="postTag" type="text" placeholder="Short tag" />
               </div>
               <div class="span-2">
+                <label for="postTitle">Title</label>
+                <input id="postTitle" type="text" maxlength="120" placeholder="Short post title" />
+              </div>
+              <div class="span-2">
                 <label for="postMessage">Message</label>
                 <textarea id="postMessage" rows="5" required placeholder="Write your update"></textarea>
               </div>
+              <div class="span-2">
+                <label for="postImage">Optional image</label>
+                <input id="postImage" type="file" accept="image/*" />
+              </div>
+              <div class="span-2 image-preview-wrap hidden" id="postImagePreviewWrap">
+                <img id="postImagePreview" alt="Selected image preview" />
+                <button type="button" class="button button-secondary button-small" id="clearPostImageBtn">Remove image</button>
+              </div>
+              <div class="span-2 form-note" id="postModerationNote">
+                Member posts are reviewed before public publication. Admin posts can be published directly.
+              </div>
               <div class="span-2 form-actions-inline">
-                <button type="submit" class="button">Publish post</button>
-                <a class="button button-secondary" href="feed.html">Open full feed</a>
+                <button type="submit" class="button">Submit post</button>
+                <a class="button button-secondary" href="feed.html">Open public feed</a>
               </div>
             </form>
+          </article>
+
+          <article class="community-card hidden" id="adminPanel">
+            <div class="card-heading card-heading-inline">
+              <div>
+                <span class="eyebrow">ADMIN REVIEW</span>
+                <h2>Pending submissions</h2>
+              </div>
+              <span class="section-mini-note" id="pendingCountBadge">0 pending</span>
+            </div>
+            <div id="pendingPostsList" class="stack-list moderation-list">
+              <div class="empty-state">No pending posts.</div>
+            </div>
           </article>
         </div>
 
