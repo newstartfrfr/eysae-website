@@ -71,7 +71,7 @@ export function humanizeError(error) {
   if (lower.includes("invalid login credentials")) return "Wrong email or password.";
   if (lower.includes("email not confirmed")) return "Confirm the sign-up email first, then sign in.";
   if (lower.includes("user already registered") || lower.includes("already been registered")) return "This email address is already registered.";
-  if (lower.includes("row-level security") || lower.includes("permission denied") || lower.includes("insufficient permissions")) return "Permissions are blocking this action. Re-run the Supabase SQL and sign in again.";
+  if (lower.includes("row-level security") || lower.includes("permission denied") || lower.includes("insufficient permissions")) return "Permissions are blocking this action. Run the Supabase admin fix SQL, then sign out and sign in again.";
   if (lower.includes("duplicate key")) return "This record already exists.";
   if (lower.includes("jwt")) return "The current session is not valid. Refresh the page and sign in again.";
   if (lower.includes("bucket") && lower.includes("not found")) return `Create the storage bucket named "${supabaseConfig.postImageBucket}" in Supabase Storage.`;
