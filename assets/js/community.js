@@ -24,11 +24,13 @@ import {
 } from "./supabase-client.js";
 import { supabaseConfig, supabaseIsConfigured } from "./supabase-config.js";
 
+const ADMIN_EMAIL = "dan.grmusa@gmail.com";
+
 const page = document.body?.dataset?.page || "";
-if (page !== "community") {
-  // do nothing
-} else {
+
+if (page === "community") {
   const $ = (id) => document.getElementById(id);
+
   const ui = {
     setupNotice: $("setupNotice"),
     authStatus: $("authStatus"),
@@ -91,10 +93,37 @@ if (page !== "community") {
     authSubscription: null
   };
 
+  function isEmailAdmin(email) {
+    return (email || "").trim().toLowerCase() === ADMIN_EMAIL;
+  }
+
+  function isAdminUser() {
+    return Boolean(state.profile?.is_admin || isEmailAdmin(state.user?.email));
+  }
+
+  function friendlyError(error) {
+    const raw = (humanizeError(error) || "").trim();
+    if (!raw) return "Something went wrong.";
+    if (/firestore/i.test(raw)) return "Access is currently unavailable.";
+    if (/permission/i.test(raw)) return "Access is currently unavailable.";
+    if (/insufficient/i.test(raw)) return "Access is currently unavailable.";
+    return raw;
+  }
+
   function setStatus(message, tone = "neutral") {
     if (!ui.authStatus) return;
-    ui.authStatus.textContent = message;
+
+    const clean = (message || "").trim();
+
+    if (!clean) {
+      ui.authStatus.textContent = "";
+      ui.authStatus.className = "status-bar hidden";
+      return;
+    }
+
+    ui.authStatus.textContent = clean;
     ui.authStatus.className = `status-bar ${tone}`.trim();
+    ui.authStatus.classList.remove("hidden");
   }
 
   function showSetupNotice(message) {
@@ -112,14 +141,20 @@ if (page !== "community") {
     const signInActive = mode !== "signup";
     ui.signInForm?.classList.toggle("hidden", !signInActive);
     ui.signUpForm?.classList.toggle("hidden", signInActive);
+
     document.querySelectorAll("[data-auth-mode]").forEach((button) => {
-      button.classList.toggle("active", button.dataset.authMode === (signInActive ? "signin" : "signup"));
+      button.classList.toggle(
+        "active",
+        button.dataset.authMode === (signInActive ? "signin" : "signup")
+      );
     });
   }
 
   function bindAuthTabs() {
     document.querySelectorAll("[data-auth-mode]").forEach((button) => {
-      button.addEventListener("click", () => toggleAuthMode(button.dataset.authMode || "signin"));
+      button.addEventListener("click", () => {
+        toggleAuthMode(button.dataset.authMode || "signin");
+      });
     });
   }
 
@@ -133,64 +168,88 @@ if (page !== "community") {
   }
 
   function renderProfileSpotlight() {
+    if (!ui.profileSpotlight) return;
+
     if (!state.user || !state.profile) {
       ui.profileSpotlight.className = "profile-spotlight profile-spotlight-empty";
       ui.profileSpotlight.innerHTML = `
         <div class="profile-avatar">EY</div>
         <div>
-          <strong>Member card</strong>
-          <p>Sign in to open your member profile, submit updates and use private messages.</p>
+          <strong>Member area</strong>
+          <p>Sign in to access your profile, messages and member tools.</p>
         </div>
       `;
       return;
     }
 
+    const adminBadge = isAdminUser() ? `<span class="admin-badge">Admin</span>` : "";
+
     ui.profileSpotlight.className = "profile-spotlight";
     ui.profileSpotlight.innerHTML = `
-      <div class="profile-avatar">${esc(initials(state.profile.display_name || state.user.email || 'EY'))}</div>
+      <div class="profile-avatar">${esc(initials(state.profile.display_name || state.user.email || "EY"))}</div>
       <div>
-        <strong>${esc(state.profile.display_name || state.user.email || 'Member')}</strong>
+        <strong>${esc(state.profile.display_name || state.user.email || "Member")}</strong>
         <div class="profile-meta">
-          <span class="role-pill">${esc(state.profile.role_label || 'Member')}</span>
-          ${state.profile.is_admin ? '<span class="admin-badge">Admin</span>' : ''}
+          <span class="role-pill">${esc(state.profile.role_label || "Member")}</span>
+          ${adminBadge}
         </div>
-        <p>${esc(state.profile.bio || 'Your member profile is visible inside the project workspace.')}</p>
-        ${state.profile.social_link ? `<div class="profile-links"><a href="${esc(state.profile.social_link)}" target="_blank" rel="noreferrer">Open link</a></div>` : ''}
+        <p>${esc(state.profile.bio || "Your profile is visible inside the member workspace.")}</p>
+        ${
+          state.profile.social_link
+            ? `<div class="profile-links"><a href="${esc(
+                state.profile.social_link
+              )}" target="_blank" rel="noreferrer">Open link</a></div>`
+            : ""
+        }
       </div>
     `;
   }
 
   function renderMembers() {
     if (!ui.membersGrid) return;
+
     if (!state.members.length) {
-      ui.membersGrid.innerHTML = '<div class="empty-state">No members yet.</div>';
+      ui.membersGrid.innerHTML = `<div class="empty-state">No members yet.</div>`;
       return;
     }
-    ui.membersGrid.innerHTML = state.members.map((member) => {
-      const canMessage = state.user && member.id !== state.user.id;
-      return `
-        <article class="member-card">
-          <div class="member-card-top">
-            <div class="member-author-row">
-              <div class="member-avatar">${esc(initials(member.display_name || member.email || 'Member'))}</div>
-              <div>
-                <strong class="member-name">${esc(member.display_name || member.email || 'Member')}</strong>
-                <div class="member-role-row">
-                  <span class="role-pill">${esc(member.role_label || 'Member')}</span>
-                  ${member.is_admin ? '<span class="admin-badge">Admin</span>' : ''}
+
+    ui.membersGrid.innerHTML = state.members
+      .map((member) => {
+        const canMessage = state.user && member.id !== state.user.id;
+        const memberIsAdmin =
+          Boolean(member.is_admin) ||
+          isEmailAdmin(member.email);
+
+        return `
+          <article class="member-card">
+            <div class="member-card-top">
+              <div class="member-author-row">
+                <div class="member-avatar">${esc(initials(member.display_name || member.email || "Member"))}</div>
+                <div>
+                  <strong class="member-name">${esc(member.display_name || member.email || "Member")}</strong>
+                  <div class="member-role-row">
+                    <span class="role-pill">${esc(member.role_label || "Member")}</span>
+                    ${memberIsAdmin ? `<span class="admin-badge">Admin</span>` : ""}
+                  </div>
                 </div>
               </div>
+              ${
+                canMessage
+                  ? `<button type="button" class="member-message-btn" data-member-id="${esc(
+                      member.id
+                    )}">Message</button>`
+                  : ""
+              }
             </div>
-            ${canMessage ? `<button type="button" class="member-message-btn" data-member-id="${esc(member.id)}">Message</button>` : ''}
-          </div>
-          ${member.bio ? `<p class="member-bio">${esc(member.bio)}</p>` : ''}
-        </article>
-      `;
-    }).join('');
+            ${member.bio ? `<p class="member-bio">${esc(member.bio)}</p>` : ""}
+          </article>
+        `;
+      })
+      .join("");
 
-    ui.membersGrid.querySelectorAll('[data-member-id]').forEach((button) => {
-      button.addEventListener('click', async () => {
-        await openConversation(button.dataset.memberId || '');
+    ui.membersGrid.querySelectorAll("[data-member-id]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await openConversation(button.dataset.memberId || "");
         openChat(true);
       });
     });
@@ -199,28 +258,43 @@ if (page !== "community") {
   function renderConversationList() {
     const render = (container) => {
       if (!container) return;
-      if (!state.user) {
-        container.innerHTML = '<div class="empty-state">Sign in to open messages.</div>';
-        return;
-      }
-      if (!state.conversations.length) {
-        container.innerHTML = '<div class="empty-state">No conversations yet.</div>';
-        return;
-      }
-      container.innerHTML = state.conversations.map((item) => `
-        <button type="button" class="conversation-item${item.id === state.activeConversationId ? ' active' : ''}" data-conversation-id="${esc(item.id)}" data-member-id="${esc(item.other_uid)}">
-          <span class="conversation-avatar">${esc(initials(item.other_name || 'Member'))}</span>
-          <span class="conversation-copy">
-            <strong>${esc(item.other_name || 'Member')}</strong>
-            <small>${esc(item.last_message_text || 'Open conversation')}</small>
-          </span>
-          ${item.unread_count ? `<span class="conversation-count">${esc(item.unread_count)}</span>` : ''}
-        </button>
-      `).join('');
 
-      container.querySelectorAll('[data-member-id]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          await openConversation(button.dataset.memberId || '', button.dataset.conversationId || '');
+      if (!state.user) {
+        container.innerHTML = `<div class="empty-state">Sign in to open messages.</div>`;
+        return;
+      }
+
+      if (!state.conversations.length) {
+        container.innerHTML = `<div class="empty-state">No conversations yet.</div>`;
+        return;
+      }
+
+      container.innerHTML = state.conversations
+        .map(
+          (item) => `
+          <button
+            type="button"
+            class="conversation-item${item.id === state.activeConversationId ? " active" : ""}"
+            data-conversation-id="${esc(item.id)}"
+            data-member-id="${esc(item.other_uid)}"
+          >
+            <span class="conversation-avatar">${esc(initials(item.other_name || "Member"))}</span>
+            <span class="conversation-copy">
+              <strong>${esc(item.other_name || "Member")}</strong>
+              <small>${esc(item.last_message_text || "Open conversation")}</small>
+            </span>
+            ${item.unread_count ? `<span class="conversation-count">${esc(item.unread_count)}</span>` : ""}
+          </button>
+        `
+        )
+        .join("");
+
+      container.querySelectorAll("[data-member-id]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          await openConversation(
+            button.dataset.memberId || "",
+            button.dataset.conversationId || ""
+          );
           openChat(true);
         });
       });
@@ -229,70 +303,101 @@ if (page !== "community") {
     render(ui.conversationList);
     render(ui.widgetConversationList);
 
-    const unread = state.conversations.reduce((sum, item) => sum + Number(item.unread_count || 0), 0);
+    const unread = state.conversations.reduce(
+      (sum, item) => sum + Number(item.unread_count || 0),
+      0
+    );
+
     if (ui.chatUnreadBadge) {
       ui.chatUnreadBadge.textContent = String(unread);
-      ui.chatUnreadBadge.classList.toggle('hidden', unread < 1);
+      ui.chatUnreadBadge.classList.toggle("hidden", unread < 1);
     }
   }
 
   function renderMessages(messages) {
     if (!ui.messageThread || !ui.activeConversationHeader) return;
+
     if (!state.activeConversationProfile) {
-      ui.activeConversationHeader.innerHTML = '<strong>Select a conversation</strong><p>Your latest private messages appear here.</p>';
-      ui.messageThread.innerHTML = '<div class="empty-state">Choose a member to open a conversation.</div>';
-      ui.messageForm?.classList.add('hidden');
+      ui.activeConversationHeader.innerHTML = `
+        <strong>Select a conversation</strong>
+        <p>Your recent private messages appear here.</p>
+      `;
+      ui.messageThread.innerHTML = `<div class="empty-state">Choose a member to open a conversation.</div>`;
+      ui.messageForm?.classList.add("hidden");
       return;
     }
+
     ui.activeConversationHeader.innerHTML = `
-      <strong>${esc(state.activeConversationProfile.display_name || 'Member')}</strong>
-      <p>${esc(state.activeConversationProfile.role_label || 'Project member')}</p>
+      <strong>${esc(state.activeConversationProfile.display_name || "Member")}</strong>
+      <p>${esc(state.activeConversationProfile.role_label || "Project member")}</p>
     `;
-    ui.messageThread.innerHTML = messages.length ? messages.map((item) => `
-      <div class="message-bubble ${item.sender_id === state.user.id ? 'mine' : ''}">
-        <div class="message-bubble-meta">${esc(item.sender_id === state.user.id ? 'You' : (state.activeConversationProfile.display_name || 'Member'))} · ${esc(formatDate(item.created_at))}</div>
-        <p>${esc(item.body || '')}</p>
-      </div>
-    `).join('') : '<div class="empty-state">No messages yet.</div>';
+
+    ui.messageThread.innerHTML = messages.length
+      ? messages
+          .map(
+            (item) => `
+            <div class="message-bubble ${item.sender_id === state.user.id ? "mine" : ""}">
+              <div class="message-bubble-meta">
+                ${esc(item.sender_id === state.user.id ? "You" : state.activeConversationProfile.display_name || "Member")}
+                · ${esc(formatDate(item.created_at))}
+              </div>
+              <p>${esc(item.body || "")}</p>
+            </div>
+          `
+          )
+          .join("")
+      : `<div class="empty-state">No messages yet.</div>`;
+
     ui.messageThread.scrollTop = ui.messageThread.scrollHeight;
-    ui.messageForm?.classList.remove('hidden');
+    ui.messageForm?.classList.remove("hidden");
   }
 
   function renderPendingPosts(items) {
     if (!ui.pendingPostsList || !ui.pendingCountBadge) return;
+
     ui.pendingCountBadge.textContent = `${items.length} pending`;
+
     if (!items.length) {
-      ui.pendingPostsList.innerHTML = '<div class="empty-state">Nothing is waiting for review.</div>';
+      ui.pendingPostsList.innerHTML = `<div class="empty-state">Nothing is waiting for review.</div>`;
       return;
     }
-    ui.pendingPostsList.innerHTML = items.map((post) => `
-      <article class="moderation-card">
-        <div class="moderation-card-top">
-          <div>
-            <strong>${esc(post.title || 'Untitled submission')}</strong>
-            <p>${esc(post.author_name || 'Member')} · ${esc(post.author_role || 'Member')} · ${esc(formatDate(post.created_at))}</p>
-          </div>
-          <span class="feed-chip">${esc(post.type || 'update')}</span>
-        </div>
-        ${post.tag ? `<p class="feed-tag">#${esc(post.tag)}</p>` : ''}
-        <p class="moderation-copy">${esc(post.content || '')}</p>
-        ${post.image_url ? `<img class="feed-image" src="${esc(post.image_url)}" alt="${esc(post.title || 'Submitted image')}" />` : ''}
-        <div class="moderation-actions">
-          <button type="button" class="button button-small" data-moderate-action="approve" data-post-id="${esc(post.id)}">Approve</button>
-          <button type="button" class="button button-secondary button-small" data-moderate-action="reject" data-post-id="${esc(post.id)}">Reject</button>
-        </div>
-      </article>
-    `).join('');
 
-    ui.pendingPostsList.querySelectorAll('[data-moderate-action]').forEach((button) => {
-      button.addEventListener('click', async () => {
+    ui.pendingPostsList.innerHTML = items
+      .map(
+        (post) => `
+        <article class="moderation-card">
+          <div class="moderation-card-top">
+            <div>
+              <strong>${esc(post.title || "Untitled submission")}</strong>
+              <p>${esc(post.author_name || "Member")} · ${esc(post.author_role || "Member")} · ${esc(formatDate(post.created_at))}</p>
+            </div>
+            <span class="feed-chip">${esc(post.type || "update")}</span>
+          </div>
+          ${post.tag ? `<p class="feed-tag">#${esc(post.tag)}</p>` : ""}
+          <p class="moderation-copy">${esc(post.content || "")}</p>
+          ${post.image_url ? `<img class="feed-image" src="${esc(post.image_url)}" alt="${esc(post.title || "Submitted image")}" />` : ""}
+          <div class="moderation-actions">
+            <button type="button" class="button button-small" data-moderate-action="approve" data-post-id="${esc(post.id)}">Approve</button>
+            <button type="button" class="button button-secondary button-small" data-moderate-action="reject" data-post-id="${esc(post.id)}">Reject</button>
+          </div>
+        </article>
+      `
+      )
+      .join("");
+
+    ui.pendingPostsList.querySelectorAll("[data-moderate-action]").forEach((button) => {
+      button.addEventListener("click", async () => {
         try {
-          setStatus('Updating submission…');
-          await moderatePost(button.dataset.postId || '', button.dataset.moderateAction || 'reject', state.user.id);
+          setStatus("Updating submission…");
+          await moderatePost(
+            button.dataset.postId || "",
+            button.dataset.moderateAction || "reject",
+            state.user.id
+          );
           await refreshPendingPosts();
-          setStatus('Submission updated.', 'success');
+          setStatus("Submission updated.", "success");
         } catch (error) {
-          setStatus(humanizeError(error), 'error');
+          setStatus(friendlyError(error), "error");
         }
       });
     });
@@ -304,13 +409,14 @@ if (page !== "community") {
   }
 
   async function refreshPendingPosts() {
-    if (!state.profile?.is_admin) {
-      ui.adminPanel?.classList.add('hidden');
+    if (!isAdminUser()) {
+      ui.adminPanel?.classList.add("hidden");
       return;
     }
+
     const items = await loadPendingPosts();
     renderPendingPosts(items);
-    ui.adminPanel?.classList.remove('hidden');
+    ui.adminPanel?.classList.remove("hidden");
   }
 
   async function refreshConversations() {
@@ -320,17 +426,29 @@ if (page !== "community") {
       renderMessages([]);
       return;
     }
+
     state.conversations = await loadConversationSummaries(state.user.id);
     renderConversationList();
   }
 
-  async function openConversation(otherUserId, conversationId = '') {
+  async function openConversation(otherUserId, conversationId = "") {
     if (!state.user || !otherUserId) return;
-    const resolvedId = conversationId || await ensureConversation(state.user.id, otherUserId);
+
+    const resolvedId =
+      conversationId || (await ensureConversation(state.user.id, otherUserId));
+
     state.activeConversationId = resolvedId;
     state.activeRecipientId = otherUserId;
-    state.activeConversationProfile = state.members.find((item) => item.id === otherUserId) || { display_name: 'Member', role_label: 'Project member' };
-    ui.recipientUid.value = otherUserId;
+    state.activeConversationProfile =
+      state.members.find((item) => item.id === otherUserId) || {
+        display_name: "Member",
+        role_label: "Project member"
+      };
+
+    if (ui.recipientUid) {
+      ui.recipientUid.value = otherUserId;
+    }
+
     const messages = await loadConversationMessages(resolvedId);
     renderMessages(messages);
     await markConversationRead(resolvedId, state.user.id);
@@ -339,195 +457,256 @@ if (page !== "community") {
 
   function syncProfileForm() {
     if (!state.profile) return;
-    ui.profileName.value = state.profile.display_name || '';
-    ui.profileOrganisation.value = state.profile.role_label || '';
-    ui.profileBio.value = state.profile.bio || '';
-    ui.profileSocial.value = state.profile.social_link || '';
+    if (ui.profileName) ui.profileName.value = state.profile.display_name || "";
+    if (ui.profileOrganisation) ui.profileOrganisation.value = state.profile.role_label || "";
+    if (ui.profileBio) ui.profileBio.value = state.profile.bio || "";
+    if (ui.profileSocial) ui.profileSocial.value = state.profile.social_link || "";
   }
 
   function setSignedInState(signedIn) {
-    ui.logoutBtn?.classList.toggle('hidden', !signedIn);
-    ui.profilePanel?.classList.toggle('hidden', !signedIn);
-    ui.composerPanel?.classList.toggle('hidden', !signedIn);
-    ui.chatWidget?.classList.toggle('hidden', !signedIn);
-    ui.authPanel?.classList.toggle('hidden', signedIn);
+    ui.logoutBtn?.classList.toggle("hidden", !signedIn);
+    ui.profilePanel?.classList.toggle("hidden", !signedIn);
+    ui.composerPanel?.classList.toggle("hidden", !signedIn);
+    ui.chatWidget?.classList.toggle("hidden", !signedIn);
+    ui.authPanel?.classList.toggle("hidden", signedIn);
+
+    if (!signedIn) {
+      ui.adminPanel?.classList.add("hidden");
+      closeChat();
+    }
   }
 
   function resetPreview() {
     state.selectedImageFile = null;
-    if (ui.postImage) ui.postImage.value = '';
-    ui.postImagePreviewWrap?.classList.add('hidden');
-    if (ui.postImagePreview) ui.postImagePreview.src = '';
+    if (ui.postImage) ui.postImage.value = "";
+    ui.postImagePreviewWrap?.classList.add("hidden");
+    if (ui.postImagePreview) ui.postImagePreview.src = "";
   }
 
   function bindStaticEvents() {
     bindAuthTabs();
 
-    ui.chatWidgetToggle?.addEventListener('click', () => {
-      const nextOpen = ui.chatWidgetPanel?.classList.contains('hidden');
+    ui.chatWidgetToggle?.addEventListener("click", () => {
+      const nextOpen = ui.chatWidgetPanel?.classList.contains("hidden");
       openChat(Boolean(nextOpen));
     });
-    ui.chatWidgetClose?.addEventListener('click', closeChat);
-    ui.chatOpenFromPanel?.addEventListener('click', () => openChat(true));
-    ui.logoutBtn?.addEventListener('click', async () => {
+
+    ui.chatWidgetClose?.addEventListener("click", closeChat);
+    ui.chatOpenFromPanel?.addEventListener("click", () => openChat(true));
+
+    ui.logoutBtn?.addEventListener("click", async () => {
       await signOutCurrentUser();
     });
-    ui.clearPostImageBtn?.addEventListener('click', resetPreview);
-    ui.postImage?.addEventListener('change', () => {
+
+    ui.clearPostImageBtn?.addEventListener("click", resetPreview);
+
+    ui.postImage?.addEventListener("change", () => {
       const file = ui.postImage.files?.[0] || null;
       state.selectedImageFile = file;
+
       if (!file) {
         resetPreview();
         return;
       }
+
       const url = URL.createObjectURL(file);
-      ui.postImagePreview.src = url;
-      ui.postImagePreviewWrap?.classList.remove('hidden');
+      if (ui.postImagePreview) ui.postImagePreview.src = url;
+      ui.postImagePreviewWrap?.classList.remove("hidden");
     });
 
-    ui.signInForm?.addEventListener('submit', async (event) => {
+    ui.signInForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       try {
-        setStatus('Signing in…');
-        const { error } = await signInWithPassword(ui.signInEmail.value.trim(), ui.signInPassword.value);
+        setStatus("Signing in…");
+        const { error } = await signInWithPassword(
+          ui.signInEmail.value.trim(),
+          ui.signInPassword.value
+        );
         if (error) throw error;
-        setStatus('Signed in.', 'success');
+        setStatus("Signed in.", "success");
         ui.signInForm.reset();
       } catch (error) {
-        setStatus(humanizeError(error), 'error');
+        setStatus(friendlyError(error), "error");
       }
     });
 
-    ui.signUpForm?.addEventListener('submit', async (event) => {
+    ui.signUpForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       try {
-        setStatus('Creating account…');
+        setStatus("Creating account…");
         const { data, error } = await signUpWithPassword({
           email: ui.signUpEmail.value.trim(),
           password: ui.signUpPassword.value,
           displayName: ui.signUpName.value.trim(),
           roleLabel: ui.signUpRole.value.trim()
         });
+
         if (error) throw error;
+
         ui.signUpForm.reset();
-        toggleAuthMode('signin');
+        toggleAuthMode("signin");
+
         if (data?.session) {
-          setStatus('Account created and signed in.', 'success');
+          setStatus("Account created and signed in.", "success");
         } else {
-          setStatus('Account created. Confirm the email, then sign in.', 'success');
+          setStatus("Account created. Confirm the email, then sign in.", "success");
         }
       } catch (error) {
-        setStatus(humanizeError(error), 'error');
+        setStatus(friendlyError(error), "error");
       }
     });
 
-    ui.profileForm?.addEventListener('submit', async (event) => {
+    ui.profileForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user) return;
+
       try {
-        setStatus('Saving profile…');
+        setStatus("Saving profile…");
         state.profile = await updateMyProfile(state.user.id, {
           displayName: ui.profileName.value.trim(),
           roleLabel: ui.profileOrganisation.value.trim(),
           bio: ui.profileBio.value.trim(),
           socialLink: ui.profileSocial.value.trim()
         });
+
+        if (isEmailAdmin(state.user.email)) {
+          state.profile.is_admin = true;
+        }
+
         renderProfileSpotlight();
         await refreshMembers();
-        setStatus('Profile saved.', 'success');
+        await refreshPendingPosts();
+        setStatus("Profile saved.", "success");
       } catch (error) {
-        setStatus(humanizeError(error), 'error');
+        setStatus(friendlyError(error), "error");
       }
     });
 
-    ui.postForm?.addEventListener('submit', async (event) => {
+    ui.postForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.profile) return;
+
       try {
-        setStatus('Submitting post…');
+        setStatus("Submitting post…");
         await submitPost({
           userId: state.user.id,
-          profile: state.profile,
+          profile: {
+            ...state.profile,
+            is_admin: isAdminUser()
+          },
           type: ui.postType.value,
           tag: ui.postTag.value.trim(),
           title: ui.postTitle.value.trim(),
           content: ui.postMessage.value.trim(),
           file: state.selectedImageFile
         });
+
         ui.postForm.reset();
         resetPreview();
-        setStatus(state.profile.is_admin ? 'Post published.' : 'Post submitted for review.', 'success');
+
+        setStatus(
+          isAdminUser() ? "Post published." : "Post submitted for review.",
+          "success"
+        );
+
         await refreshPendingPosts();
       } catch (error) {
-        setStatus(humanizeError(error), 'error');
+        setStatus(friendlyError(error), "error");
       }
     });
 
-    ui.messageForm?.addEventListener('submit', async (event) => {
+    ui.messageForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.activeConversationId || !state.activeRecipientId) return;
+
       try {
         await sendConversationMessage({
           conversationId: state.activeConversationId,
           senderId: state.user.id,
           recipientId: state.activeRecipientId,
           body: ui.directMessageText.value,
-          senderName: state.profile?.display_name || state.user.email || 'Member'
+          senderName: state.profile?.display_name || state.user.email || "Member"
         });
-        ui.directMessageText.value = '';
+
+        ui.directMessageText.value = "";
         await openConversation(state.activeRecipientId, state.activeConversationId);
       } catch (error) {
-        setStatus(humanizeError(error), 'error');
+        setStatus(friendlyError(error), "error");
       }
     });
   }
 
   async function applySession(session) {
     state.user = session?.user || null;
+
     if (!state.user) {
       state.profile = null;
+      state.conversations = [];
+      state.activeConversationId = null;
+      state.activeRecipientId = null;
+      state.activeConversationProfile = null;
+
       setSignedInState(false);
       renderProfileSpotlight();
+      renderMembers();
       renderConversationList();
       renderMessages([]);
-      setStatus('Not signed in.');
+      setStatus("");
       return;
     }
 
     try {
-      setStatus('Loading workspace…');
+      setStatus("Loading workspace…");
+
       state.profile = await ensureProfile(state.user, {});
+      if (isEmailAdmin(state.user.email)) {
+        state.profile.is_admin = true;
+      }
+
       syncProfileForm();
       setSignedInState(true);
       renderProfileSpotlight();
+
       await refreshMembers();
       await refreshPendingPosts();
       await refreshConversations();
-      setStatus(`Signed in as ${state.user.email}.`, 'success');
+
+      setStatus(`Signed in as ${state.user.email}.`, "success");
+
       if (state.conversations[0] && !state.activeConversationId) {
-        await openConversation(state.conversations[0].other_uid, state.conversations[0].id);
+        await openConversation(
+          state.conversations[0].other_uid,
+          state.conversations[0].id
+        );
       }
     } catch (error) {
-      setStatus(humanizeError(error), 'error');
+      setStatus(friendlyError(error), "error");
     }
   }
 
   function startRefreshLoop() {
     window.clearInterval(state.refreshHandle);
+
     state.refreshHandle = window.setInterval(async () => {
       try {
         await refreshMembers();
+
         if (state.user) {
           await refreshConversations();
+
           if (state.activeConversationId && state.activeRecipientId) {
-            await openConversation(state.activeRecipientId, state.activeConversationId);
+            await openConversation(
+              state.activeRecipientId,
+              state.activeConversationId
+            );
           }
-          if (state.profile?.is_admin) {
+
+          if (isAdminUser()) {
             await refreshPendingPosts();
           }
         }
       } catch (_) {
-        // keep quiet during background refreshes
+        // silent background refresh
       }
     }, 8000);
   }
@@ -535,16 +714,21 @@ if (page !== "community") {
   async function init() {
     bindStaticEvents();
 
-    if (!supabaseIsConfigured() || !getSupabase()) {
-      showSetupNotice('Open assets/js/supabase-config.js and paste your Supabase Project URL and publishable key.');
-      setStatus('Supabase is not configured yet.', 'error');
+    if (!supabaseIsConfigured(supabaseConfig) || !getSupabase()) {
+      showSetupNotice(
+        "Open assets/js/supabase-config.js and paste your Supabase Project URL and publishable key."
+      );
+      setStatus("Supabase is not configured yet.", "error");
       return;
     }
 
     hideSetupNotice();
+
     const session = await getSession();
     await applySession(session);
+
     startRefreshLoop();
+
     state.authSubscription = onAuthChange(async (nextSession) => {
       await applySession(nextSession);
     });
