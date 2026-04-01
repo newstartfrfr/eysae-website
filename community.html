@@ -47,20 +47,20 @@
       <div class="container page-hero-grid community-hero-grid">
         <div>
           <span class="eyebrow">EYSAE MEMBERS</span>
-          <h1>Member access, moderated updates and private conversations</h1>
-          <p class="hero-lead">This space is for registered members of the project. Each member can keep a public profile, submit updates for review and communicate directly with other participants.</p>
+          <h1>Members, approvals and private conversations</h1>
+          <p class="hero-lead">Registered members can manage a profile, submit updates for approval and exchange private messages with other participants.</p>
           <div class="pill-list">
             <span class="pill">Registration</span>
             <span class="pill">Moderated publishing</span>
-            <span class="pill">Photo posts</span>
+            <span class="pill">Photo uploads</span>
             <span class="pill">Private chat</span>
           </div>
         </div>
 
         <div class="page-hero-panel community-status-panel">
           <div id="setupNotice" class="setup-notice hidden">
-            <strong>Firebase setup</strong>
-            <p>Check Authentication, Firestore Rules and Storage Rules.</p>
+            <strong>Supabase setup</strong>
+            <p>Add the Supabase Project URL and publishable key, then run the Supabase SQL setup.</p>
           </div>
           <div id="authStatus" class="status-bar">Not signed in.</div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
@@ -260,7 +260,7 @@
       <div class="chat-widget-header">
         <div>
           <strong>Messages</strong>
-          <p id="chatWidgetSubtitle">Recent conversations and private replies</p>
+          <p id="chatWidgetSubtitle">Recent conversations and previous messages</p>
         </div>
         <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
       </div>
@@ -314,6 +314,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/community.js"></script>
 </body>
