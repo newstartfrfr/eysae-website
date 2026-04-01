@@ -15,7 +15,7 @@ service cloud.firestore {
     }
 
     function validUrlOrEmpty(value) {
-      return value == null || (value is string && (value.size() == 0 || value.matches('^https?://.+')));
+      return value == null || value == '' || (value is string && value.matches('^https?://.+'));
     }
 
     function validUserData() {
@@ -31,7 +31,7 @@ service cloud.firestore {
         && request.resource.data.updatedAt is timestamp;
     }
 
-    function validPostData() {
+    function validBasePost() {
       return request.resource.data.authorId == request.auth.uid
         && request.resource.data.authorName is string
         && request.resource.data.authorName.size() >= 2
@@ -40,10 +40,37 @@ service cloud.firestore {
         && validUrlOrEmpty(request.resource.data.socialLink)
         && request.resource.data.type in ['update', 'discussion', 'notice']
         && (request.resource.data.tag == null || (request.resource.data.tag is string && request.resource.data.tag.size() <= 60))
+        && (request.resource.data.title == null || (request.resource.data.title is string && request.resource.data.title.size() <= 120))
         && request.resource.data.content is string
         && request.resource.data.content.size() >= 1
-        && request.resource.data.content.size() <= 2000
-        && request.resource.data.createdAt is timestamp;
+        && request.resource.data.content.size() <= 3000
+        && (request.resource.data.imageUrl == null || request.resource.data.imageUrl == '' || request.resource.data.imageUrl is string)
+        && (request.resource.data.imagePath == null || request.resource.data.imagePath == '' || request.resource.data.imagePath is string)
+        && (request.resource.data.imageAlt == null || request.resource.data.imageAlt == '' || (request.resource.data.imageAlt is string && request.resource.data.imageAlt.size() <= 160))
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+
+    function validPendingPost() {
+      return validBasePost()
+        && request.resource.data.status == 'pending'
+        && request.resource.data.publishedAt == null
+        && request.resource.data.moderatedAt == null
+        && request.resource.data.moderatedBy == ''
+        && request.resource.data.moderatedByEmail == '';
+    }
+
+    function validApprovedPost() {
+      return validBasePost()
+        && request.resource.data.status == 'approved'
+        && request.resource.data.publishedAt is timestamp
+        && request.resource.data.moderatedAt is timestamp
+        && request.resource.data.moderatedBy is string
+        && request.resource.data.moderatedByEmail is string;
+    }
+
+    function isPostReader() {
+      return resource.data.status == 'approved' || isAdmin() || (signedIn() && resource.data.authorId == request.auth.uid);
     }
 
     function validConversationData() {
@@ -52,7 +79,11 @@ service cloud.firestore {
         && request.auth.uid in request.resource.data.participantIds
         && request.resource.data.participantNames is map
         && request.resource.data.createdAt is timestamp
-        && request.resource.data.updatedAt is timestamp;
+        && request.resource.data.updatedAt is timestamp
+        && request.resource.data.lastMessageAt is timestamp
+        && request.resource.data.lastMessageText is string
+        && request.resource.data.lastMessageText.size() <= 200
+        && request.resource.data.lastSenderId is string;
     }
 
     function isConversationParticipant(data) {
@@ -77,13 +108,13 @@ service cloud.firestore {
 
     function validThreadSummary(ownerUid) {
       return request.resource.data.ownerId == ownerUid
+        && request.resource.data.conversationId is string
         && request.resource.data.otherUid is string
         && request.resource.data.otherUid.size() > 0
         && request.resource.data.otherName is string
         && request.resource.data.otherName.size() >= 1
         && request.resource.data.otherName.size() <= 80
         && request.resource.data.lastMessageText is string
-        && request.resource.data.lastMessageText.size() >= 0
         && request.resource.data.lastMessageText.size() <= 200
         && request.resource.data.lastSenderId is string
         && request.resource.data.updatedAt is timestamp;
@@ -108,9 +139,17 @@ service cloud.firestore {
     }
 
     match /posts/{postId} {
-      allow read: if true;
-      allow create: if signedIn() && validPostData();
-      allow update: if signedIn() && validPostData() && (resource.data.authorId == request.auth.uid || isAdmin()) && request.resource.data.authorId == resource.data.authorId;
+      allow read: if isPostReader();
+      allow create: if signedIn() && (validPendingPost() || (isAdmin() && validApprovedPost()));
+      allow update: if isAdmin()
+        && resource.data.authorId == request.resource.data.authorId
+        && resource.data.createdAt == request.resource.data.createdAt
+        && (validPendingPost() || validApprovedPost() || (validBasePost()
+          && request.resource.data.status == 'rejected'
+          && request.resource.data.publishedAt == null
+          && request.resource.data.moderatedAt is timestamp
+          && request.resource.data.moderatedBy is string
+          && request.resource.data.moderatedByEmail is string));
       allow delete: if signedIn() && (resource.data.authorId == request.auth.uid || isAdmin());
     }
 
