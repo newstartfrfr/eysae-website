@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-labelledby="title desc">
+  <title id="title">Greece partner card</title>
+  <desc id="desc">Clean institutional partner card for IASIS.</desc>
+  <rect width="900" height="480" rx="28" fill="#f7f8f5"/>
+  <rect x="22" y="22" width="856" height="436" rx="24" fill="#ffffff" stroke="#dfe6ef" stroke-width="4"/>
+  <rect x="48" y="48" width="286" height="384" rx="22" fill="#183b77"/>
+  <circle cx="126" cy="150" r="60" fill="#53a865"/><path d="M102 172 C124 138, 151 112, 178 92" stroke="#ffffff" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M118 148 C95 143, 81 130, 72 112" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M140 158 C160 160, 176 170, 188 185" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <text x="372" y="108" font-size="20" font-weight="800" fill="#efc84a" font-family="Inter, Arial">GREECE</text>
+  <text x="372" y="176" font-size="52" font-weight="800" fill="#183b77" font-family="Inter, Arial">IASIS</text>
+</svg>

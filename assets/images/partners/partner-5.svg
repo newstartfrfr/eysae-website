@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" role="img" aria-labelledby="title desc">
+  <title id="title">Jordan partner card</title>
+  <desc id="desc">Clean institutional partner card for Shoura Organization.</desc>
+  <rect width="900" height="480" rx="28" fill="#f7f8f5"/>
+  <rect x="22" y="22" width="856" height="436" rx="24" fill="#ffffff" stroke="#dfe6ef" stroke-width="4"/>
+  <rect x="48" y="48" width="286" height="384" rx="22" fill="#183b77"/>
+  <rect x="72" y="92" width="88" height="66" rx="16" fill="#53a865"/><path d="M104 158 L104 184 L128 162" fill="#53a865"/><rect x="126" y="118" width="92" height="74" rx="16" fill="#ffffff"/><path d="M184 192 L184 220 L158 198" fill="#ffffff"/>
+  <text x="372" y="108" font-size="20" font-weight="800" fill="#efc84a" font-family="Inter, Arial">JORDAN</text>
+  <text x="372" y="176" font-size="52" font-weight="800" fill="#183b77" font-family="Inter, Arial">Shoura Organization</text>
+</svg>
