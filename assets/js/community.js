@@ -10,7 +10,6 @@ import {
   signUpWithPassword,
   signOutCurrentUser,
   ensureProfile,
-  getMyProfile,
   updateMyProfile,
   loadMembers,
   submitPost,
@@ -114,7 +113,6 @@ if (page === "community") {
     if (!ui.authStatus) return;
 
     const clean = (message || "").trim();
-
     if (!clean) {
       ui.authStatus.textContent = "";
       ui.authStatus.className = "status-bar hidden";
@@ -176,7 +174,7 @@ if (page === "community") {
         <div class="profile-avatar">EY</div>
         <div>
           <strong>Member area</strong>
-          <p>Sign in to access your profile, messages and member tools.</p>
+          <p>Sign in to access your profile, direct messages and member tools.</p>
         </div>
       `;
       return;
@@ -196,9 +194,7 @@ if (page === "community") {
         <p>${esc(state.profile.bio || "Your profile is visible inside the member workspace.")}</p>
         ${
           state.profile.social_link
-            ? `<div class="profile-links"><a href="${esc(
-                state.profile.social_link
-              )}" target="_blank" rel="noreferrer">Open link</a></div>`
+            ? `<div class="profile-links"><a href="${esc(state.profile.social_link)}" target="_blank" rel="noreferrer">Open link</a></div>`
             : ""
         }
       </div>
@@ -216,9 +212,7 @@ if (page === "community") {
     ui.membersGrid.innerHTML = state.members
       .map((member) => {
         const canMessage = state.user && member.id !== state.user.id;
-        const memberIsAdmin =
-          Boolean(member.is_admin) ||
-          isEmailAdmin(member.email);
+        const memberIsAdmin = Boolean(member.is_admin) || isEmailAdmin(member.email);
 
         return `
           <article class="member-card">
@@ -235,9 +229,7 @@ if (page === "community") {
               </div>
               ${
                 canMessage
-                  ? `<button type="button" class="member-message-btn" data-member-id="${esc(
-                      member.id
-                    )}">Message</button>`
+                  ? `<button type="button" class="member-message-btn" data-member-id="${esc(member.id)}">Message</button>`
                   : ""
               }
             </div>
@@ -265,7 +257,7 @@ if (page === "community") {
       }
 
       if (!state.conversations.length) {
-        container.innerHTML = `<div class="empty-state">No conversations yet.</div>`;
+        container.innerHTML = `<div class="empty-state">No conversations yet. Open a member profile and click Message.</div>`;
         return;
       }
 
@@ -303,11 +295,7 @@ if (page === "community") {
     render(ui.conversationList);
     render(ui.widgetConversationList);
 
-    const unread = state.conversations.reduce(
-      (sum, item) => sum + Number(item.unread_count || 0),
-      0
-    );
-
+    const unread = state.conversations.reduce((sum, item) => sum + Number(item.unread_count || 0), 0);
     if (ui.chatUnreadBadge) {
       ui.chatUnreadBadge.textContent = String(unread);
       ui.chatUnreadBadge.classList.toggle("hidden", unread < 1);
@@ -346,7 +334,7 @@ if (page === "community") {
           `
           )
           .join("")
-      : `<div class="empty-state">No messages yet.</div>`;
+      : `<div class="empty-state">No messages yet. Write the first one below.</div>`;
 
     ui.messageThread.scrollTop = ui.messageThread.scrollHeight;
     ui.messageForm?.classList.remove("hidden");
@@ -434,8 +422,7 @@ if (page === "community") {
   async function openConversation(otherUserId, conversationId = "") {
     if (!state.user || !otherUserId) return;
 
-    const resolvedId =
-      conversationId || (await ensureConversation(state.user.id, otherUserId));
+    const resolvedId = conversationId || (await ensureConversation(state.user.id, otherUserId));
 
     state.activeConversationId = resolvedId;
     state.activeRecipientId = otherUserId;
@@ -445,9 +432,7 @@ if (page === "community") {
         role_label: "Project member"
       };
 
-    if (ui.recipientUid) {
-      ui.recipientUid.value = otherUserId;
-    }
+    if (ui.recipientUid) ui.recipientUid.value = otherUserId;
 
     const messages = await loadConversationMessages(resolvedId);
     renderMessages(messages);
@@ -503,12 +488,10 @@ if (page === "community") {
     ui.postImage?.addEventListener("change", () => {
       const file = ui.postImage.files?.[0] || null;
       state.selectedImageFile = file;
-
       if (!file) {
         resetPreview();
         return;
       }
-
       const url = URL.createObjectURL(file);
       if (ui.postImagePreview) ui.postImagePreview.src = url;
       ui.postImagePreviewWrap?.classList.remove("hidden");
@@ -518,10 +501,7 @@ if (page === "community") {
       event.preventDefault();
       try {
         setStatus("Signing in…");
-        const { error } = await signInWithPassword(
-          ui.signInEmail.value.trim(),
-          ui.signInPassword.value
-        );
+        const { error } = await signInWithPassword(ui.signInEmail.value.trim(), ui.signInPassword.value);
         if (error) throw error;
         setStatus("Signed in.", "success");
         ui.signInForm.reset();
@@ -540,12 +520,9 @@ if (page === "community") {
           displayName: ui.signUpName.value.trim(),
           roleLabel: ui.signUpRole.value.trim()
         });
-
         if (error) throw error;
-
         ui.signUpForm.reset();
         toggleAuthMode("signin");
-
         if (data?.session) {
           setStatus("Account created and signed in.", "success");
         } else {
@@ -559,7 +536,6 @@ if (page === "community") {
     ui.profileForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user) return;
-
       try {
         setStatus("Saving profile…");
         state.profile = await updateMyProfile(state.user.id, {
@@ -568,11 +544,7 @@ if (page === "community") {
           bio: ui.profileBio.value.trim(),
           socialLink: ui.profileSocial.value.trim()
         });
-
-        if (isEmailAdmin(state.user.email)) {
-          state.profile.is_admin = true;
-        }
-
+        if (isEmailAdmin(state.user.email)) state.profile.is_admin = true;
         renderProfileSpotlight();
         await refreshMembers();
         await refreshPendingPosts();
@@ -585,30 +557,20 @@ if (page === "community") {
     ui.postForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.profile) return;
-
       try {
         setStatus("Submitting post…");
         await submitPost({
           userId: state.user.id,
-          profile: {
-            ...state.profile,
-            is_admin: isAdminUser()
-          },
+          profile: { ...state.profile, is_admin: isAdminUser(), email: state.user.email || state.profile.email || "" },
           type: ui.postType.value,
           tag: ui.postTag.value.trim(),
           title: ui.postTitle.value.trim(),
           content: ui.postMessage.value.trim(),
           file: state.selectedImageFile
         });
-
         ui.postForm.reset();
         resetPreview();
-
-        setStatus(
-          isAdminUser() ? "Post published." : "Post submitted for review.",
-          "success"
-        );
-
+        setStatus(isAdminUser() ? "Post published." : "Post submitted for review.", "success");
         await refreshPendingPosts();
       } catch (error) {
         setStatus(friendlyError(error), "error");
@@ -618,7 +580,6 @@ if (page === "community") {
     ui.messageForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.activeConversationId || !state.activeRecipientId) return;
-
       try {
         await sendConversationMessage({
           conversationId: state.activeConversationId,
@@ -627,7 +588,6 @@ if (page === "community") {
           body: ui.directMessageText.value,
           senderName: state.profile?.display_name || state.user.email || "Member"
         });
-
         ui.directMessageText.value = "";
         await openConversation(state.activeRecipientId, state.activeConversationId);
       } catch (error) {
@@ -645,7 +605,6 @@ if (page === "community") {
       state.activeConversationId = null;
       state.activeRecipientId = null;
       state.activeConversationProfile = null;
-
       setSignedInState(false);
       renderProfileSpotlight();
       renderMembers();
@@ -657,27 +616,17 @@ if (page === "community") {
 
     try {
       setStatus("Loading workspace…");
-
       state.profile = await ensureProfile(state.user, {});
-      if (isEmailAdmin(state.user.email)) {
-        state.profile.is_admin = true;
-      }
-
+      if (isEmailAdmin(state.user.email)) state.profile.is_admin = true;
       syncProfileForm();
       setSignedInState(true);
       renderProfileSpotlight();
-
       await refreshMembers();
       await refreshPendingPosts();
       await refreshConversations();
-
       setStatus(`Signed in as ${state.user.email}.`, "success");
-
       if (state.conversations[0] && !state.activeConversationId) {
-        await openConversation(
-          state.conversations[0].other_uid,
-          state.conversations[0].id
-        );
+        await openConversation(state.conversations[0].other_uid, state.conversations[0].id);
       }
     } catch (error) {
       setStatus(friendlyError(error), "error");
@@ -686,27 +635,19 @@ if (page === "community") {
 
   function startRefreshLoop() {
     window.clearInterval(state.refreshHandle);
-
     state.refreshHandle = window.setInterval(async () => {
       try {
         await refreshMembers();
-
         if (state.user) {
           await refreshConversations();
-
           if (state.activeConversationId && state.activeRecipientId) {
-            await openConversation(
-              state.activeRecipientId,
-              state.activeConversationId
-            );
+            await openConversation(state.activeRecipientId, state.activeConversationId);
           }
-
           if (isAdminUser()) {
             await refreshPendingPosts();
           }
         }
       } catch (_) {
-        // silent background refresh
       }
     }, 8000);
   }
@@ -715,20 +656,15 @@ if (page === "community") {
     bindStaticEvents();
 
     if (!supabaseIsConfigured(supabaseConfig) || !getSupabase()) {
-      showSetupNotice(
-        "Open assets/js/supabase-config.js and paste your Supabase Project URL and publishable key."
-      );
+      showSetupNotice("Open assets/js/supabase-config.js and paste your Supabase Project URL and publishable key.");
       setStatus("Supabase is not configured yet.", "error");
       return;
     }
 
     hideSetupNotice();
-
     const session = await getSession();
     await applySession(session);
-
     startRefreshLoop();
-
     state.authSubscription = onAuthChange(async (nextSession) => {
       await applySession(nextSession);
     });
