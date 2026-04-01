@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EYSAE Members</title>
-  <meta name="description" content="Member workspace for EYSAE: registration, profile editing, moderated posts and private conversations." />
+  <meta name="description" content="Project members for EYSAE: registration, profile editing, moderated posts and private conversations." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -17,7 +17,7 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small>Member workspace</small>
+          <small>Project members</small>
         </span>
       </a>
 
@@ -47,13 +47,12 @@
       <div class="container page-hero-grid community-hero-grid">
         <div>
           <span class="eyebrow">EYSAE MEMBERS</span>
-          <h1>Members, approvals and private conversations</h1>
-          <p class="hero-lead">Registered members can manage a profile, submit updates for approval and exchange private messages with other participants.</p>
+          <h1>Project members</h1>
+          <p class="hero-lead">Member profiles, reviewed project updates and direct contact in one place.</p>
           <div class="pill-list">
-            <span class="pill">Registration</span>
-            <span class="pill">Moderated publishing</span>
-            <span class="pill">Photo uploads</span>
-            <span class="pill">Private chat</span>
+            <span class="pill">Profiles</span>
+            <span class="pill">Reviewed updates</span>
+            <span class="pill">Direct messages</span>
           </div>
         </div>
 
@@ -62,12 +61,12 @@
             <strong>Supabase setup</strong>
             <p>Add the Supabase Project URL and publishable key, then run the Supabase SQL setup.</p>
           </div>
-          <div id="authStatus" class="status-bar">Not signed in.</div>
+          <div id="authStatus" class="status-bar hidden"></div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
             <div>
-              <strong>Member card</strong>
-              <p>Sign in to activate your member profile.</p>
+              <strong>Member area</strong>
+              <p>Sign in to access your profile, direct messages and member tools.</p>
             </div>
           </div>
         </div>
@@ -222,7 +221,7 @@
             <div class="card-heading card-heading-inline">
               <div>
                 <span class="eyebrow">MEMBERS</span>
-                <h2>People in the project space</h2>
+                <h2>Project members</h2>
               </div>
               <span class="section-mini-note">Live list</span>
             </div>
@@ -237,7 +236,7 @@
             <div class="card-heading card-heading-inline">
               <div>
                 <span class="eyebrow">MESSAGES</span>
-                <h2>Recent conversations</h2>
+                <h2>Messages</h2>
               </div>
               <button type="button" id="chatOpenFromPanel" class="button button-secondary button-small">Open chat</button>
             </div>
@@ -260,7 +259,7 @@
       <div class="chat-widget-header">
         <div>
           <strong>Messages</strong>
-          <p id="chatWidgetSubtitle">Recent conversations and previous messages</p>
+          <p id="chatWidgetSubtitle">Messages and previous messages</p>
         </div>
         <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
       </div>
