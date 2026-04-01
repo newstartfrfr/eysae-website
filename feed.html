@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EYSAE Member Feed</title>
+  <meta name="description" content="Public feed of member updates and project posts on EYSAE." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="feed">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="EYSAE home">
+        <span class="brand-mark">EY</span>
+        <span class="brand-text">
+          <strong>EYSAE</strong>
+          <small>Member feed</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="projects.html">Project</a>
+        <a class="nav-link" href="feed.html">Feed</a>
+        <a class="nav-link" href="community.html">Members</a>
+        <a class="nav-link" href="index.html#partners">Partners</a>
+        <a class="nav-link" href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="button button-secondary button-small" href="community.html">Member Area</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero community-hero">
+      <div class="container page-hero-grid community-hero-grid">
+        <div>
+          <span class="eyebrow">Member updates</span>
+          <h1>Project feed and member posts</h1>
+          <p class="hero-lead">This page shows public updates shared by members and project contributors. Signed-in members can also post directly from here.</p>
+        </div>
+        <div class="page-hero-panel community-status-panel">
+          <div id="authStatus" class="status-bar">Loading feed...</div>
+          <div class="profile-spotlight profile-spotlight-empty" id="profileSpotlight">
+            <div class="profile-avatar">EY</div>
+            <div>
+              <strong>Public feed</strong>
+              <p>Sign in from the member area to publish updates.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section community-section">
+      <div class="container community-shell community-shell-wide">
+        <div class="community-main">
+          <article class="community-card hidden" id="composerPanel">
+            <div class="card-heading">
+              <span class="eyebrow">Publish</span>
+              <h2>Share an update</h2>
+            </div>
+            <form id="postForm" class="form-grid">
+              <div>
+                <label for="postType">Post type</label>
+                <select id="postType">
+                  <option value="update">Project update</option>
+                  <option value="discussion">Discussion</option>
+                  <option value="notice">Notice</option>
+                </select>
+              </div>
+              <div>
+                <label for="postTag">Tag</label>
+                <input id="postTag" type="text" placeholder="Short tag" />
+              </div>
+              <div class="span-2">
+                <label for="postMessage">Message</label>
+                <textarea id="postMessage" rows="6" placeholder="Write your update"></textarea>
+              </div>
+              <div class="span-2">
+                <button type="submit" class="button">Publish post</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="community-card">
+            <div class="card-heading card-heading-inline">
+              <div>
+                <span class="eyebrow">Feed</span>
+                <h2>Latest member posts</h2>
+              </div>
+              <a class="button button-secondary button-small" href="community.html">Open full member area</a>
+            </div>
+            <div id="feedList" class="feed-list"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <p>© 2026 EYSAE</p>
+      <p>Public member updates and project visibility page.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/js/feed.js"></script>
+  <script type="module" src="assets/js/chat-widget.js"></script>
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
