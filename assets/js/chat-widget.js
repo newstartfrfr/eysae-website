@@ -1,197 +1,202 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, query, orderBy, limit, onSnapshot, doc, getDoc, addDoc, setDoc, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { firebaseConfig, firebaseIsConfigured } from "./firebase-config.js";
+import {
+  getSupabase,
+  esc,
+  initials,
+  formatDate,
+  humanizeError,
+  getSession,
+  onAuthChange,
+  getMyProfile,
+  loadConversationSummaries,
+  loadConversationMessages,
+  ensureConversation,
+  sendConversationMessage,
+  markConversationRead
+} from "./supabase-client.js";
+import { supabaseIsConfigured } from "./supabase-config.js";
 
 const page = document.body?.dataset?.page || "";
-if (page === "community" || !firebaseIsConfigured(firebaseConfig)) {
-  // community page has its own full messaging experience
+if (page === "community") {
+  // Community page has the full chat workspace already.
 } else {
-  const app = initializeApp(firebaseConfig, `chat-widget-${page || 'page'}`);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
   let currentUser = null;
   let currentProfile = null;
-  let currentThreads = [];
-  let currentConversationId = null;
-  let activeConversation = null;
-  let unsubThreads = null;
-  let unsubMessages = null;
+  let conversations = [];
+  let activeConversationId = null;
+  let activeRecipientId = null;
+  let refreshHandle = null;
 
-  document.body.insertAdjacentHTML("beforeend", `
-    <div class="chat-widget" id="chatWidgetRoot" hidden>
-      <button class="chat-widget-toggle" id="chatLauncher" type="button" aria-expanded="false" aria-controls="chatPanel">
-        <span class="chat-widget-badge hidden" id="chatBadge">0</span>
-        <span class="chat-widget-icon">✉</span>
-        <span>Messages</span>
-      </button>
-      <div class="chat-widget-panel hidden" id="chatPanel">
-        <div class="chat-widget-header">
-          <div>
-            <strong>Messages</strong>
-            <p id="chatPanelSubhead">Recent conversations</p>
+  if (supabaseIsConfigured() && getSupabase()) {
+    document.body.insertAdjacentHTML("beforeend", `
+      <div class="chat-widget hidden" id="chatWidgetRoot">
+        <button class="chat-widget-toggle" id="chatLauncher" type="button" aria-expanded="false" aria-controls="chatPanel">
+          <span class="chat-widget-badge hidden" id="chatBadge">0</span>
+          <span class="chat-widget-icon">✉</span>
+          <span>Messages</span>
+        </button>
+        <div class="chat-widget-panel hidden" id="chatPanel">
+          <div class="chat-widget-header">
+            <div>
+              <strong>Messages</strong>
+              <p id="chatPanelSubhead">Recent conversations</p>
+            </div>
+            <button class="chat-widget-close" id="chatClose" type="button" aria-label="Close">×</button>
           </div>
-          <button class="chat-widget-close" id="chatClose" type="button" aria-label="Close">×</button>
-        </div>
-        <div class="chat-widget-body">
-          <div class="chat-widget-sidebar">
-            <div class="conversation-list compact-scroll" id="chatConversationList"></div>
-          </div>
-          <div class="chat-widget-thread">
-            <div class="active-conversation-header" id="chatThreadHead"><strong>Select a conversation</strong><p>Your previous messages appear here.</p></div>
-            <div class="message-thread compact-scroll" id="chatThreadMessages"></div>
-            <form class="chat-compose" id="chatComposeForm">
-              <textarea id="chatComposeText" rows="2" placeholder="Write a message"></textarea>
-              <button class="button button-small" type="submit">Send</button>
-            </form>
+          <div class="chat-widget-body">
+            <div class="chat-widget-sidebar">
+              <div class="conversation-list compact-scroll" id="chatConversationList"></div>
+            </div>
+            <div class="chat-widget-thread">
+              <div class="active-conversation-header" id="chatThreadHead"><strong>Select a conversation</strong><p>Your previous messages appear here.</p></div>
+              <div class="message-thread compact-scroll" id="chatThreadMessages"></div>
+              <form class="chat-compose hidden" id="chatComposeForm">
+                <textarea id="chatComposeText" rows="2" placeholder="Write a message"></textarea>
+                <button class="button button-small" type="submit">Send</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  `);
+    `);
 
-  const root = document.getElementById("chatWidgetRoot");
-  const launcher = document.getElementById("chatLauncher");
-  const panel = document.getElementById("chatPanel");
-  const closeBtn = document.getElementById("chatClose");
-  const badge = document.getElementById("chatBadge");
-  const list = document.getElementById("chatConversationList");
-  const threadHead = document.getElementById("chatThreadHead");
-  const threadMessages = document.getElementById("chatThreadMessages");
-  const composeForm = document.getElementById("chatComposeForm");
-  const composeText = document.getElementById("chatComposeText");
+    const root = document.getElementById("chatWidgetRoot");
+    const launcher = document.getElementById("chatLauncher");
+    const panel = document.getElementById("chatPanel");
+    const closeBtn = document.getElementById("chatClose");
+    const badge = document.getElementById("chatBadge");
+    const list = document.getElementById("chatConversationList");
+    const threadHead = document.getElementById("chatThreadHead");
+    const threadMessages = document.getElementById("chatThreadMessages");
+    const composeForm = document.getElementById("chatComposeForm");
+    const composeText = document.getElementById("chatComposeText");
 
-  const esc = (value) => String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-  const initials = (value) => ((value || "M").trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase() || "").join("") || "M");
-  const formatDate = (value) => {
-    const raw = value?.toDate ? value.toDate() : value;
-    if (!(raw instanceof Date) || Number.isNaN(raw.valueOf())) return "";
-    return new Intl.DateTimeFormat(document.documentElement.lang || "en", { dateStyle: "short", timeStyle: "short" }).format(raw);
-  };
-
-  function togglePanel(force) {
-    const open = force ?? panel.classList.contains("hidden");
-    panel.classList.toggle("hidden", !open);
-    launcher.setAttribute("aria-expanded", String(open));
-  }
-
-  async function ensureCurrentProfile() {
-    if (!currentUser) return null;
-    const snap = await getDoc(doc(db, "users", currentUser.uid));
-    currentProfile = snap.exists() ? snap.data() : { displayName: currentUser.displayName || currentUser.email || "Member" };
-    return currentProfile;
-  }
-
-  function renderThreadList() {
-    if (!currentThreads.length) {
-      list.innerHTML = '<div class="empty-state">No conversations yet.</div>';
-      badge.classList.add("hidden");
-      return;
+    function togglePanel(force) {
+      const open = typeof force === 'boolean' ? force : panel.classList.contains('hidden');
+      panel.classList.toggle('hidden', !open);
+      launcher.setAttribute('aria-expanded', String(open));
     }
-    badge.textContent = String(currentThreads.length);
-    badge.classList.remove("hidden");
-    list.innerHTML = currentThreads.map((item) => {
-      const active = item.conversationId === currentConversationId ? " active" : "";
-      return `<button class="conversation-item${active}" type="button" data-conversation-id="${esc(item.conversationId)}" data-member-id="${esc(item.otherUid)}"><span class="conversation-avatar">${esc(initials(item.otherName || "Member"))}</span><span class="conversation-copy"><strong>${esc(item.otherName || "Member")}</strong><small>${esc(item.lastMessageText || "Open conversation")}</small></span></button>`;
-    }).join("");
-    list.querySelectorAll("[data-conversation-id]").forEach((btn) => {
-      btn.addEventListener("click", () => openConversation(btn.dataset.memberId || "", btn.dataset.conversationId || ""));
-    });
-  }
 
-  function renderMessages(messages) {
-    const otherName = activeConversation?.otherName || "Member";
-    threadHead.innerHTML = `<strong>${esc(otherName)}</strong><p>Private conversation</p>`;
-    threadMessages.innerHTML = messages.length ? messages.map((item) => `
-      <div class="message-bubble ${item.fromId === currentUser.uid ? 'mine' : ''}">
-        <div class="message-bubble-meta">${esc(item.fromName || '')} · ${esc(formatDate(item.createdAt))}</div>
-        <p>${esc(item.text || '')}</p>
-      </div>`).join("") : '<div class="empty-state">No messages yet.</div>';
-    threadMessages.scrollTop = threadMessages.scrollHeight;
-  }
+    function renderConversationList() {
+      if (!currentUser) {
+        root.classList.add('hidden');
+        return;
+      }
+      root.classList.remove('hidden');
+      const unread = conversations.reduce((sum, item) => sum + Number(item.unread_count || 0), 0);
+      badge.textContent = String(unread);
+      badge.classList.toggle('hidden', unread < 1);
 
-  function openConversation(otherUid, conversationId) {
-    currentConversationId = conversationId;
-    activeConversation = currentThreads.find((item) => item.conversationId === conversationId) || { otherUid, otherName: 'Member' };
-    renderThreadList();
-    unsubMessages?.();
-    unsubMessages = onSnapshot(query(collection(db, 'conversations', conversationId, 'messages'), orderBy('createdAt', 'asc'), limit(100)), (snap) => {
-      renderMessages(snap.docs.map((docItem) => ({ id: docItem.id, ...docItem.data() })));
-    });
-    togglePanel(true);
-  }
+      if (!conversations.length) {
+        list.innerHTML = '<div class="empty-state">No conversations yet.</div>';
+        threadHead.innerHTML = '<strong>No conversations yet</strong><p>Open the Members page to start a new message.</p>';
+        threadMessages.innerHTML = '<div class="empty-state">Messages will appear here.</div>';
+        composeForm.classList.add('hidden');
+        return;
+      }
 
-  launcher?.addEventListener('click', () => togglePanel());
-  closeBtn?.addEventListener('click', () => togglePanel(false));
+      list.innerHTML = conversations.map((item) => `
+        <button class="conversation-item${item.id === activeConversationId ? ' active' : ''}" type="button" data-conversation-id="${esc(item.id)}" data-member-id="${esc(item.other_uid)}">
+          <span class="conversation-avatar">${esc(initials(item.other_name || 'Member'))}</span>
+          <span class="conversation-copy">
+            <strong>${esc(item.other_name || 'Member')}</strong>
+            <small>${esc(item.last_message_text || 'Open conversation')}</small>
+          </span>
+          ${item.unread_count ? `<span class="conversation-count">${esc(item.unread_count)}</span>` : ''}
+        </button>
+      `).join('');
 
-  composeForm?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    if (!currentUser || !currentConversationId || !activeConversation?.otherUid) return;
-    const text = composeText.value.trim();
-    if (!text) return;
-    const profile = currentProfile || await ensureCurrentProfile();
-    const senderName = profile?.displayName || currentUser.displayName || currentUser.email || 'Member';
-    const now = Timestamp.now();
-    await addDoc(collection(db, 'conversations', currentConversationId, 'messages'), {
-      fromId: currentUser.uid,
-      fromName: senderName,
-      toId: activeConversation.otherUid,
-      text,
-      createdAt: now
-    });
-    await Promise.all([
-      updateDoc(doc(db, 'conversations', currentConversationId), {
-        lastMessageText: text,
-        lastMessageAt: now,
-        updatedAt: now,
-        lastSenderId: currentUser.uid
-      }),
-      setDoc(doc(db, 'users', currentUser.uid, 'threads', currentConversationId), {
-        ownerId: currentUser.uid,
-        conversationId: currentConversationId,
-        otherUid: activeConversation.otherUid,
-        otherName: activeConversation.otherName,
-        lastMessageText: text,
-        lastSenderId: currentUser.uid,
-        updatedAt: now
-      }, { merge: true }),
-      setDoc(doc(db, 'users', activeConversation.otherUid, 'threads', currentConversationId), {
-        ownerId: activeConversation.otherUid,
-        conversationId: currentConversationId,
-        otherUid: currentUser.uid,
-        otherName: senderName,
-        lastMessageText: text,
-        lastSenderId: currentUser.uid,
-        updatedAt: now
-      }, { merge: true })
-    ]);
-    composeText.value = '';
-  });
-
-  onAuthStateChanged(auth, async (user) => {
-    currentUser = user;
-    unsubThreads?.();
-    unsubMessages?.();
-    currentThreads = [];
-    currentConversationId = null;
-    activeConversation = null;
-    if (!user) {
-      root.hidden = true;
-      return;
+      list.querySelectorAll('[data-member-id]').forEach((button) => {
+        button.addEventListener('click', () => openConversation(button.dataset.memberId || '', button.dataset.conversationId || ''));
+      });
     }
-    root.hidden = false;
-    await ensureCurrentProfile();
-    unsubThreads = onSnapshot(query(collection(db, 'users', user.uid, 'threads'), orderBy('updatedAt', 'desc'), limit(30)), (snap) => {
-      currentThreads = snap.docs.map((docItem) => ({ id: docItem.id, ...docItem.data() }));
-      renderThreadList();
-      if (!currentConversationId && currentThreads[0]) {
-        openConversation(currentThreads[0].otherUid, currentThreads[0].conversationId);
+
+    async function renderMessages() {
+      if (!currentUser || !activeConversationId || !activeRecipientId) {
+        threadHead.innerHTML = '<strong>Select a conversation</strong><p>Your previous messages appear here.</p>';
+        threadMessages.innerHTML = '<div class="empty-state">Choose a conversation from the list.</div>';
+        composeForm.classList.add('hidden');
+        return;
+      }
+      const convo = conversations.find((item) => item.id === activeConversationId) || { other_name: 'Member', other_role: 'Project member' };
+      const messages = await loadConversationMessages(activeConversationId);
+      threadHead.innerHTML = `<strong>${esc(convo.other_name || 'Member')}</strong><p>${esc(convo.other_role || 'Project member')}</p>`;
+      threadMessages.innerHTML = messages.length ? messages.map((item) => `
+        <div class="message-bubble ${item.sender_id === currentUser.id ? 'mine' : ''}">
+          <div class="message-bubble-meta">${esc(item.sender_id === currentUser.id ? 'You' : (convo.other_name || 'Member'))} · ${esc(formatDate(item.created_at))}</div>
+          <p>${esc(item.body || '')}</p>
+        </div>
+      `).join('') : '<div class="empty-state">No messages yet.</div>';
+      threadMessages.scrollTop = threadMessages.scrollHeight;
+      composeForm.classList.remove('hidden');
+      await markConversationRead(activeConversationId, currentUser.id);
+    }
+
+    async function openConversation(otherUserId, conversationId = '') {
+      if (!currentUser) return;
+      activeRecipientId = otherUserId;
+      activeConversationId = conversationId || await ensureConversation(currentUser.id, otherUserId);
+      await renderMessages();
+      await refreshConversations();
+      togglePanel(true);
+    }
+
+    async function refreshConversations() {
+      if (!currentUser) return;
+      try {
+        conversations = await loadConversationSummaries(currentUser.id);
+        renderConversationList();
+        if (!activeConversationId && conversations[0]) {
+          activeConversationId = conversations[0].id;
+          activeRecipientId = conversations[0].other_uid;
+        }
+        if (activeConversationId) {
+          await renderMessages();
+        }
+      } catch (error) {
+        console.error(humanizeError(error));
+      }
+    }
+
+    launcher?.addEventListener('click', () => togglePanel());
+    closeBtn?.addEventListener('click', () => togglePanel(false));
+    composeForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!currentUser || !activeConversationId || !activeRecipientId) return;
+      try {
+        await sendConversationMessage({
+          conversationId: activeConversationId,
+          senderId: currentUser.id,
+          recipientId: activeRecipientId,
+          body: composeText.value,
+          senderName: currentProfile?.display_name || currentUser.email || 'Member'
+        });
+        composeText.value = '';
+        await refreshConversations();
+      } catch (error) {
+        console.error(humanizeError(error));
       }
     });
-  });
+
+    async function applySession(session) {
+      currentUser = session?.user || null;
+      if (!currentUser) {
+        root.classList.add('hidden');
+        conversations = [];
+        activeConversationId = null;
+        activeRecipientId = null;
+        return;
+      }
+      root.classList.remove('hidden');
+      currentProfile = await getMyProfile(currentUser.id).catch(() => null);
+      await refreshConversations();
+    }
+
+    async function init() {
+      await applySession(await getSession());
+      onAuthChange(async (session) => applySession(session));
+      refreshHandle = window.setInterval(refreshConversations, 10000);
+    }
+
+    init();
+  }
 }
