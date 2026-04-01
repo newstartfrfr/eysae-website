@@ -46,10 +46,6 @@ service cloud.firestore {
         && request.resource.data.createdAt is timestamp;
     }
 
-    function isParticipant(data) {
-      return signedIn() && request.auth.uid in data.participantIds;
-    }
-
     function validConversationData() {
       return request.resource.data.participantIds is list
         && request.resource.data.participantIds.size() == 2
@@ -59,7 +55,13 @@ service cloud.firestore {
         && request.resource.data.updatedAt is timestamp;
     }
 
-    function validMessageData() {
+    function isConversationParticipant(data) {
+      return signedIn()
+        && data.participantIds is list
+        && request.auth.uid in data.participantIds;
+    }
+
+    function validMessageData(conversationId) {
       return request.resource.data.fromId == request.auth.uid
         && request.resource.data.toId is string
         && request.resource.data.fromName is string
@@ -68,7 +70,23 @@ service cloud.firestore {
         && request.resource.data.text is string
         && request.resource.data.text.size() >= 1
         && request.resource.data.text.size() <= 1500
-        && request.resource.data.createdAt is timestamp;
+        && request.resource.data.createdAt is timestamp
+        && get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantIds is list
+        && request.resource.data.toId in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantIds;
+    }
+
+    function validThreadSummary(ownerUid) {
+      return request.resource.data.ownerId == ownerUid
+        && request.resource.data.otherUid is string
+        && request.resource.data.otherUid.size() > 0
+        && request.resource.data.otherName is string
+        && request.resource.data.otherName.size() >= 1
+        && request.resource.data.otherName.size() <= 80
+        && request.resource.data.lastMessageText is string
+        && request.resource.data.lastMessageText.size() >= 0
+        && request.resource.data.lastMessageText.size() <= 200
+        && request.resource.data.lastSenderId is string
+        && request.resource.data.updatedAt is timestamp;
     }
 
     match /users/{uid} {
@@ -79,6 +97,14 @@ service cloud.firestore {
         && request.resource.data.email == resource.data.email
         && request.resource.data.createdAt == resource.data.createdAt;
       allow delete: if false;
+
+      match /threads/{threadId} {
+        allow read: if isSelf(uid);
+        allow create, update: if signedIn()
+          && validThreadSummary(uid)
+          && (request.auth.uid == uid || request.auth.uid == request.resource.data.otherUid || isAdmin());
+        allow delete: if false;
+      }
     }
 
     match /posts/{postId} {
@@ -89,17 +115,17 @@ service cloud.firestore {
     }
 
     match /conversations/{conversationId} {
-      allow read: if isParticipant(resource.data);
+      allow get: if isConversationParticipant(resource.data);
       allow create: if signedIn() && validConversationData();
-      allow update: if isParticipant(resource.data) && isParticipant(request.resource.data);
+      allow update: if isConversationParticipant(resource.data)
+        && request.resource.data.participantIds == resource.data.participantIds;
       allow delete: if false;
 
       match /messages/{messageId} {
-        allow read: if isParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data);
+        allow read: if isConversationParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data);
         allow create: if signedIn()
-          && isParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data)
-          && validMessageData()
-          && request.resource.data.toId in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantIds;
+          && isConversationParticipant(get(/databases/$(database)/documents/conversations/$(conversationId)).data)
+          && validMessageData(conversationId);
         allow update, delete: if false;
       }
     }
