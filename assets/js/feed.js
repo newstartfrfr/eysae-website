@@ -1,12 +1,20 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, query, orderBy, limit, onSnapshot, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { firebaseConfig, firebaseIsConfigured } from "./firebase-config.js";
+import {
+  getSupabase,
+  esc,
+  initials,
+  formatDate,
+  humanizeError,
+  getSession,
+  onAuthChange,
+  getMyProfile,
+  loadApprovedPosts
+} from "./supabase-client.js";
+import { supabaseIsConfigured } from "./supabase-config.js";
 
-if (document.body?.dataset?.page === "feed") {
-  const app = initializeApp(firebaseConfig, "feed-page");
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+const page = document.body?.dataset?.page || "";
+if (page !== "feed") {
+  // do nothing
+} else {
   const $ = (id) => document.getElementById(id);
   const ui = {
     authStatus: $("authStatus"),
@@ -14,34 +22,37 @@ if (document.body?.dataset?.page === "feed") {
     feedList: $("feedList")
   };
   let currentUser = null;
+  let currentProfile = null;
+  let refreshHandle = null;
 
-  const esc = (value) => String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-  const initials = (value) => ((value || "EY").trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase() || "").join("") || "EY");
-  const formatDate = (value) => {
-    const raw = value?.toDate ? value.toDate() : value;
-    if (!(raw instanceof Date) || Number.isNaN(raw.valueOf())) return "—";
-    return new Intl.DateTimeFormat(document.documentElement.lang || "en", { dateStyle: "medium", timeStyle: "short" }).format(raw);
-  };
-
-  function setStatus(text, tone = "") {
+  function setStatus(text, tone = "neutral") {
     if (!ui.authStatus) return;
     ui.authStatus.textContent = text;
     ui.authStatus.className = `status-bar ${tone}`.trim();
   }
 
-  function renderSpotlight(profile) {
-    if (!currentUser || !profile) {
-      ui.profileSpotlight.innerHTML = `<div class="profile-avatar">EY</div><div><strong>Public feed</strong><p>Sign in from the member workspace to submit updates or use private messages.</p></div>`;
+  function renderSpotlight() {
+    if (!currentUser || !currentProfile) {
       ui.profileSpotlight.className = "profile-spotlight profile-spotlight-empty";
+      ui.profileSpotlight.innerHTML = `
+        <div class="profile-avatar">EY</div>
+        <div>
+          <strong>Public feed</strong>
+          <p>Approved project updates appear here. Sign in from the member workspace to publish or send private messages.</p>
+        </div>
+      `;
       return;
     }
+
     ui.profileSpotlight.className = "profile-spotlight";
-    ui.profileSpotlight.innerHTML = `<div class="profile-avatar">${esc(initials(profile.displayName || currentUser.email || "EY"))}</div><div><strong>${esc(profile.displayName || currentUser.email || "Member")}</strong><div class="profile-meta"><span class="role-pill">${esc(profile.role || "Member")}</span></div><p>${esc(profile.bio || "Signed in and ready to contribute.")}</p></div>`;
+    ui.profileSpotlight.innerHTML = `
+      <div class="profile-avatar">${esc(initials(currentProfile.display_name || currentUser.email || 'EY'))}</div>
+      <div>
+        <strong>${esc(currentProfile.display_name || currentUser.email || 'Member')}</strong>
+        <div class="profile-meta"><span class="role-pill">${esc(currentProfile.role_label || 'Member')}</span>${currentProfile.is_admin ? '<span class="admin-badge">Admin</span>' : ''}</div>
+        <p>${esc(currentProfile.bio || 'Signed in and ready to contribute.')}</p>
+      </div>
+    `;
   }
 
   function renderFeed(posts) {
@@ -53,44 +64,59 @@ if (document.body?.dataset?.page === "feed") {
       <article class="feed-card">
         <div class="feed-card-top">
           <div class="feed-author-row">
-            <div class="feed-avatar">${esc(initials(post.authorName || "Member"))}</div>
+            <div class="feed-avatar">${esc(initials(post.author_name || 'Member'))}</div>
             <div>
-              <div class="feed-chip">${esc(post.type || "update")}</div>
-              <strong class="feed-author">${esc(post.authorName || "Member")}</strong>
-              <div class="feed-meta">${esc(post.authorRole || "Member")} · ${esc(formatDate(post.publishedAt || post.createdAt))}</div>
+              <div class="feed-chip">${esc(post.type || 'update')}</div>
+              <strong class="feed-author">${esc(post.author_name || 'Member')}</strong>
+              <div class="feed-meta">${esc(post.author_role || 'Member')} · ${esc(formatDate(post.published_at || post.created_at))}</div>
             </div>
           </div>
         </div>
-        ${post.tag ? `<p class="feed-tag">#${esc(post.tag)}</p>` : ""}
-        ${post.title ? `<h3 class="feed-title">${esc(post.title)}</h3>` : ""}
-        <p class="feed-content">${esc(post.content || "")}</p>
-        ${post.imageUrl ? `<img class="feed-image" src="${esc(post.imageUrl)}" alt="${esc(post.imageAlt || post.title || "Feed image")}" />` : ""}
-      </article>`).join("");
+        ${post.tag ? `<p class="feed-tag">#${esc(post.tag)}</p>` : ''}
+        ${post.title ? `<h3 class="feed-title">${esc(post.title)}</h3>` : ''}
+        <p class="feed-content">${esc(post.content || '')}</p>
+        ${post.image_url ? `<img class="feed-image" src="${esc(post.image_url)}" alt="${esc(post.title || 'Post image')}" />` : ''}
+      </article>
+    `).join('');
   }
 
-  if (!firebaseIsConfigured(firebaseConfig)) {
-    setStatus("Firebase configuration is missing.", "error");
-  } else {
-    onSnapshot(
-      query(collection(db, "posts"), orderBy("publishedAt", "desc"), limit(60)),
-      (snap) => {
-        const posts = snap.docs.map((docItem) => ({ id: docItem.id, ...docItem.data() })).filter((item) => item.status === "approved");
-        renderFeed(posts);
-      },
-      (error) => setStatus(error?.message || "Feed could not load.", "error")
-    );
-
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user;
-      if (!user) {
-        renderSpotlight(null);
-        setStatus("Public view.");
-        return;
-      }
-      const snap = await getDoc(doc(db, "users", user.uid));
-      const profile = snap.exists() ? snap.data() : null;
-      renderSpotlight(profile);
-      setStatus(`Signed in as ${user.email}.`, "success");
-    });
+  async function refreshFeed() {
+    try {
+      const posts = await loadApprovedPosts(60);
+      renderFeed(posts);
+      setStatus(currentUser ? `Signed in as ${currentUser.email}.` : 'Public view.');
+    } catch (error) {
+      setStatus(humanizeError(error), 'error');
+    }
   }
+
+  async function applySession(session) {
+    currentUser = session?.user || null;
+    if (!currentUser) {
+      currentProfile = null;
+      renderSpotlight();
+      await refreshFeed();
+      return;
+    }
+    try {
+      currentProfile = await getMyProfile(currentUser.id);
+    } catch (_) {
+      currentProfile = null;
+    }
+    renderSpotlight();
+    await refreshFeed();
+  }
+
+  async function init() {
+    if (!supabaseIsConfigured() || !getSupabase()) {
+      setStatus('Supabase is not configured yet.', 'error');
+      ui.feedList.innerHTML = '<div class="empty-state">Add your Supabase Project URL and publishable key in assets/js/supabase-config.js.</div>';
+      return;
+    }
+    await applySession(await getSession());
+    onAuthChange(async (session) => applySession(session));
+    refreshHandle = window.setInterval(refreshFeed, 10000);
+  }
+
+  init();
 }
