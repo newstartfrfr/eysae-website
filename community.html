@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="community.metaTitle">EYSAE Community Hub</title>
-  <meta name="description" content="EYSAE member area for registration, profiles, project updates and internal communication." />
+  <meta name="description" content="EYSAE member hub with Firebase authentication, profile editing, posts, members and direct messages." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -18,7 +18,7 @@
         <span class="brand-mark">EY</span>
         <span class="brand-text">
           <strong>EYSAE</strong>
-          <small>Member area</small>
+          <small data-i18n="community.brandTitle">Community hub</small>
         </span>
       </a>
 
@@ -31,7 +31,8 @@
         <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
         <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
         <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
-        <a class="nav-link" href="community.html">Members</a>
+        <a class="nav-link" href="feed.html">Feed</a>
+        <a class="nav-link" href="community.html" data-i18n="nav.community">Members</a>
         <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
@@ -51,9 +52,14 @@
     <section class="page-hero community-hero">
       <div class="container page-hero-grid community-hero-grid">
         <div>
-          <span class="eyebrow">Member area</span>
-          <h1>Registration and project updates</h1>
-          <p class="hero-lead">Access for project participants, partner teams and invited members.</p>
+          <span class="eyebrow" data-i18n="community.kicker">Member space</span>
+          <h1 data-i18n="community.title">Member area, profiles and direct messages</h1>
+          <p class="hero-lead" data-i18n="community.body">Use this page for member access, profile editing, posting updates and private conversations.</p>
+          <div class="pill-list">
+            <span class="pill" data-i18n="community.pill1">Auth — Email + password sign-in</span>
+            <span class="pill" data-i18n="community.pill2">Feed — Posts, news and updates</span>
+            <span class="pill" data-i18n="community.pill3">Inbox — Private member messages</span>
+          </div>
         </div>
 
         <div class="page-hero-panel community-status-panel">
@@ -66,7 +72,7 @@
             <div class="profile-avatar">EY</div>
             <div>
               <strong>EYSAE</strong>
-              <p>Sign in to access your profile and updates.</p>
+              <p>Sign in to activate your public member card.</p>
             </div>
           </div>
         </div>
@@ -83,8 +89,8 @@
                 <h2 data-i18n="community.authTitle">Access the hub</h2>
               </div>
               <div class="auth-tabs">
-                <button type="button" class="auth-tab active" data-auth-tab="signin" data-i18n="community.signInTitle">Sign in</button>
-                <button type="button" class="auth-tab" data-auth-tab="signup" data-i18n="community.signUpTitle">Create account</button>
+                <button type="button" class="auth-tab active" data-auth-tab="signin" data-auth-mode="signin" data-i18n="community.signInTitle">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-tab="signup" data-auth-mode="signup" data-i18n="community.signUpTitle">Create account</button>
               </div>
             </div>
 
@@ -264,6 +270,8 @@
     </div>
   </footer>
 
+
+  <script type="module" src="assets/js/chat-widget.js"></script>
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/community.js"></script>
 </body>
