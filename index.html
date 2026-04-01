@@ -7,7 +7,7 @@
   <title data-i18n="home.metaTitle">EYSAE — Empowering Youth for Sustainable Agriculture and Entrepreneurship</title>
   <meta
     name="description"
-    content="Official EYSAE project website with project overview, partners, news, visibility and contact information."
+    content="Official EYSAE project website: sustainable agriculture, youth entrepreneurship, partnership, visibility and community hub."
   />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,12 +34,13 @@
         <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
         <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
         <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
-        <a class="nav-link" href="community.html">Members</a>
+        <a class="nav-link" href="feed.html">Feed</a>
+        <a class="nav-link" href="community.html" data-i18n="nav.community">Members</a>
         <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a class="button button-secondary button-small" href="projects.html">Project Page</a>
+        <a class="button button-secondary button-small" href="community.html">Member area</a>
         <div class="language-switcher" aria-label="Language switcher">
           <button type="button" class="lang-btn" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="sl">SL</button>
@@ -60,7 +61,7 @@
 
           <div class="hero-actions">
             <a class="button" href="projects.html" data-i18n="home.heroPrimaryCta">Explore the Project</a>
-            <a class="button button-secondary" href="index.html#news">Latest Updates</a>
+            <a class="button button-secondary" href="community.html" data-i18n="home.heroSecondaryCta">Open Community Hub</a>
           </div>
 
           <div class="hero-inline-points hero-stats-clean">
@@ -79,13 +80,18 @@
           </div>
         </div>
 
-        <div class="hero-media hero-media-clean hero-media-single">
-          <div class="hero-image-panel hero-image-panel-portrait">
-            <img src="assets/images/hero-eysae.svg" alt="EYSAE visual identity" class="hero-image" />
+        <div class="hero-media hero-media-clean">
+          <div class="hero-image-panel">
+            <img src="assets/images/hero-eysae.svg" alt="Young people in sustainable agriculture project activity" class="hero-image" />
             <div class="hero-image-caption">
-              <span>Approach</span>
-              <strong>International learning with local follow-up.</strong>
+              <span data-i18n="home.note2Label">Approach</span>
+              <strong data-i18n="home.note2Value">International learning and local impact</strong>
             </div>
+          </div>
+          <div class="hero-side-card">
+            <span class="eyebrow" data-i18n="home.note1Label">Focus</span>
+            <h3 data-i18n="home.note1Value">Green skills & youth entrepreneurship</h3>
+            <p data-i18n="framework.body">This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.</p>
           </div>
         </div>
       </div>
@@ -93,9 +99,14 @@
 
     <section class="section section-framework">
       <div class="container">
-        <div class="eu-banner-card eu-banner eu-banner-solo">
+        <div class="eu-banner-card eu-banner clean-banner">
           <div class="eu-banner-logo eu-banner-visual">
-            <img src="assets/images/eu-banner.svg" alt="Co-funded by the European Union" />
+            <img src="assets/images/eu-banner.svg" alt="European Union and Erasmus+ visual identity" />
+          </div>
+          <div class="eu-banner-text">
+            <span class="eyebrow" data-i18n="framework.eyebrow">Project framework</span>
+            <h2 data-i18n="framework.title">Implemented within the Erasmus+ cooperation framework</h2>
+            <p data-i18n="framework.body">This website presents the activities, partnership, results and visibility actions of the EYSAE project in line with European cooperation priorities in youth, sustainability and entrepreneurship.</p>
           </div>
         </div>
       </div>
@@ -153,7 +164,41 @@
         </div>
       </div>
     </section>
-<section class="section section-muted" id="partners">
+
+    <section class="section" id="community-preview">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow" data-i18n="hub.eyebrow">Community Hub</span>
+          <h2 data-i18n="hub.title">Member area and feed</h2>
+          <p data-i18n="hub.body">Signed-in members can keep their profile, publish updates to the feed and exchange direct messages.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-index">01</span>
+            <h3 data-i18n="hub.card1Title">Member sign-up</h3>
+            <p data-i18n="hub.card1Body">Email/password access with editable profile, organisation, role, short bio and one social link.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-index">02</span>
+            <h3 data-i18n="hub.card2Title">Posts and updates</h3>
+            <p data-i18n="hub.card2Body">Users can publish discussion posts, project updates or community notices in a shared live feed.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-index">03</span>
+            <h3 data-i18n="hub.card3Title">Direct messages</h3>
+            <p data-i18n="hub.card3Body">Signed-in members can contact each other privately through a lightweight inbox built on Firestore.</p>
+          </article>
+        </div>
+
+        <div class="inline-actions centered-actions">
+          <a class="button" href="community.html" data-i18n="hub.primaryCta">Open community page</a>
+          <a class="button button-secondary" href="projects.html" data-i18n="hub.secondaryCta">Open project page</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="partners">
       <div class="container">
         <div class="section-heading">
           <span class="eyebrow" data-i18n="partners.eyebrow">Partnership</span>
@@ -235,7 +280,7 @@
               <span class="news-meta" data-i18n="news.n3Meta">March 2026 Visibility</span>
               <h3 data-i18n="news.n3Title">Visibility and outreach framework introduced on the website</h3>
               <p data-i18n="news.n3Body">The project website now provides a stronger public-facing structure for presenting partnership information, activities and future updates.</p>
-              <a href="projects.html" class="text-link">View project page</a>
+              <a href="community.html" class="text-link" data-i18n="news.communityCta">Open community feed</a>
             </div>
           </article>
         </div>
@@ -286,7 +331,7 @@
           <li><a href="projects.html" data-i18n="nav.project">Project</a></li>
           <li><a href="index.html#partners" data-i18n="nav.partners">Partners</a></li>
           <li><a href="index.html#news" data-i18n="nav.news">News</a></li>
-          <li><a href="community.html">Members</a></li>
+          <li><a href="community.html" data-i18n="nav.community">Community</a></li>
           <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </div>
@@ -302,6 +347,8 @@
     </div>
   </footer>
 
+
+  <script type="module" src="assets/js/chat-widget.js"></script>
   <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
