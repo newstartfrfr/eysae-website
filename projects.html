@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="project.metaTitle">EYSAE Project Page</title>
-  <meta name="description" content="Dedicated EYSAE project page with rationale, objectives, activities, timeline and results." />
+  <meta name="description" content="Dedicated EYSAE project page with overview, objectives, activities, timeline and community call-to-action." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -31,12 +31,13 @@
         <a class="nav-link" href="projects.html" data-i18n="nav.project">Project</a>
         <a class="nav-link" href="index.html#partners" data-i18n="nav.partners">Partners</a>
         <a class="nav-link" href="index.html#news" data-i18n="nav.news">News</a>
-        <a class="nav-link" href="community.html">Members</a>
+        <a class="nav-link" href="feed.html">Feed</a>
+        <a class="nav-link" href="community.html" data-i18n="nav.community">Members</a>
         <a class="nav-link" href="index.html#contact" data-i18n="nav.contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <a class="button button-secondary button-small" href="index.html#contact">Contact</a>
+        <a class="button button-secondary button-small" href="community.html">Member area</a>
         <div class="language-switcher" aria-label="Language switcher">
           <button type="button" class="lang-btn" data-lang="en">EN</button>
           <button type="button" class="lang-btn" data-lang="sl">SL</button>
@@ -56,8 +57,8 @@
           <p class="hero-lead" data-i18n="project.body">This page gives EYSAE its own project space with a clearer story, easier navigation and stronger room for future updates, documents and timelines.</p>
 
           <div class="hero-actions">
-            <a class="button" href="index.html#contact">Contact coordinator</a>
-            <a class="button button-secondary" href="index.html#news">Latest updates</a>
+            <a class="button" href="community.html" data-i18n="project.primaryCta">Go to Community</a>
+            <a class="button button-secondary" href="index.html#news" data-i18n="project.secondaryCta">Back to News</a>
           </div>
         </div>
 
@@ -125,12 +126,12 @@
       <div class="container cta-band">
         <div>
           <span class="eyebrow" data-i18n="project.ctaEyebrow">Next step</span>
-          <h2>Contact the partnership or follow future updates</h2>
-          <p>This page should stay focused on the project itself: rationale, activities, results and public information.</p>
+          <h2 data-i18n="project.ctaTitle">Connect the project page with the member hub</h2>
+          <p data-i18n="project.ctaBody">That way, people do not just read about the project. They can join, post, contact each other and follow updates.</p>
         </div>
         <div class="inline-actions">
-          <a class="button" href="index.html#contact">Contact coordinator</a>
-          <a class="button button-secondary" href="index.html">Back home</a>
+          <a class="button" href="community.html" data-i18n="project.ctaPrimary">Open community</a>
+          <a class="button button-secondary" href="index.html#contact" data-i18n="project.ctaSecondary">Contact coordinator</a>
         </div>
       </div>
     </section>
@@ -150,7 +151,7 @@
           <li><a href="index.html" data-i18n="nav.home">Home</a></li>
           <li><a href="index.html#partners" data-i18n="nav.partners">Partners</a></li>
           <li><a href="index.html#news" data-i18n="nav.news">News</a></li>
-          <li><a href="community.html">Members</a></li>
+          <li><a href="community.html" data-i18n="nav.community">Community</a></li>
           <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
         </ul>
       </div>
@@ -167,6 +168,8 @@
     </div>
   </footer>
 
+
+  <script type="module" src="assets/js/chat-widget.js"></script>
   <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
