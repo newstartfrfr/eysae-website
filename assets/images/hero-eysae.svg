@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1480" role="img" aria-labelledby="title desc">
+  <title id="title">EYSAE hero illustration</title>
+  <desc id="desc">Abstract agricultural landscape with soft institutional shapes in EYSAE colours.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ecf2fb"/>
+      <stop offset="100%" stop-color="#f7f9fd"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#dbead1"/>
+      <stop offset="100%" stop-color="#c6ddb9"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#f7f8f3" stop-opacity="0.92"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1480" fill="url(#sky)"/>
+  <rect x="0" y="1040" width="1200" height="440" fill="url(#ground)"/>
+  <g opacity="0.32" stroke="#6f9c73" stroke-width="6">
+    <path d="M26 1480 L206 1128"/>
+    <path d="M222 1480 L420 1096"/>
+    <path d="M432 1480 L642 1088"/>
+    <path d="M674 1480 L904 1082"/>
+    <path d="M920 1480 L1148 1092"/>
+  </g>
+  <rect x="0" y="122" width="542" height="612" rx="56" fill="url(#panel)" stroke="#d9e3d8" stroke-width="3"/>
+  <rect x="1022" y="602" width="158" height="322" rx="28" fill="#ffffff" opacity="0.72"/>
+  <circle cx="1112" cy="776" r="74" fill="#ddb78f"/>
+  <rect x="1040" y="944" width="52" height="172" fill="#173b77"/>
+  <rect x="1106" y="944" width="52" height="172" fill="#173b77"/>
+  <g transform="translate(638 754)">
+    <ellipse cx="116" cy="92" rx="122" ry="52" fill="#53a865"/>
+    <ellipse cx="252" cy="48" rx="126" ry="56" fill="#53a865"/>
+    <ellipse cx="362" cy="8" rx="116" ry="48" fill="#53a865"/>
+    <path d="M40 98 C126 40, 214 40, 302 84" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+    <path d="M172 44 C254 -6, 332 -6, 414 26" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(72 1112)">
+    <rect width="980" height="206" rx="42" fill="#173127" opacity="0.9"/>
+    <rect x="52" y="56" width="220" height="20" rx="10" fill="#b0beb7" opacity="0.55"/>
+    <rect x="52" y="108" width="620" height="28" rx="14" fill="#ffffff" opacity="0.92"/>
+    <rect x="52" y="152" width="488" height="24" rx="12" fill="#d8e5dd" opacity="0.55"/>
+  </g>
+</svg>
