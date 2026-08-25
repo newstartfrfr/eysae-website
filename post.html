@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EYSAE Story</title>
+  <meta name="description" content="A story from the EYSAE community." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body data-page="post">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="EYSAE home"><span class="brand-mark">EY</span><span class="brand-text"><strong>EYSAE</strong><small>Community story</small></span></a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <nav class="site-nav" id="siteNav"><a class="nav-link" href="index.html">Home</a><a class="nav-link" href="projects.html">Project</a><a class="nav-link" href="feed.html">Stories</a><a class="nav-link" href="community.html">Community</a><a class="nav-link" href="index.html#contact">Contact</a></nav>
+      <div class="header-actions"><a class="button button-secondary button-small" href="feed.html">All stories</a></div>
+    </div>
+  </header>
+
+  <main>
+    <div id="postStatus" class="container post-loading" role="status">Loading story…</div>
+    <article id="postArticle" class="single-story hidden">
+      <header class="single-story-header">
+        <div class="container single-story-header-inner">
+          <a class="back-link" href="feed.html">← Back to all stories</a>
+          <div class="single-story-meta"><span id="postType" class="feed-chip">Story</span><span id="postTag"></span></div>
+          <h1 id="postTitle"></h1>
+          <p id="postByline" class="single-story-byline"></p>
+        </div>
+      </header>
+      <div class="container single-story-layout">
+        <div class="single-story-main">
+          <img id="postImage" class="single-story-image hidden" alt="" />
+          <div id="postContent" class="single-story-content"></div>
+        </div>
+        <aside class="single-story-aside">
+          <div class="single-story-author"><div id="postAuthorAvatar" class="profile-avatar">EY</div><div><span>Published by</span><strong id="postAuthor"></strong><p id="postAuthorRole"></p></div></div>
+          <button id="copyStoryLink" type="button" class="button button-secondary button-full">Copy story link</button>
+          <a class="button button-full" href="community.html">Share your story</a>
+        </aside>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><span class="brand-mark">EY</span><h3>EYSAE</h3><p>Empowering young people through sustainable agriculture, entrepreneurship and international cooperation.</p></div><div><h4>Explore</h4><ul class="footer-links"><li><a href="projects.html">Project</a></li><li><a href="feed.html">Community stories</a></li><li><a href="community.html">Member workspace</a></li></ul></div><div><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:POVOD-EU.SLO@proton.me">POVOD-EU.SLO@proton.me</a></li></ul></div></div></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/post.js"></script>
+</body>
+</html>

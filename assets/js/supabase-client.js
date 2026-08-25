@@ -37,6 +37,17 @@ export function esc(value) {
     .replaceAll("'", "&#039;");
 }
 
+export function safeExternalUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  try {
+    const url = new URL(raw, window.location.origin);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+  } catch (_) {
+    return "";
+  }
+}
+
 export function initials(value) {
   const parts = String(value || "").trim().split(/\s+/).filter(Boolean).slice(0, 2);
   return parts.length ? parts.map((part) => part[0]?.toUpperCase() || "").join("") : "EY";
@@ -136,7 +147,11 @@ export async function ensureProfile(user, overrides = {}) {
 
 export async function getMyProfile(userId) {
   const supabase = getSupabase();
-  const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).maybeSingle();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id, display_name, role_label, bio, social_link, is_admin, created_at, updated_at")
+    .eq("id", userId)
+    .maybeSingle();
   if (error) throw error;
   return data || null;
 }
@@ -161,7 +176,7 @@ export async function loadMembers() {
   const supabase = getSupabase();
   const { data, error } = await supabase
     .from("profiles")
-    .select("id, email, display_name, role_label, bio, social_link, is_admin, created_at, updated_at")
+    .select("id, display_name, role_label, bio, social_link, is_admin, created_at, updated_at")
     .order("display_name", { ascending: true });
   if (error) throw error;
   return data || [];
@@ -207,6 +222,30 @@ export async function loadApprovedPosts(limit = 60) {
   return data || [];
 }
 
+export async function loadApprovedPost(postId) {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("id", postId)
+    .eq("status", "approved")
+    .maybeSingle();
+  if (error) throw error;
+  return data || null;
+}
+
+export async function loadMyPosts(userId, limit = 100) {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("author_id", userId)
+    .order("updated_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return data || [];
+}
+
 export async function loadPendingPosts(limit = 50) {
   const supabase = getSupabase();
   const { data, error } = await supabase
@@ -219,7 +258,7 @@ export async function loadPendingPosts(limit = 50) {
   return data || [];
 }
 
-export async function submitPost({ userId, profile, type, tag, title, content, file }) {
+export async function submitPost({ userId, profile, type, tag, title, content, file, intent = "submit" }) {
   const supabase = getSupabase();
   let imageUrl = null;
   let imagePath = null;
@@ -231,6 +270,7 @@ export async function submitPost({ userId, profile, type, tag, title, content, f
 
   const isAdmin = Boolean(profile?.is_admin) || isAdminEmail(profile?.email || "");
   const now = new Date().toISOString();
+  const status = intent === "draft" ? "draft" : isAdmin ? "approved" : "pending";
 
   const { error } = await supabase.from("posts").insert({
     author_id: userId,
@@ -242,12 +282,95 @@ export async function submitPost({ userId, profile, type, tag, title, content, f
     content,
     image_url: imageUrl,
     image_path: imagePath,
-    status: isAdmin ? "approved" : "pending",
-    published_at: isAdmin ? now : null,
+    status,
+    published_at: status === "approved" ? now : null,
     created_at: now,
     updated_at: now
   });
   if (error) throw error;
+}
+
+export async function removePostImage(imagePath) {
+  if (!imagePath) return;
+  const supabase = getSupabase();
+  const { error } = await supabase.storage
+    .from(supabaseConfig.postImageBucket)
+    .remove([imagePath]);
+  if (error) throw error;
+}
+
+export async function updateMyPost({
+  postId,
+  userId,
+  profile,
+  type,
+  tag,
+  title,
+  content,
+  file,
+  currentImageUrl,
+  currentImagePath,
+  removeImage = false,
+  intent = "submit"
+}) {
+  const supabase = getSupabase();
+  let imageUrl = removeImage ? null : currentImageUrl || null;
+  let imagePath = removeImage ? null : currentImagePath || null;
+
+  if (file) {
+    const uploaded = await uploadPostImage(file, userId);
+    imageUrl = uploaded.imageUrl;
+    imagePath = uploaded.imagePath;
+  }
+
+  const isAdmin = Boolean(profile?.is_admin) || isAdminEmail(profile?.email || "");
+  const now = new Date().toISOString();
+  const status = intent === "draft" ? "draft" : isAdmin ? "approved" : "pending";
+  const { error } = await supabase
+    .from("posts")
+    .update({
+      author_name: profile?.display_name || "Member",
+      author_role: profile?.role_label || "Member",
+      type: type || "update",
+      tag: tag || null,
+      title: title || null,
+      content,
+      image_url: imageUrl,
+      image_path: imagePath,
+      status,
+      published_at: status === "approved" ? now : null,
+      reviewed_at: null,
+      reviewer_id: null,
+      updated_at: now
+    })
+    .eq("id", postId)
+    .eq("author_id", userId);
+  if (error) throw error;
+
+  if ((file || removeImage) && currentImagePath && currentImagePath !== imagePath) {
+    try {
+      await removePostImage(currentImagePath);
+    } catch (_) {
+      // The post is already saved. Orphaned media can be cleaned up by an administrator.
+    }
+  }
+}
+
+export async function deleteMyPost({ postId, userId, imagePath }) {
+  const supabase = getSupabase();
+  const { error } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", postId)
+    .eq("author_id", userId);
+  if (error) throw error;
+  if (imagePath) {
+    try {
+      await removePostImage(imagePath);
+    } catch (_) {
+      // Do not report a failed media cleanup as a failed post deletion.
+    }
+  }
 }
 
 export async function moderatePost(postId, action, reviewerId) {

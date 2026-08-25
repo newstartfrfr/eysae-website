@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EYSAE Feed</title>
-  <meta name="description" content="Public feed of approved EYSAE project and member updates." />
+  <title>EYSAE Stories — Community Feed</title>
+  <meta name="description" content="Stories, photographs and project updates from the EYSAE community." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,96 +13,83 @@
 <body data-page="feed">
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="EYSAE home">
-        <span class="brand-mark">EY</span>
-        <span class="brand-text">
-          <strong>EYSAE</strong>
-          <small>Public feed</small>
-        </span>
-      </a>
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="brand" href="index.html" aria-label="EYSAE home"><span class="brand-mark">EY</span><span class="brand-text"><strong>EYSAE</strong><small>Community stories</small></span></a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span></span><span></span><span></span></button>
       <nav class="site-nav" id="siteNav">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="projects.html">Project</a>
-        <a class="nav-link active" href="feed.html">Feed</a>
-        <a class="nav-link" href="community.html">Members</a>
-        <a class="nav-link" href="index.html#news">News</a>
+        <a class="nav-link active" href="feed.html">Stories</a>
+        <a class="nav-link" href="community.html">Community</a>
+        <a class="nav-link" href="index.html#partners">Partners</a>
+        <a class="nav-link" href="index.html#contact">Contact</a>
       </nav>
-      <div class="header-actions">
-        <a class="button button-secondary button-small" href="community.html">Member area</a>
-      </div>
+      <div class="header-actions"><a class="button button-small" href="community.html">Share a story</a></div>
     </div>
   </header>
 
   <main>
-    <section class="page-hero community-hero">
-      <div class="container page-hero-grid community-hero-grid">
+    <section class="stories-hero">
+      <div class="container stories-hero-grid">
         <div>
-          <span class="eyebrow">EYSAE FEED</span>
-          <h1>Approved updates from the project network</h1>
-          <p class="hero-lead">This page gathers approved member and project posts in one place. Members submit updates from the workspace, while administrators review them before publication.</p>
+          <span class="eyebrow">FROM THE EYSAE NETWORK</span>
+          <h1>Ideas from the field.<br />Stories that travel.</h1>
+          <p class="hero-lead">Follow project activities, youth perspectives and practical lessons from across the partnership.</p>
         </div>
-        <div class="page-hero-panel community-status-panel">
-          <div id="authStatus" class="status-bar">Public view.</div>
-          <div class="profile-spotlight profile-spotlight-empty" id="profileSpotlight">
+        <div class="stories-hero-panel">
+          <div id="authStatus" class="stories-status" role="status" aria-live="polite">Public stories</div>
+          <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
-            <div>
-              <strong>Public feed</strong>
-              <p>Sign in from the member area to submit updates and use private messages.</p>
-            </div>
+            <div><strong>Join the conversation</strong><p>Members can publish stories and photographs from the community workspace.</p><a class="text-link" href="community.html">Open member workspace →</a></div>
+          </div>
+          <div class="story-metrics">
+            <div><strong id="feedCount">0</strong><span>Published stories</span></div>
+            <div><strong id="blogCount">0</strong><span>Long reads</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section community-section">
-      <div class="container community-shell community-shell-wide community-shell-feed">
-        <div class="community-main">
-          <article class="community-card">
-            <div class="card-heading card-heading-inline">
-              <div>
-                <span class="eyebrow">LATEST POSTS</span>
-                <h2>Approved feed</h2>
-              </div>
-              <a class="button button-secondary button-small" href="community.html">Submit an update</a>
-            </div>
-            <div id="feedList" class="stack-list">
-              <div class="empty-state">No approved posts yet.</div>
-            </div>
-          </article>
+    <section class="section stories-section">
+      <div class="container">
+        <div class="stories-toolbar">
+          <div>
+            <span class="eyebrow">COMMUNITY FEED</span>
+            <h2>Latest from EYSAE</h2>
+          </div>
+          <div class="stories-search-wrap">
+            <label class="visually-hidden" for="feedSearch">Search stories</label>
+            <input id="feedSearch" type="search" placeholder="Search stories, topics or authors" />
+          </div>
         </div>
-        <aside class="community-side">
-          <article class="community-card">
-            <div class="card-heading">
-              <span class="eyebrow">HOW IT WORKS</span>
-              <h2>Publishing flow</h2>
-            </div>
-            <div class="stack-list">
-              <div class="mini-info-card"><strong>1. Member submits</strong><p>Registered members prepare a text update and may attach one image.</p></div>
-              <div class="mini-info-card"><strong>2. Admin reviews</strong><p>The review panel checks relevance, tone and visibility before publication.</p></div>
-              <div class="mini-info-card"><strong>3. Feed goes public</strong><p>Approved posts appear here as the public project stream.</p></div>
-            </div>
-          </article>
-        </aside>
+        <div class="feed-filter-row" role="group" aria-label="Filter stories">
+          <button type="button" class="feed-filter active" data-feed-filter="all">All stories</button>
+          <button type="button" class="feed-filter" data-feed-filter="blog">Blog</button>
+          <button type="button" class="feed-filter" data-feed-filter="photo">Photography</button>
+          <button type="button" class="feed-filter" data-feed-filter="update">Project updates</button>
+          <button type="button" class="feed-filter" data-feed-filter="notice">Notices</button>
+        </div>
+        <div id="feedList" class="stories-grid" aria-live="polite"><div class="empty-state stories-empty">Published stories will appear here.</div></div>
+      </div>
+    </section>
+
+    <section class="section story-cta-section">
+      <div class="container story-cta">
+        <div><span class="eyebrow">YOUR PERSPECTIVE MATTERS</span><h2>Have a result, lesson or photograph to share?</h2><p>Turn it into a reviewed EYSAE story and make the work visible across the network.</p></div>
+        <a class="button" href="community.html">Create a post</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="brand-mark">EY</span>
-        <h3>EYSAE</h3>
-        <p>A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
-      </div>
+      <div class="footer-brand"><span class="brand-mark">EY</span><h3>EYSAE</h3><p>Empowering young people through sustainable agriculture, entrepreneurship and international cooperation.</p></div>
+      <div><h4>Explore</h4><ul class="footer-links"><li><a href="projects.html">Project</a></li><li><a href="feed.html">Community stories</a></li><li><a href="community.html">Member workspace</a></li></ul></div>
+      <div><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:POVOD-EU.SLO@proton.me">POVOD-EU.SLO@proton.me</a></li><li><a href="https://povod.si" target="_blank" rel="noreferrer">povod.si</a></li></ul></div>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="module" src="assets/js/main.js"></script>
   <script type="module" src="assets/js/feed.js"></script>
-  <script type="module" src="assets/js/chat-widget.js"></script>
 </body>
 </html>
