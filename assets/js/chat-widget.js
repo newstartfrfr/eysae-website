@@ -1,6 +1,7 @@
 import {
   getSupabase,
   esc,
+  safeExternalUrl,
   initials,
   formatDate,
   humanizeError,
@@ -96,7 +97,7 @@ if (page === "community") {
 
       list.innerHTML = conversations.map((item) => `
         <button class="conversation-item${item.id === activeConversationId ? ' active' : ''}" type="button" data-conversation-id="${esc(item.id)}" data-member-id="${esc(item.other_uid)}">
-          <span class="conversation-avatar">${esc(initials(item.other_name || 'Member'))}</span>
+          <span class="conversation-avatar">${safeExternalUrl(item.other_avatar_url) ? `<img class="avatar-image" src="${esc(safeExternalUrl(item.other_avatar_url))}" alt="" />` : esc(initials(item.other_name || 'Member'))}</span>
           <span class="conversation-copy">
             <strong>${esc(item.other_name || 'Member')}</strong>
             <small>${esc(item.last_message_text || 'Open conversation')}</small>
@@ -153,7 +154,7 @@ if (page === "community") {
           await renderMessages();
         }
       } catch (error) {
-        console.error(humanizeError(error));
+        list.innerHTML = `<div class="empty-state">${esc(humanizeError(error))}</div>`;
       }
     }
 
@@ -162,6 +163,8 @@ if (page === "community") {
     composeForm?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!currentUser || !activeConversationId || !activeRecipientId) return;
+      const submitButton = composeForm.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
       try {
         await sendConversationMessage({
           conversationId: activeConversationId,
@@ -173,8 +176,8 @@ if (page === "community") {
         composeText.value = '';
         await refreshConversations();
       } catch (error) {
-        console.error(humanizeError(error));
-      }
+        threadMessages.innerHTML += `<div class="status-bar error">${esc(humanizeError(error))}</div>`;
+      } finally { submitButton.disabled = false; }
     });
 
     async function applySession(session) {
@@ -192,7 +195,8 @@ if (page === "community") {
     }
 
     async function init() {
-      await applySession(await getSession());
+      try { await applySession(await getSession()); }
+      catch (_) { root.classList.add('hidden'); }
       onAuthChange(async (session) => applySession(session));
       refreshHandle = window.setInterval(refreshConversations, 10000);
     }

@@ -7,8 +7,8 @@ Static multilingual project website with a Supabase-backed community workspace. 
 - `index.html` — project home
 - `projects.html` — project information
 - `feed.html` — public, approved community stories
-- `post.html?id=...` — individual story view
-- `community.html` — registration, profile, publishing, moderation and private messages
+- `post.html?id=...` — individual story view with likes and member comments
+- `community.html` — registration, password recovery, profiles, publishing, moderation and private messages
 
 ## Community setup
 
@@ -28,12 +28,15 @@ where email = 'dan.grmusa@gmail.com';
 
 The publishable Supabase key is designed for browser use. Security is enforced by the Row Level Security policies in `supabase/schema.sql`; never add a Supabase service-role key to this repository.
 
+Re-running `supabase/schema.sql` is safe and is also the upgrade path for an existing installation. It adds profile photographs, post author photographs, likes and comments without deleting existing member or story data.
+
 ## Publishing flow
 
 - Members can save drafts and submit blogs, photo stories, project updates and notices.
 - Member submissions enter `pending` status.
 - Editors approve or return submissions from the community page.
 - Approved content appears on the public feed and receives an individual story URL.
+- Signed-in members can like approved stories and publish comments.
 - Members can edit or delete their own content. Editing an approved member post sends it through review again.
 
 ## Local preview

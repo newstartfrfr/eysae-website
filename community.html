@@ -52,7 +52,7 @@
         </div>
 
         <div class="social-hero-card">
-          <div class="social-hero-card-top"><span class="live-dot" aria-hidden="true"></span><span>Member workspace</span><span class="social-hero-card-label">EYSAE</span></div>
+          <div class="social-hero-card-top"><span class="live-dot" id="serviceStatusDot" aria-hidden="true"></span><span id="serviceStatusText">Checking community service…</span><span class="social-hero-card-label">EYSAE</span></div>
           <div id="setupNotice" class="setup-notice hidden"><strong>Supabase setup</strong><p>Add the Supabase connection and run the database setup.</p></div>
           <div id="authStatus" class="status-bar hidden" role="status" aria-live="polite"></div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
@@ -77,16 +77,32 @@
             </div>
             <form id="signInForm" class="form-card auth-form-grid">
               <div><label for="signInEmail">Email</label><input id="signInEmail" type="email" autocomplete="email" required placeholder="you@example.org" /></div>
-              <div><label for="signInPassword">Password</label><input id="signInPassword" type="password" autocomplete="current-password" required placeholder="Your password" /></div>
+              <div><label for="signInPassword">Password</label><div class="password-input-wrap"><input id="signInPassword" type="password" autocomplete="current-password" required placeholder="Your password" /><button type="button" class="password-toggle" data-password-toggle="signInPassword" aria-label="Show password">Show</button></div></div>
+              <div class="span-2 auth-form-links"><button type="button" class="text-button" id="forgotPasswordBtn">Forgot your password?</button><button type="button" class="text-button hidden" id="resendConfirmationBtn">Resend confirmation email</button></div>
               <div class="span-2"><button type="submit" class="button button-full">Sign in to EYSAE</button></div>
             </form>
             <form id="signUpForm" class="form-card auth-form-grid hidden">
               <div><label for="signUpName">Display name</label><input id="signUpName" type="text" maxlength="80" required placeholder="Your public name" /></div>
               <div><label for="signUpEmail">Email</label><input id="signUpEmail" type="email" autocomplete="email" required placeholder="you@example.org" /></div>
               <div><label for="signUpRole">Organisation / role</label><input id="signUpRole" type="text" maxlength="100" placeholder="Organisation or project role" /></div>
-              <div><label for="signUpPassword">Password</label><input id="signUpPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters" /></div>
+              <div><label for="signUpPassword">Password</label><div class="password-input-wrap"><input id="signUpPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters" /><button type="button" class="password-toggle" data-password-toggle="signUpPassword" aria-label="Show password">Show</button></div></div>
+              <div class="span-2"><label for="signUpPasswordConfirm">Confirm password</label><div class="password-input-wrap"><input id="signUpPasswordConfirm" type="password" minlength="8" autocomplete="new-password" required placeholder="Repeat your password" /><button type="button" class="password-toggle" data-password-toggle="signUpPasswordConfirm" aria-label="Show password">Show</button></div></div>
               <div class="span-2 form-note">New member submissions are reviewed before they become public.</div>
               <div class="span-2"><button type="submit" class="button button-full">Create member account</button></div>
+            </form>
+            <form id="passwordResetForm" class="form-card auth-form-grid hidden">
+              <div class="span-2 auth-inline-heading"><button type="button" class="auth-back-button" id="passwordResetBackBtn" aria-label="Back to sign in">←</button><div><strong>Reset your password</strong><p>We will send a secure recovery link to your email address.</p></div></div>
+              <div class="span-2"><label for="passwordResetEmail">Email</label><input id="passwordResetEmail" type="email" autocomplete="email" required placeholder="you@example.org" /></div>
+              <div class="span-2"><button type="submit" class="button button-full">Send recovery link</button></div>
+            </form>
+          </article>
+
+          <article class="community-card password-recovery-card hidden" id="passwordRecoveryPanel">
+            <div class="card-heading"><span class="eyebrow">SECURE RECOVERY</span><h2>Choose a new password</h2><p>Your recovery link is valid. Enter a new password to regain access.</p></div>
+            <form id="passwordRecoveryForm" class="form-grid">
+              <div><label for="newPassword">New password</label><div class="password-input-wrap"><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters" /><button type="button" class="password-toggle" data-password-toggle="newPassword" aria-label="Show password">Show</button></div></div>
+              <div><label for="newPasswordConfirm">Confirm new password</label><div class="password-input-wrap"><input id="newPasswordConfirm" type="password" minlength="8" autocomplete="new-password" required placeholder="Repeat new password" /><button type="button" class="password-toggle" data-password-toggle="newPasswordConfirm" aria-label="Show password">Show</button></div></div>
+              <div class="span-2"><button type="submit" class="button">Update password</button></div>
             </form>
           </article>
 
@@ -129,6 +145,10 @@
             <article class="community-card workspace-panel hidden" id="profilePanel" data-workspace-panel="profile">
               <div class="card-heading"><span class="eyebrow">PUBLIC PROFILE</span><h2>Introduce yourself to the network</h2><p>This information appears on your member card. Your email address remains private.</p></div>
               <form id="profileForm" class="form-grid">
+                <div class="span-2 profile-avatar-editor">
+                  <div class="profile-avatar profile-avatar-large" id="profileAvatarPreview">EY</div>
+                  <div><label for="profileAvatarInput">Profile photograph</label><p>Use a square JPG, PNG or WEBP image up to 2 MB.</p><div class="profile-avatar-actions"><label class="button button-secondary button-small" for="profileAvatarInput">Choose photograph</label><input class="visually-hidden" id="profileAvatarInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" /><button type="button" class="text-button" id="removeProfileAvatarBtn">Remove</button></div></div>
+                </div>
                 <div><label for="profileName">Display name</label><input id="profileName" type="text" maxlength="80" required placeholder="Your public name" /></div>
                 <div><label for="profileOrganisation">Organisation / role</label><input id="profileOrganisation" type="text" maxlength="100" placeholder="Organisation or project role" /></div>
                 <div class="span-2"><label for="profileBio">Short bio</label><textarea id="profileBio" rows="5" maxlength="500" placeholder="A short introduction to your work and interests"></textarea></div>

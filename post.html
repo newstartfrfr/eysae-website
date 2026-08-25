@@ -35,6 +35,23 @@
         <div class="single-story-main">
           <img id="postImage" class="single-story-image hidden" alt="" />
           <div id="postContent" class="single-story-content"></div>
+          <section class="story-engagement" aria-labelledby="discussionTitle">
+            <div class="story-engagement-bar">
+              <button id="likeStoryBtn" type="button" class="story-like-button" aria-pressed="false"><span aria-hidden="true">♡</span><strong id="likeCount">0</strong> likes</button>
+              <span class="story-comment-count"><strong id="commentCount">0</strong> comments</span>
+            </div>
+            <div class="story-discussion-head">
+              <div><span class="eyebrow">COMMUNITY</span><h2 id="discussionTitle">Join the discussion</h2><p>Share a helpful thought, question or response with the EYSAE network.</p></div>
+            </div>
+            <div id="commentStatus" class="status-bar hidden" role="status" aria-live="polite"></div>
+            <form id="commentForm" class="comment-form hidden">
+              <label for="commentBody">Your comment</label>
+              <textarea id="commentBody" rows="4" maxlength="1200" required placeholder="Add to the conversation…"></textarea>
+              <div class="comment-form-footer"><span><span id="commentCharacterCount">0</span>/1200</span><button type="submit" class="button button-small">Post comment</button></div>
+            </form>
+            <div id="commentSignIn" class="comment-signin"><p>Sign in to like this story or join the conversation.</p><a class="button button-secondary button-small" href="community.html">Sign in or create an account</a></div>
+            <div id="commentList" class="comment-list"></div>
+          </section>
         </div>
         <aside class="single-story-aside">
           <div class="single-story-author"><div id="postAuthorAvatar" class="profile-avatar">EY</div><div><span>Published by</span><strong id="postAuthor"></strong><p id="postAuthorRole"></p></div></div>

@@ -1,8 +1,7 @@
 export const supabaseConfig = {
   url: "https://dnzysgfiqcyhlguticcw.supabase.co",
   anonKey: "sb_publishable_HW5twbWGZFLP9fhL2aWjUw_gFgs_S0O",
-  postImageBucket: "post-images",
-  adminEmails: ["dan.grmusa@gmail.com"]
+  postImageBucket: "post-images"
 };
 
 export function supabaseIsConfigured(config = supabaseConfig) {
