@@ -35,7 +35,8 @@ if (document.body?.dataset?.page === "feed") {
       return;
     }
     ui.profileSpotlight.className = "profile-spotlight";
-    ui.profileSpotlight.innerHTML = `<div class="profile-avatar">${esc(initials(state.profile.display_name || state.user.email || "EY"))}</div><div><strong>${esc(state.profile.display_name || state.user.email || "Member")}</strong><div class="profile-meta"><span class="role-pill">${esc(state.profile.role_label || "Member")}</span>${state.profile.is_admin ? `<span class="admin-badge">Editor</span>` : ""}</div><p>Signed in and ready to contribute.</p><a class="text-link" href="community.html">Open your workspace →</a></div>`;
+    const avatarUrl = safeExternalUrl(state.profile.avatar_url);
+    ui.profileSpotlight.innerHTML = `<div class="profile-avatar">${avatarUrl ? `<img class="avatar-image" src="${esc(avatarUrl)}" alt="${esc(state.profile.display_name || "Member")} profile photograph" />` : esc(initials(state.profile.display_name || state.user.email || "EY"))}</div><div><strong>${esc(state.profile.display_name || state.user.email || "Member")}</strong><div class="profile-meta"><span class="role-pill">${esc(state.profile.role_label || "Member")}</span>${state.profile.is_admin ? `<span class="admin-badge">Editor</span>` : ""}</div><p>Signed in and ready to contribute.</p><a class="text-link" href="community.html">Open your workspace →</a></div>`;
   }
 
   function excerpt(value, max = 230) {
@@ -68,7 +69,7 @@ if (document.body?.dataset?.page === "feed") {
           <div class="story-card-kicker"><span class="feed-chip">${esc(typeLabels[post.type] || "Story")}</span>${post.tag ? `<span>#${esc(post.tag)}</span>` : ""}</div>
           <h3><a href="${href}">${esc(post.title || "Untitled community story")}</a></h3>
           <p>${esc(excerpt(post.content))}</p>
-          <div class="story-card-footer"><div class="story-author"><span class="story-author-avatar">${esc(initials(post.author_name || "Member"))}</span><span><strong>${esc(post.author_name || "Member")}</strong><small>${esc(post.author_role || "EYSAE member")} · ${esc(formatDate(post.published_at || post.created_at))}</small></span></div><a class="story-read-link" href="${href}">Read story <span>→</span></a></div>
+          <div class="story-card-footer"><div class="story-author"><span class="story-author-avatar">${safeExternalUrl(post.author_avatar_url) ? `<img class="avatar-image" src="${esc(safeExternalUrl(post.author_avatar_url))}" alt="" />` : esc(initials(post.author_name || "Member"))}</span><span><strong>${esc(post.author_name || "Member")}</strong><small>${esc(post.author_role || "EYSAE member")} · ${esc(formatDate(post.published_at || post.created_at))}</small></span></div><a class="story-read-link" href="${href}">Read story <span>→</span></a></div>
         </div>
       </article>`;
     }).join("");
@@ -117,7 +118,15 @@ if (document.body?.dataset?.page === "feed") {
       ui.feedList.innerHTML = `<div class="empty-state stories-empty"><strong>Setup required</strong><p>Add the Supabase connection and run supabase/schema.sql.</p></div>`;
       return;
     }
-    await applySession(await getSession());
+    try {
+      await applySession(await getSession());
+    } catch (error) {
+      state.user = null;
+      state.profile = null;
+      renderSpotlight();
+      await refreshFeed();
+      setStatus(humanizeError(error), "error");
+    }
     onAuthChange(async (session) => applySession(session));
     state.refreshHandle = window.setInterval(() => { if (!document.hidden) refreshFeed(); }, 60000);
   }

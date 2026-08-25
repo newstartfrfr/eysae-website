@@ -5,14 +5,18 @@ import {
   initials,
   formatDate,
   humanizeError,
-  isAdminEmail,
   onAuthChange,
   getSession,
   signInWithPassword,
   signUpWithPassword,
+  requestPasswordReset,
+  updateCurrentPassword,
+  resendConfirmationEmail,
   signOutCurrentUser,
   ensureProfile,
   updateMyProfile,
+  uploadProfileAvatar,
+  removePostImage,
   loadMembers,
   loadMyPosts,
   submitPost,
@@ -24,7 +28,8 @@ import {
   ensureConversation,
   loadConversationMessages,
   sendConversationMessage,
-  markConversationRead
+  markConversationRead,
+  checkCommunityService
 } from "./supabase-client.js";
 import { supabaseConfig, supabaseIsConfigured } from "./supabase-config.js";
 
@@ -32,16 +37,23 @@ if (document.body?.dataset?.page === "community") {
   const $ = (id) => document.getElementById(id);
   const ui = {
     setupNotice: $("setupNotice"), authStatus: $("authStatus"), logoutBtn: $("logoutBtn"),
+    serviceStatusDot: $("serviceStatusDot"), serviceStatusText: $("serviceStatusText"),
     profileSpotlight: $("profileSpotlight"), authPanel: $("authPanel"), memberWorkspace: $("memberWorkspace"),
     profilePanel: $("profilePanel"), composerPanel: $("composerPanel"), myPostsPanel: $("myPostsPanel"),
     adminPanel: $("adminPanel"), pendingPostsList: $("pendingPostsList"), pendingCountBadge: $("pendingCountBadge"),
-    signInForm: $("signInForm"), signUpForm: $("signUpForm"), profileForm: $("profileForm"), postForm: $("postForm"),
+    signInForm: $("signInForm"), signUpForm: $("signUpForm"), passwordResetForm: $("passwordResetForm"),
+    passwordRecoveryPanel: $("passwordRecoveryPanel"), passwordRecoveryForm: $("passwordRecoveryForm"),
+    forgotPasswordBtn: $("forgotPasswordBtn"), passwordResetBackBtn: $("passwordResetBackBtn"), resendConfirmationBtn: $("resendConfirmationBtn"),
+    profileForm: $("profileForm"), postForm: $("postForm"),
     membersGrid: $("membersGrid"), memberCountBadge: $("memberCountBadge"), myPostsList: $("myPostsList"), myPostCount: $("myPostCount"),
     conversationList: $("conversationList"), widgetConversationList: $("widgetConversationList"), messageThread: $("messageThread"),
     activeConversationHeader: $("activeConversationHeader"), messageForm: $("messageForm"), recipientUid: $("recipientUid"),
     directMessageText: $("directMessageText"), signInEmail: $("signInEmail"), signInPassword: $("signInPassword"),
     signUpName: $("signUpName"), signUpRole: $("signUpRole"), signUpEmail: $("signUpEmail"), signUpPassword: $("signUpPassword"),
+    signUpPasswordConfirm: $("signUpPasswordConfirm"), passwordResetEmail: $("passwordResetEmail"),
+    newPassword: $("newPassword"), newPasswordConfirm: $("newPasswordConfirm"),
     profileName: $("profileName"), profileOrganisation: $("profileOrganisation"), profileBio: $("profileBio"), profileSocial: $("profileSocial"),
+    profileAvatarInput: $("profileAvatarInput"), profileAvatarPreview: $("profileAvatarPreview"), removeProfileAvatarBtn: $("removeProfileAvatarBtn"),
     postType: $("postType"), postTag: $("postTag"), postTitle: $("postTitle"), postMessage: $("postMessage"), postImage: $("postImage"),
     postTitleCount: $("postTitleCount"), postMessageCount: $("postMessageCount"), postImagePreviewWrap: $("postImagePreviewWrap"),
     postImagePreview: $("postImagePreview"), postImageName: $("postImageName"), clearPostImageBtn: $("clearPostImageBtn"),
@@ -55,17 +67,18 @@ if (document.body?.dataset?.page === "community") {
     user: null, profile: null, members: [], myPosts: [], conversations: [],
     activeConversationId: null, activeRecipientId: null, activeConversationProfile: null,
     selectedImageFile: null, editingPost: null, removeCurrentImage: false, previewObjectUrl: "",
+    selectedAvatarFile: null, removeAvatar: false, avatarPreviewUrl: "", recoveryMode: false,
     refreshHandle: null, authSubscription: null, workspaceView: "create"
   };
 
   function isAdminUser() {
-    return Boolean(state.profile?.is_admin || isAdminEmail(state.user?.email));
+    return Boolean(state.profile?.is_admin);
   }
 
   function friendlyError(error) {
     const raw = (humanizeError(error) || "").trim();
     if (!raw) return "Something went wrong.";
-    if (/firestore|permission|insufficient/i.test(raw)) return "Access is currently unavailable. Check the Supabase policies and sign in again.";
+    if (/permission|insufficient/i.test(raw)) return "Access is currently unavailable. Check the Supabase policies and sign in again.";
     return raw;
   }
 
@@ -74,6 +87,25 @@ if (document.body?.dataset?.page === "community") {
     const clean = String(message || "").trim();
     ui.authStatus.textContent = clean;
     ui.authStatus.className = clean ? `status-bar ${tone}`.trim() : "status-bar hidden";
+  }
+
+  function setServiceStatus(stateName, text) {
+    if (ui.serviceStatusText) ui.serviceStatusText.textContent = text;
+    if (ui.serviceStatusDot) ui.serviceStatusDot.className = `live-dot service-${stateName}`;
+  }
+
+  function avatarContent(url, fallback, alt = "") {
+    const safeUrl = safeExternalUrl(url);
+    return safeUrl
+      ? `<img class="avatar-image" src="${esc(safeUrl)}" alt="${esc(alt)}" />`
+      : esc(initials(fallback || "EY"));
+  }
+
+  function setFormBusy(form, busy) {
+    form?.querySelectorAll("button, input, select, textarea").forEach((element) => {
+      element.disabled = Boolean(busy);
+    });
+    form?.classList.toggle("is-busy", Boolean(busy));
   }
 
   function showSetupNotice(message) {
@@ -85,11 +117,20 @@ if (document.body?.dataset?.page === "community") {
     const signInActive = mode !== "signup";
     ui.signInForm?.classList.toggle("hidden", !signInActive);
     ui.signUpForm?.classList.toggle("hidden", signInActive);
+    ui.passwordResetForm?.classList.add("hidden");
     document.querySelectorAll("[data-auth-mode]").forEach((button) => {
       const active = button.dataset.authMode === (signInActive ? "signin" : "signup");
       button.classList.toggle("active", active);
       button.setAttribute("aria-selected", String(active));
     });
+  }
+
+  function showPasswordReset() {
+    ui.signInForm?.classList.add("hidden");
+    ui.signUpForm?.classList.add("hidden");
+    ui.passwordResetForm?.classList.remove("hidden");
+    document.querySelectorAll("[data-auth-mode]").forEach((button) => button.classList.remove("active"));
+    if (ui.passwordResetEmail && ui.signInEmail?.value) ui.passwordResetEmail.value = ui.signInEmail.value;
   }
 
   function selectWorkspaceView(view) {
@@ -120,7 +161,7 @@ if (document.body?.dataset?.page === "community") {
     const socialUrl = safeExternalUrl(state.profile.social_link);
     ui.profileSpotlight.className = "profile-spotlight";
     ui.profileSpotlight.innerHTML = `
-      <div class="profile-avatar">${esc(initials(state.profile.display_name || state.user.email || "EY"))}</div>
+      <div class="profile-avatar">${avatarContent(state.profile.avatar_url, state.profile.display_name || state.user.email, `${state.profile.display_name || "Member"} profile photograph`)}</div>
       <div><strong>${esc(state.profile.display_name || state.user.email || "Member")}</strong>
         <div class="profile-meta"><span class="role-pill">${esc(state.profile.role_label || "Member")}</span>${isAdminUser() ? `<span class="admin-badge">Editor</span>` : ""}</div>
         <p>${esc(state.profile.bio || "Complete your profile and introduce yourself to the network.")}</p>
@@ -143,7 +184,7 @@ if (document.body?.dataset?.page === "community") {
       const socialUrl = safeExternalUrl(member.social_link);
       const canMessage = member.id !== state.user.id;
       return `<article class="member-card compact-member-card">
-        <div class="member-card-top"><div class="member-author-row"><div class="member-avatar">${esc(initials(member.display_name || "Member"))}</div><div><strong class="member-name">${esc(member.display_name || "Member")}</strong><div class="member-role-row"><span class="role-pill">${esc(member.role_label || "Member")}</span>${member.is_admin ? `<span class="admin-badge">Editor</span>` : ""}</div></div></div></div>
+        <div class="member-card-top"><div class="member-author-row"><div class="member-avatar">${avatarContent(member.avatar_url, member.display_name, `${member.display_name || "Member"} profile photograph`)}</div><div><strong class="member-name">${esc(member.display_name || "Member")}</strong><div class="member-role-row"><span class="role-pill">${esc(member.role_label || "Member")}</span>${member.is_admin ? `<span class="admin-badge">Editor</span>` : ""}</div></div></div></div>
         ${member.bio ? `<p class="member-bio">${esc(member.bio)}</p>` : ""}
         <div class="member-actions">${canMessage ? `<button type="button" class="member-message-btn" data-member-id="${esc(member.id)}">Message</button>` : `<span class="section-mini-note">Your profile</span>`}${socialUrl ? `<a href="${esc(socialUrl)}" target="_blank" rel="noreferrer">Profile ↗</a>` : ""}</div>
       </article>`;
@@ -183,7 +224,7 @@ if (document.body?.dataset?.page === "community") {
       if (!container) return;
       if (!state.user) { container.innerHTML = `<div class="empty-state">Sign in to open messages.</div>`; return; }
       if (!state.conversations.length) { container.innerHTML = `<div class="empty-state">No conversations yet. Choose a member and select Message.</div>`; return; }
-      container.innerHTML = state.conversations.map((item) => `<button type="button" class="conversation-item${item.id === state.activeConversationId ? " active" : ""}" data-conversation-id="${esc(item.id)}" data-member-id="${esc(item.other_uid)}"><span class="conversation-avatar">${esc(initials(item.other_name || "Member"))}</span><span class="conversation-copy"><strong>${esc(item.other_name || "Member")}</strong><small>${esc(item.last_message_text || "Open conversation")}</small></span>${item.unread_count ? `<span class="conversation-count">${esc(item.unread_count)}</span>` : ""}</button>`).join("");
+      container.innerHTML = state.conversations.map((item) => `<button type="button" class="conversation-item${item.id === state.activeConversationId ? " active" : ""}" data-conversation-id="${esc(item.id)}" data-member-id="${esc(item.other_uid)}"><span class="conversation-avatar">${avatarContent(item.other_avatar_url, item.other_name, "")}</span><span class="conversation-copy"><strong>${esc(item.other_name || "Member")}</strong><small>${esc(item.last_message_text || "Open conversation")}</small></span>${item.unread_count ? `<span class="conversation-count">${esc(item.unread_count)}</span>` : ""}</button>`).join("");
       container.querySelectorAll("[data-member-id]").forEach((button) => button.addEventListener("click", async () => {
         await openConversation(button.dataset.memberId || "", button.dataset.conversationId || "");
         openChat(true);
@@ -316,19 +357,37 @@ if (document.body?.dataset?.page === "community") {
     } catch (error) { setStatus(friendlyError(error), "error"); }
   }
 
+  function clearAvatarPreview() {
+    if (state.avatarPreviewUrl) URL.revokeObjectURL(state.avatarPreviewUrl);
+    state.avatarPreviewUrl = "";
+    state.selectedAvatarFile = null;
+    if (ui.profileAvatarInput) ui.profileAvatarInput.value = "";
+  }
+
+  function renderAvatarEditor() {
+    if (!ui.profileAvatarPreview) return;
+    const avatarUrl = state.removeAvatar ? "" : state.avatarPreviewUrl || state.profile?.avatar_url || "";
+    ui.profileAvatarPreview.innerHTML = avatarContent(avatarUrl, state.profile?.display_name || state.user?.email, "Profile photograph preview");
+    ui.removeProfileAvatarBtn?.classList.toggle("hidden", !avatarUrl);
+  }
+
   function syncProfileForm() {
     if (!state.profile) return;
     ui.profileName.value = state.profile.display_name || "";
     ui.profileOrganisation.value = state.profile.role_label || "";
     ui.profileBio.value = state.profile.bio || "";
     ui.profileSocial.value = state.profile.social_link || "";
+    clearAvatarPreview();
+    state.removeAvatar = false;
+    renderAvatarEditor();
   }
 
   function setSignedInState(signedIn) {
     ui.logoutBtn?.classList.toggle("hidden", !signedIn);
     ui.memberWorkspace?.classList.toggle("hidden", !signedIn);
     ui.chatWidget?.classList.toggle("hidden", !signedIn);
-    ui.authPanel?.classList.toggle("hidden", signedIn);
+    ui.authPanel?.classList.toggle("hidden", signedIn || state.recoveryMode);
+    ui.passwordRecoveryPanel?.classList.toggle("hidden", !state.recoveryMode);
     if (ui.chatOpenFromPanel) ui.chatOpenFromPanel.disabled = !signedIn;
     if (!signedIn) { ui.adminPanel?.classList.add("hidden"); openChat(false); }
   }
@@ -340,9 +399,34 @@ if (document.body?.dataset?.page === "community") {
     ui.chatWidgetToggle?.addEventListener("click", () => openChat(ui.chatWidgetPanel?.classList.contains("hidden")));
     ui.chatWidgetClose?.addEventListener("click", () => openChat(false));
     ui.chatOpenFromPanel?.addEventListener("click", () => openChat(true));
-    ui.logoutBtn?.addEventListener("click", signOutCurrentUser);
+    ui.logoutBtn?.addEventListener("click", async () => {
+      ui.logoutBtn.disabled = true;
+      try {
+        setStatus("Signing out…");
+        const { error } = await signOutCurrentUser();
+        if (error) throw error;
+      } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { ui.logoutBtn.disabled = false; }
+    });
+    ui.forgotPasswordBtn?.addEventListener("click", showPasswordReset);
+    ui.passwordResetBackBtn?.addEventListener("click", () => toggleAuthMode("signin"));
+    document.querySelectorAll("[data-password-toggle]").forEach((button) => button.addEventListener("click", () => {
+      const input = document.getElementById(button.dataset.passwordToggle || "");
+      if (!input) return;
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      button.textContent = show ? "Hide" : "Show";
+      button.setAttribute("aria-label", show ? "Hide password" : "Show password");
+    }));
     ui.cancelEditPostBtn?.addEventListener("click", resetEditor);
-    ui.clearPostImageBtn?.addEventListener("click", () => clearPreview({ markRemoval: true }));
+    ui.clearPostImageBtn?.addEventListener("click", () => {
+      if (state.selectedImageFile && state.editingPost?.image_url && !state.removeCurrentImage) {
+        clearPreview({ markRemoval: false });
+        showPreview(state.editingPost.image_url, "Current cover photograph");
+        return;
+      }
+      clearPreview({ markRemoval: true });
+    });
     ui.postTitle?.addEventListener("input", updateCounters);
     ui.postMessage?.addEventListener("input", updateCounters);
     ui.postImage?.addEventListener("change", () => {
@@ -354,19 +438,44 @@ if (document.body?.dataset?.page === "community") {
       state.previewObjectUrl = URL.createObjectURL(file);
       showPreview(state.previewObjectUrl, `${file.name} · ${(file.size / 1024 / 1024).toFixed(1)} MB`);
     });
+    ui.profileAvatarInput?.addEventListener("change", () => {
+      const file = ui.profileAvatarInput.files?.[0] || null;
+      if (!file) return;
+      clearAvatarPreview();
+      state.selectedAvatarFile = file;
+      state.removeAvatar = false;
+      state.avatarPreviewUrl = URL.createObjectURL(file);
+      renderAvatarEditor();
+    });
+    ui.removeProfileAvatarBtn?.addEventListener("click", () => {
+      clearAvatarPreview();
+      state.removeAvatar = true;
+      renderAvatarEditor();
+    });
 
     ui.signInForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
+      setFormBusy(ui.signInForm, true);
       try {
         setStatus("Signing in…");
         const { error } = await signInWithPassword(ui.signInEmail.value.trim(), ui.signInPassword.value);
         if (error) throw error;
         ui.signInForm.reset();
-      } catch (error) { setStatus(friendlyError(error), "error"); }
+        ui.resendConfirmationBtn?.classList.add("hidden");
+      } catch (error) {
+        setStatus(friendlyError(error), "error");
+        ui.resendConfirmationBtn?.classList.toggle("hidden", !/email not confirmed/i.test(String(error?.message || "")));
+      } finally { setFormBusy(ui.signInForm, false); }
     });
 
     ui.signUpForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
+      if (ui.signUpPassword.value !== ui.signUpPasswordConfirm.value) {
+        setStatus("The two passwords do not match.", "error");
+        ui.signUpPasswordConfirm.focus();
+        return;
+      }
+      setFormBusy(ui.signUpForm, true);
       try {
         setStatus("Creating account…");
         const { data, error } = await signUpWithPassword({ email: ui.signUpEmail.value.trim(), password: ui.signUpPassword.value, displayName: ui.signUpName.value.trim(), roleLabel: ui.signUpRole.value.trim() });
@@ -375,25 +484,95 @@ if (document.body?.dataset?.page === "community") {
         toggleAuthMode("signin");
         setStatus(data?.session ? "Account created and signed in." : "Account created. Confirm your email, then sign in.", "success");
       } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { setFormBusy(ui.signUpForm, false); }
+    });
+
+    ui.passwordResetForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setFormBusy(ui.passwordResetForm, true);
+      try {
+        setStatus("Sending recovery link…");
+        const { error } = await requestPasswordReset(ui.passwordResetEmail.value.trim());
+        if (error) throw error;
+        toggleAuthMode("signin");
+        setStatus("Recovery link sent. Check your inbox and spam folder.", "success");
+      } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { setFormBusy(ui.passwordResetForm, false); }
+    });
+
+    ui.resendConfirmationBtn?.addEventListener("click", async () => {
+      const email = ui.signInEmail?.value.trim();
+      if (!email) { setStatus("Enter your email address first.", "error"); return; }
+      try {
+        setStatus("Sending confirmation email…");
+        const { error } = await resendConfirmationEmail(email);
+        if (error) throw error;
+        setStatus("Confirmation email sent. Check your inbox and spam folder.", "success");
+      } catch (error) { setStatus(friendlyError(error), "error"); }
+    });
+
+    ui.passwordRecoveryForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (ui.newPassword.value !== ui.newPasswordConfirm.value) {
+        setStatus("The two passwords do not match.", "error");
+        return;
+      }
+      setFormBusy(ui.passwordRecoveryForm, true);
+      try {
+        setStatus("Updating password…");
+        const { error } = await updateCurrentPassword(ui.newPassword.value);
+        if (error) throw error;
+        ui.passwordRecoveryForm.reset();
+        state.recoveryMode = false;
+        history.replaceState(null, "", new URL("community.html", window.location.href).toString());
+        await applySession(await getSession(), "PASSWORD_UPDATED");
+        setStatus("Password updated. You are signed in.", "success");
+      } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { setFormBusy(ui.passwordRecoveryForm, false); }
     });
 
     ui.profileForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user) return;
+      setFormBusy(ui.profileForm, true);
+      let uploadedAvatarPath = "";
       try {
         setStatus("Saving profile…");
-        state.profile = await updateMyProfile(state.user.id, { displayName: ui.profileName.value.trim(), roleLabel: ui.profileOrganisation.value.trim(), bio: ui.profileBio.value.trim(), socialLink: ui.profileSocial.value.trim() });
-        if (isAdminEmail(state.user.email)) state.profile.is_admin = true;
+        let avatarUrl = state.removeAvatar ? null : state.profile.avatar_url || null;
+        let avatarPath = state.removeAvatar ? null : state.profile.avatar_path || null;
+        if (state.selectedAvatarFile) {
+          const uploaded = await uploadProfileAvatar(state.selectedAvatarFile, state.user.id);
+          avatarUrl = uploaded.avatarUrl;
+          avatarPath = uploaded.avatarPath;
+          uploadedAvatarPath = uploaded.avatarPath || "";
+        }
+        const previousAvatarPath = state.profile.avatar_path || "";
+        const profileUpdate = { displayName: ui.profileName.value.trim(), roleLabel: ui.profileOrganisation.value.trim(), bio: ui.profileBio.value.trim(), socialLink: ui.profileSocial.value.trim() };
+        if (state.removeAvatar || state.selectedAvatarFile) {
+          profileUpdate.avatarUrl = avatarUrl;
+          profileUpdate.avatarPath = avatarPath;
+        }
+        state.profile = await updateMyProfile(state.user.id, profileUpdate);
+        if ((state.removeAvatar || state.selectedAvatarFile) && previousAvatarPath && previousAvatarPath !== avatarPath) {
+          try { await removePostImage(previousAvatarPath); } catch (_) {}
+        }
+        clearAvatarPreview();
+        state.removeAvatar = false;
+        renderAvatarEditor();
         renderProfileSpotlight();
         await refreshMembers();
         setStatus("Profile saved.", "success");
-      } catch (error) { setStatus(friendlyError(error), "error"); }
+      } catch (error) {
+        if (uploadedAvatarPath) { try { await removePostImage(uploadedAvatarPath); } catch (_) {} }
+        setStatus(friendlyError(error), "error");
+      } finally { setFormBusy(ui.profileForm, false); }
     });
 
     ui.postForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.profile) return;
       const intent = event.submitter?.value === "draft" ? "draft" : "submit";
+      setFormBusy(ui.postForm, true);
       try {
         setStatus(state.editingPost ? "Saving changes…" : intent === "draft" ? "Saving draft…" : "Submitting story…");
         const common = { userId: state.user.id, profile: { ...state.profile, is_admin: isAdminUser(), email: state.user.email || "" }, type: ui.postType.value, tag: ui.postTag.value.trim(), title: ui.postTitle.value.trim(), content: ui.postMessage.value.trim(), file: state.selectedImageFile, intent };
@@ -408,35 +587,52 @@ if (document.body?.dataset?.page === "community") {
         selectWorkspaceView("posts");
         setStatus(success, "success");
       } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { setFormBusy(ui.postForm, false); }
     });
 
     ui.messageForm?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!state.user || !state.activeConversationId || !state.activeRecipientId) return;
+      setFormBusy(ui.messageForm, true);
       try {
         await sendConversationMessage({ conversationId: state.activeConversationId, senderId: state.user.id, recipientId: state.activeRecipientId, body: ui.directMessageText.value, senderName: state.profile?.display_name || "Member" });
         ui.directMessageText.value = "";
         await openConversation(state.activeRecipientId, state.activeConversationId);
       } catch (error) { setStatus(friendlyError(error), "error"); }
+      finally { setFormBusy(ui.messageForm, false); }
     });
   }
 
-  async function applySession(session) {
+  async function applySession(session, event = "") {
     state.user = session?.user || null;
+    const recoveryRequested = event === "PASSWORD_RECOVERY" || new URLSearchParams(window.location.search).get("mode") === "recovery";
     if (!state.user) {
+      state.recoveryMode = false;
       state.profile = null; state.members = []; state.myPosts = []; state.conversations = [];
       state.activeConversationId = null; state.activeRecipientId = null; state.activeConversationProfile = null;
-      resetEditor(); setSignedInState(false); renderProfileSpotlight(); renderMembers(); renderMyPosts(); renderConversationList(); renderMessages([]); setStatus("");
+      resetEditor(); setSignedInState(false); renderProfileSpotlight(); renderMembers(); renderMyPosts(); renderConversationList(); renderMessages([]);
+      if (recoveryRequested) setStatus("This recovery link is invalid or has expired. Request a new one.", "error");
+      else setStatus("");
       return;
     }
+    if (recoveryRequested) {
+      state.recoveryMode = true;
+      setSignedInState(false);
+      setStatus("Recovery link verified. Choose a new password.", "success");
+      return;
+    }
+    state.recoveryMode = false;
     try {
       setStatus("Loading your workspace…");
       state.profile = await ensureProfile(state.user, {});
-      if (isAdminEmail(state.user.email)) state.profile.is_admin = true;
       syncProfileForm(); setSignedInState(true); renderProfileSpotlight(); resetEditor(); selectWorkspaceView("create");
       await Promise.all([refreshMembers(), refreshMyPosts(), refreshPendingPosts(), refreshConversations()]);
+      setServiceStatus("online", "Community service online");
       setStatus(`Signed in as ${state.user.email}.`, "success");
-    } catch (error) { setStatus(friendlyError(error), "error"); }
+    } catch (error) {
+      if (/fetch|network|reach/i.test(String(error?.message || ""))) setServiceStatus("offline", "Community service unavailable");
+      setStatus(friendlyError(error), "error");
+    }
   }
 
   function startRefreshLoop() {
@@ -460,9 +656,22 @@ if (document.body?.dataset?.page === "community") {
       return;
     }
     ui.setupNotice?.classList.add("hidden");
-    await applySession(await getSession());
+    try {
+      await checkCommunityService();
+      setServiceStatus("online", "Community service online");
+    } catch (error) {
+      setServiceStatus("offline", "Community service unavailable");
+      setStatus(friendlyError(error), "error");
+    }
+    try {
+      await applySession(await getSession());
+    } catch (error) {
+      setSignedInState(false);
+      setServiceStatus("offline", "Community service unavailable");
+      setStatus(friendlyError(error), "error");
+    }
     startRefreshLoop();
-    state.authSubscription = onAuthChange(async (nextSession) => applySession(nextSession));
+    state.authSubscription = onAuthChange(async (nextSession, event) => applySession(nextSession, event));
   }
 
   init();

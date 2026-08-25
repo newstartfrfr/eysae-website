@@ -61,7 +61,7 @@ const translations = {
       "card2Title": "Posts and updates",
       "card2Body": "Users can publish discussion posts, project updates or community notices in a shared live feed.",
       "card3Title": "Direct messages",
-      "card3Body": "Signed-in members can contact each other privately through a lightweight inbox built on Firestore.",
+      "card3Body": "Signed-in members can contact each other privately through a secure Supabase inbox.",
       "primaryCta": "Open community page",
       "secondaryCta": "Open project page"
     },
@@ -309,7 +309,7 @@ const translations = {
       "card2Title": "Objave in posodobitve",
       "card2Body": "Uporabniki lahko objavljajo razprave, projektne novice ali obvestila v skupnem live feedu.",
       "card3Title": "Neposredna sporočila",
-      "card3Body": "Prijavljeni člani lahko zasebno stopijo v stik z drugimi prek lahkega inbox sistema v Firestore.",
+      "card3Body": "Prijavljeni člani lahko zasebno stopijo v stik z drugimi prek varnega sistema sporočil v Supabase.",
       "primaryCta": "Odpri skupnostno stran",
       "secondaryCta": "Odpri projektno stran"
     },
@@ -557,7 +557,7 @@ const translations = {
       "card2Title": "Αναρτήσεις και ενημερώσεις",
       "card2Body": "Οι χρήστες μπορούν να δημοσιεύουν συζητήσεις, ενημερώσεις έργου ή ανακοινώσεις σε κοινό live feed.",
       "card3Title": "Άμεσα μηνύματα",
-      "card3Body": "Τα συνδεδεμένα μέλη μπορούν να επικοινωνούν ιδιωτικά μέσω ενός ελαφρού inbox βασισμένου στο Firestore.",
+      "card3Body": "Τα συνδεδεμένα μέλη μπορούν να επικοινωνούν ιδιωτικά μέσω ασφαλών μηνυμάτων στο Supabase.",
       "primaryCta": "Άνοιγμα σελίδας κοινότητας",
       "secondaryCta": "Άνοιγμα σελίδας έργου"
     },
@@ -805,7 +805,7 @@ const translations = {
       "card2Title": "المنشورات والتحديثات",
       "card2Body": "يمكن للمستخدمين نشر مناقشات أو تحديثات المشروع أو الإعلانات داخل موجز مباشر مشترك.",
       "card3Title": "الرسائل المباشرة",
-      "card3Body": "يمكن للأعضاء المسجلين التواصل بشكل خاص عبر صندوق رسائل خفيف مبني على Firestore.",
+      "card3Body": "يمكن للأعضاء المسجلين التواصل بشكل خاص عبر رسائل آمنة تعمل بواسطة Supabase.",
       "primaryCta": "فتح صفحة المجتمع",
       "secondaryCta": "فتح صفحة المشروع"
     },
@@ -1127,10 +1127,25 @@ function setupSmoothScroll() {
   });
 }
 
+function setupRevealAnimations() {
+  if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const elements = document.querySelectorAll(".feature-card, .news-card, .partner-card, .objective-card, .timeline-card, .story-card, .community-card, .contact-panel, .eu-banner-card");
+  elements.forEach((element) => element.classList.add("reveal-ready"));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -36px" });
+  elements.forEach((element) => observer.observe(element));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   setupLanguageSwitcher();
   setupMobileNav();
   setupActiveNav();
   setupSmoothScroll();
+  setupRevealAnimations();
   applyLanguage(getLanguage());
 });
