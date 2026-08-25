@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EYSAE Members</title>
-  <meta name="description" content="Project members for EYSAE: registration, profile editing, moderated posts and private conversations." />
+  <title>EYSAE Community Workspace</title>
+  <meta name="description" content="Join the EYSAE community, publish project stories and photographs, manage your posts and connect with project members." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -15,234 +15,148 @@
     <div class="container header-inner">
       <a class="brand" href="index.html" aria-label="EYSAE home">
         <span class="brand-mark">EY</span>
-        <span class="brand-text">
-          <strong>EYSAE</strong>
-          <small>Project members</small>
-        </span>
+        <span class="brand-text"><strong>EYSAE</strong><small>Community workspace</small></span>
       </a>
-
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span></span><span></span><span></span></button>
       <nav class="site-nav" id="siteNav">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="projects.html">Project</a>
-        <a class="nav-link" href="feed.html">Feed</a>
-        <a class="nav-link active" href="community.html">Members</a>
+        <a class="nav-link" href="feed.html">Stories</a>
+        <a class="nav-link active" href="community.html">Community</a>
         <a class="nav-link" href="index.html#partners">Partners</a>
-        <a class="nav-link" href="index.html#news">News</a>
         <a class="nav-link" href="index.html#contact">Contact</a>
       </nav>
-
       <div class="header-actions">
-        <a class="button button-secondary button-small" href="feed.html">Open feed</a>
+        <a class="button button-secondary button-small" href="feed.html">Explore stories</a>
         <button class="button button-secondary button-small hidden" id="logoutBtn" type="button">Log out</button>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="page-hero community-hero">
-      <div class="container page-hero-grid community-hero-grid">
-        <div>
-          <span class="eyebrow">EYSAE MEMBERS</span>
-          <h1>Project members</h1>
-          <p class="hero-lead">Member profiles, reviewed project updates and direct contact in one place.</p>
-          <div class="pill-list">
-            <span class="pill">Profiles</span>
-            <span class="pill">Reviewed updates</span>
-            <span class="pill">Direct messages</span>
+    <section class="social-hero">
+      <div class="container social-hero-grid">
+        <div class="social-hero-copy">
+          <span class="eyebrow">EYSAE COMMUNITY</span>
+          <h1>Share the work.<br />Grow the network.</h1>
+          <p class="hero-lead">Publish field stories, project news and photographs, then connect directly with people across the EYSAE partnership.</p>
+          <div class="social-hero-actions">
+            <a class="button" href="#workspace">Open workspace</a>
+            <a class="button button-secondary" href="feed.html">Read community stories</a>
+          </div>
+          <div class="social-proof-row" aria-label="Community features">
+            <span><strong>01</strong> Member profiles</span>
+            <span><strong>02</strong> Reviewed publishing</span>
+            <span><strong>03</strong> Private messages</span>
           </div>
         </div>
 
-        <div class="page-hero-panel community-status-panel">
-          <div id="setupNotice" class="setup-notice hidden">
-            <strong>Supabase setup</strong>
-            <p>Add the Supabase Project URL and publishable key, then run the Supabase SQL setup.</p>
-          </div>
-          <div id="authStatus" class="status-bar hidden"></div>
+        <div class="social-hero-card">
+          <div class="social-hero-card-top"><span class="live-dot" aria-hidden="true"></span><span>Member workspace</span><span class="social-hero-card-label">EYSAE</span></div>
+          <div id="setupNotice" class="setup-notice hidden"><strong>Supabase setup</strong><p>Add the Supabase connection and run the database setup.</p></div>
+          <div id="authStatus" class="status-bar hidden" role="status" aria-live="polite"></div>
           <div id="profileSpotlight" class="profile-spotlight profile-spotlight-empty">
             <div class="profile-avatar">EY</div>
-            <div>
-              <strong>Member area</strong>
-              <p>Sign in to access your profile, direct messages and member tools.</p>
-            </div>
+            <div><strong>Your place in the project</strong><p>Sign in to create stories, manage submissions and contact other members.</p></div>
           </div>
+          <div class="social-card-preview" aria-hidden="true"><div class="preview-image-shape"></div><div class="preview-copy-shape"><span></span><span></span><span></span></div></div>
         </div>
       </div>
     </section>
 
-    <section class="section community-section">
-      <div class="container community-shell community-shell-wide community-shell-3col">
-        <div class="community-main">
-          <article class="community-card" id="authPanel">
+    <section class="section community-section" id="workspace">
+      <div class="container community-dashboard">
+        <div class="community-primary">
+          <article class="community-card auth-card" id="authPanel">
             <div class="card-heading card-heading-inline">
-              <div>
-                <span class="eyebrow">ACCESS</span>
-                <h2>Sign in or create an account</h2>
-              </div>
-              <div class="auth-tabs">
-                <button type="button" class="auth-tab active" data-auth-mode="signin">Sign in</button>
-                <button type="button" class="auth-tab" data-auth-mode="signup">Create account</button>
+              <div><span class="eyebrow">MEMBER ACCESS</span><h2>Welcome to the workspace</h2><p>Sign in to publish, or create a member account in less than a minute.</p></div>
+              <div class="auth-tabs" role="tablist" aria-label="Account access">
+                <button type="button" class="auth-tab active" data-auth-mode="signin" role="tab">Sign in</button>
+                <button type="button" class="auth-tab" data-auth-mode="signup" role="tab">Create account</button>
               </div>
             </div>
-
             <form id="signInForm" class="form-card auth-form-grid">
-              <div>
-                <label for="signInEmail">Email</label>
-                <input id="signInEmail" type="email" autocomplete="email" required placeholder="Enter your email" />
-              </div>
-              <div>
-                <label for="signInPassword">Password</label>
-                <input id="signInPassword" type="password" autocomplete="current-password" required placeholder="Enter your password" />
-              </div>
-              <div class="span-2">
-                <button type="submit" class="button button-full">Sign in</button>
-              </div>
+              <div><label for="signInEmail">Email</label><input id="signInEmail" type="email" autocomplete="email" required placeholder="you@example.org" /></div>
+              <div><label for="signInPassword">Password</label><input id="signInPassword" type="password" autocomplete="current-password" required placeholder="Your password" /></div>
+              <div class="span-2"><button type="submit" class="button button-full">Sign in to EYSAE</button></div>
             </form>
-
             <form id="signUpForm" class="form-card auth-form-grid hidden">
-              <div>
-                <label for="signUpName">Display name</label>
-                <input id="signUpName" type="text" required placeholder="Your display name" />
-              </div>
-              <div>
-                <label for="signUpEmail">Email</label>
-                <input id="signUpEmail" type="email" autocomplete="email" required placeholder="Enter your email" />
-              </div>
-              <div>
-                <label for="signUpRole">Organisation / role</label>
-                <input id="signUpRole" type="text" placeholder="Organisation or role" />
-              </div>
-              <div class="span-2">
-                <label for="signUpPassword">Password</label>
-                <input id="signUpPassword" type="password" autocomplete="new-password" required placeholder="Create a password" />
-              </div>
-              <div class="span-2 form-note">
-                New member posts go through review before they appear in the public feed.
-              </div>
-              <div class="span-2">
-                <button type="submit" class="button button-full">Create account</button>
-              </div>
+              <div><label for="signUpName">Display name</label><input id="signUpName" type="text" maxlength="80" required placeholder="Your public name" /></div>
+              <div><label for="signUpEmail">Email</label><input id="signUpEmail" type="email" autocomplete="email" required placeholder="you@example.org" /></div>
+              <div><label for="signUpRole">Organisation / role</label><input id="signUpRole" type="text" maxlength="100" placeholder="Organisation or project role" /></div>
+              <div><label for="signUpPassword">Password</label><input id="signUpPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters" /></div>
+              <div class="span-2 form-note">New member submissions are reviewed before they become public.</div>
+              <div class="span-2"><button type="submit" class="button button-full">Create member account</button></div>
             </form>
           </article>
 
-          <article class="community-card hidden" id="profilePanel">
-            <div class="card-heading">
-              <span class="eyebrow">PROFILE</span>
-              <h2>Your public member card</h2>
+          <section id="memberWorkspace" class="member-workspace hidden" aria-label="Member workspace">
+            <div class="workspace-nav" role="tablist" aria-label="Workspace sections">
+              <button class="workspace-tab active" type="button" data-workspace-view="create" role="tab">Create</button>
+              <button class="workspace-tab" type="button" data-workspace-view="posts" role="tab">My posts <span id="myPostCount" class="tab-count">0</span></button>
+              <button class="workspace-tab" type="button" data-workspace-view="profile" role="tab">Profile</button>
             </div>
 
-            <form id="profileForm" class="form-grid">
-              <div>
-                <label for="profileName">Display name</label>
-                <input id="profileName" type="text" placeholder="Your public name" />
+            <article class="community-card workspace-panel" id="composerPanel" data-workspace-panel="create">
+              <div class="card-heading card-heading-inline">
+                <div><span class="eyebrow" id="composerEyebrow">NEW STORY</span><h2 id="composerTitle">Create a community post</h2><p id="composerIntro">Turn an activity, result or photograph into a clear project story.</p></div>
+                <button type="button" class="button button-secondary button-small hidden" id="cancelEditPostBtn">Cancel editing</button>
               </div>
-              <div>
-                <label for="profileOrganisation">Organisation / role</label>
-                <input id="profileOrganisation" type="text" placeholder="Organisation or role" />
-              </div>
-              <div class="span-2">
-                <label for="profileBio">Short bio</label>
-                <textarea id="profileBio" rows="4" placeholder="Short introduction"></textarea>
-              </div>
-              <div class="span-2">
-                <label for="profileSocial">Website or social link</label>
-                <input id="profileSocial" type="url" placeholder="https://..." />
-              </div>
-              <div class="span-2">
-                <button type="submit" class="button">Save profile</button>
-              </div>
-            </form>
-          </article>
+              <form id="postForm" class="form-grid post-editor" enctype="multipart/form-data">
+                <div><label for="postType">Format</label><select id="postType"><option value="blog">Blog story</option><option value="photo">Photo story</option><option value="update">Project update</option><option value="notice">Notice</option></select></div>
+                <div><label for="postTag">Topic</label><input id="postTag" type="text" maxlength="40" placeholder="e.g. Youth entrepreneurship" /></div>
+                <div class="span-2"><label for="postTitle">Title</label><input id="postTitle" type="text" maxlength="120" required placeholder="Give your story a clear title" /><div class="field-counter"><span id="postTitleCount">0</span>/120</div></div>
+                <div class="span-2"><label for="postMessage">Story</label><textarea id="postMessage" rows="9" maxlength="12000" required placeholder="What happened, who took part and why does it matter?"></textarea><div class="editor-helper"><span>Use short paragraphs for easier reading.</span><span><span id="postMessageCount">0</span>/12,000</span></div></div>
+                <div class="span-2">
+                  <label for="postImage">Cover photograph</label>
+                  <label class="image-dropzone" for="postImage"><span class="image-dropzone-icon" aria-hidden="true">＋</span><span><strong>Choose a photograph</strong><small>JPG, PNG, WEBP or GIF · maximum 5 MB</small></span></label>
+                  <input class="visually-hidden" id="postImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+                </div>
+                <div class="span-2 image-preview-wrap hidden" id="postImagePreviewWrap"><img id="postImagePreview" alt="Selected cover photograph preview" /><div class="image-preview-actions"><span id="postImageName">Selected photograph</span><button type="button" class="button button-secondary button-small" id="clearPostImageBtn">Remove image</button></div></div>
+                <div class="span-2 publishing-note" id="postModerationNote"><span aria-hidden="true">✓</span><p><strong>Quality review included.</strong> Member submissions are checked before public publication. Administrators can publish directly.</p></div>
+                <div class="span-2 form-actions-inline"><button type="submit" class="button button-secondary" name="postAction" value="draft">Save draft</button><button type="submit" class="button" id="postSubmitBtn" name="postAction" value="submit">Submit for review</button></div>
+              </form>
+            </article>
 
-          <article class="community-card hidden" id="composerPanel">
-            <div class="card-heading">
-              <span class="eyebrow">SUBMIT UPDATE</span>
-              <h2>Create a post for review</h2>
-            </div>
+            <article class="community-card workspace-panel hidden" id="myPostsPanel" data-workspace-panel="posts">
+              <div class="card-heading card-heading-inline">
+                <div><span class="eyebrow">MY CONTENT</span><h2>Posts and drafts</h2><p>Edit your work, follow its review status or remove an old submission.</p></div>
+                <button type="button" class="button button-small" data-open-create>Create a post</button>
+              </div>
+              <div id="myPostsList" class="my-posts-list"><div class="empty-state">Your drafts and submissions will appear here.</div></div>
+            </article>
 
-            <form id="postForm" class="form-grid" enctype="multipart/form-data">
-              <div>
-                <label for="postType">Post type</label>
-                <select id="postType">
-                  <option value="update">Project update</option>
-                  <option value="discussion">Discussion</option>
-                  <option value="notice">Notice</option>
-                </select>
-              </div>
-              <div>
-                <label for="postTag">Tag</label>
-                <input id="postTag" type="text" placeholder="Short tag" />
-              </div>
-              <div class="span-2">
-                <label for="postTitle">Title</label>
-                <input id="postTitle" type="text" maxlength="120" placeholder="Short post title" />
-              </div>
-              <div class="span-2">
-                <label for="postMessage">Message</label>
-                <textarea id="postMessage" rows="5" required placeholder="Write your update"></textarea>
-              </div>
-              <div class="span-2">
-                <label for="postImage">Optional image</label>
-                <input id="postImage" type="file" accept="image/*" />
-              </div>
-              <div class="span-2 image-preview-wrap hidden" id="postImagePreviewWrap">
-                <img id="postImagePreview" alt="Selected image preview" />
-                <button type="button" class="button button-secondary button-small" id="clearPostImageBtn">Remove image</button>
-              </div>
-              <div class="span-2 form-note" id="postModerationNote">
-                Member posts are reviewed before public publication. Admin posts can be published directly.
-              </div>
-              <div class="span-2 form-actions-inline">
-                <button type="submit" class="button">Submit post</button>
-                <a class="button button-secondary" href="feed.html">Open public feed</a>
-              </div>
-            </form>
-          </article>
+            <article class="community-card workspace-panel hidden" id="profilePanel" data-workspace-panel="profile">
+              <div class="card-heading"><span class="eyebrow">PUBLIC PROFILE</span><h2>Introduce yourself to the network</h2><p>This information appears on your member card. Your email address remains private.</p></div>
+              <form id="profileForm" class="form-grid">
+                <div><label for="profileName">Display name</label><input id="profileName" type="text" maxlength="80" required placeholder="Your public name" /></div>
+                <div><label for="profileOrganisation">Organisation / role</label><input id="profileOrganisation" type="text" maxlength="100" placeholder="Organisation or project role" /></div>
+                <div class="span-2"><label for="profileBio">Short bio</label><textarea id="profileBio" rows="5" maxlength="500" placeholder="A short introduction to your work and interests"></textarea></div>
+                <div class="span-2"><label for="profileSocial">Website or social profile</label><input id="profileSocial" type="url" placeholder="https://..." /></div>
+                <div class="span-2"><button type="submit" class="button">Save profile</button></div>
+              </form>
+            </article>
+          </section>
 
           <article class="community-card hidden" id="adminPanel">
-            <div class="card-heading card-heading-inline">
-              <div>
-                <span class="eyebrow">ADMIN REVIEW</span>
-                <h2>Pending submissions</h2>
-              </div>
-              <span class="section-mini-note" id="pendingCountBadge">0 pending</span>
-            </div>
-            <div id="pendingPostsList" class="stack-list moderation-list">
-              <div class="empty-state">No pending posts.</div>
-            </div>
+            <div class="card-heading card-heading-inline"><div><span class="eyebrow">EDITORIAL REVIEW</span><h2>Pending submissions</h2><p>Approve relevant stories or return unsuitable submissions.</p></div><span class="section-mini-note" id="pendingCountBadge">0 pending</span></div>
+            <div id="pendingPostsList" class="stack-list moderation-list"><div class="empty-state">No pending posts.</div></div>
           </article>
         </div>
 
-        <aside class="community-side">
-          <article class="community-card">
-            <div class="card-heading card-heading-inline">
-              <div>
-                <span class="eyebrow">MEMBERS</span>
-                <h2>Project members</h2>
-              </div>
-              <span class="section-mini-note">Live list</span>
-            </div>
-            <div id="membersGrid" class="stack-list">
-              <div class="empty-state">No members yet.</div>
-            </div>
+        <aside class="community-rail">
+          <article class="community-card rail-card">
+            <div class="card-heading card-heading-inline"><div><span class="eyebrow">NETWORK</span><h2>Project members</h2></div><span class="section-mini-note" id="memberCountBadge">0 members</span></div>
+            <div id="membersGrid" class="stack-list member-list"><div class="empty-state">Sign in to see the member network.</div></div>
           </article>
-        </aside>
-
-        <aside class="community-side">
-          <article class="community-card">
-            <div class="card-heading card-heading-inline">
-              <div>
-                <span class="eyebrow">MESSAGES</span>
-                <h2>Messages</h2>
-              </div>
-              <button type="button" id="chatOpenFromPanel" class="button button-secondary button-small">Open chat</button>
-            </div>
-            <div id="conversationList" class="stack-list conversation-list">
-              <div class="empty-state">Sign in to open messages.</div>
-            </div>
+          <article class="community-card rail-card messages-rail-card">
+            <div class="card-heading card-heading-inline"><div><span class="eyebrow">MESSAGES</span><h2>Conversations</h2></div><button type="button" id="chatOpenFromPanel" class="button button-secondary button-small" disabled>Open</button></div>
+            <div id="conversationList" class="stack-list conversation-list"><div class="empty-state">Sign in to start a private conversation.</div></div>
+          </article>
+          <article class="community-card community-guidelines">
+            <span class="eyebrow">GOOD STORIES</span><h2>Make every post useful</h2>
+            <ol><li>Use a specific, human title.</li><li>Add context, participants and a result.</li><li>Upload photographs you are allowed to publish.</li></ol>
+            <a class="text-link" href="feed.html">See published examples →</a>
           </article>
         </aside>
       </div>
@@ -250,38 +164,15 @@
   </main>
 
   <div class="chat-widget hidden" id="chatWidget">
-    <button class="chat-widget-toggle" id="chatWidgetToggle" type="button" aria-expanded="false" aria-controls="chatWidgetPanel">
-      <span class="chat-widget-badge hidden" id="chatUnreadBadge">0</span>
-      <span class="chat-widget-icon">✉</span>
-      <span>Messages</span>
-    </button>
+    <button class="chat-widget-toggle" id="chatWidgetToggle" type="button" aria-expanded="false" aria-controls="chatWidgetPanel"><span class="chat-widget-badge hidden" id="chatUnreadBadge">0</span><span class="chat-widget-icon">✉</span><span>Messages</span></button>
     <div class="chat-widget-panel hidden" id="chatWidgetPanel">
-      <div class="chat-widget-header">
-        <div>
-          <strong>Messages</strong>
-          <p id="chatWidgetSubtitle">Messages and previous messages</p>
-        </div>
-        <button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button>
-      </div>
+      <div class="chat-widget-header"><div><strong>Member messages</strong><p id="chatWidgetSubtitle">Private conversations inside EYSAE</p></div><button type="button" class="chat-widget-close" id="chatWidgetClose" aria-label="Close messages">×</button></div>
       <div class="chat-widget-body">
-        <div class="chat-widget-sidebar">
-          <div id="widgetConversationList" class="conversation-list compact-scroll">
-            <div class="empty-state">No conversations yet.</div>
-          </div>
-        </div>
+        <div class="chat-widget-sidebar"><div id="widgetConversationList" class="conversation-list compact-scroll"><div class="empty-state">No conversations yet.</div></div></div>
         <div class="chat-widget-thread">
-          <div id="activeConversationHeader" class="active-conversation-header">
-            <strong>Select a conversation</strong>
-            <p>Your latest private messages appear here.</p>
-          </div>
-          <div id="messageThread" class="message-thread compact-scroll">
-            <div class="empty-state">Choose a member to open a conversation.</div>
-          </div>
-          <form id="messageForm" class="chat-compose hidden">
-            <input id="recipientUid" type="hidden" />
-            <textarea id="directMessageText" rows="3" placeholder="Write your message"></textarea>
-            <button type="submit" class="button">Send</button>
-          </form>
+          <div id="activeConversationHeader" class="active-conversation-header"><strong>Select a conversation</strong><p>Choose a member to begin.</p></div>
+          <div id="messageThread" class="message-thread compact-scroll"><div class="empty-state">No conversation selected.</div></div>
+          <form id="messageForm" class="chat-compose hidden"><input id="recipientUid" type="hidden" /><label class="visually-hidden" for="directMessageText">Message</label><textarea id="directMessageText" rows="3" maxlength="2000" required placeholder="Write a private message"></textarea><button type="submit" class="button">Send</button></form>
         </div>
       </div>
     </div>
@@ -289,27 +180,9 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div class="footer-brand">
-        <span class="brand-mark">EY</span>
-        <h3>EYSAE</h3>
-        <p>A project website presenting cooperation, activities, visibility and results related to EYSAE within the Erasmus+ framework.</p>
-      </div>
-      <div>
-        <h4>Navigation</h4>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="projects.html">Project</a></li>
-          <li><a href="feed.html">Feed</a></li>
-          <li><a href="community.html">Members</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <ul class="footer-links">
-          <li><a href="mailto:POVOD-EU.SLO@proton.me">POVOD-EU.SLO@proton.me</a></li>
-          <li><a href="https://povod.si" target="_blank" rel="noreferrer">povod.si</a></li>
-        </ul>
-      </div>
+      <div class="footer-brand"><span class="brand-mark">EY</span><h3>EYSAE</h3><p>Empowering young people through sustainable agriculture, entrepreneurship and international cooperation.</p></div>
+      <div><h4>Explore</h4><ul class="footer-links"><li><a href="projects.html">Project</a></li><li><a href="feed.html">Community stories</a></li><li><a href="community.html">Member workspace</a></li></ul></div>
+      <div><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:POVOD-EU.SLO@proton.me">POVOD-EU.SLO@proton.me</a></li><li><a href="https://povod.si" target="_blank" rel="noreferrer">povod.si</a></li></ul></div>
     </div>
   </footer>
 

@@ -1092,7 +1092,8 @@ function setupActiveNav() {
     const href = link.getAttribute("href") || "";
     const target = href.split("#")[0] || "index.html";
     const isHomeAnchor = current === "index.html" && href.startsWith("index.html#");
-    const isMatch = target === current || (current === "projects.html" && target === "projects.html") || isHomeAnchor;
+    const isStoryDetail = current === "post.html" && target === "feed.html";
+    const isMatch = target === current || isStoryDetail || (current === "projects.html" && target === "projects.html") || isHomeAnchor;
     link.classList.toggle("is-active", isMatch && !href.includes("#") ? true : (current === "index.html" && href === "index.html"));
   });
 
